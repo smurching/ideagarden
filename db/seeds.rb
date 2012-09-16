@@ -8,4 +8,4 @@
 
 IdeaPosting.create name: 'sample', pitch: 'sample', description:, 'sample', tags: 'sample'
 
-IdeaPosting.create name: 'pie for all', pitch: 'pie is tasty', description:, 'I like pie. You like pie. We all like pie.', tags: 'pie, notcake, food, yay'
+IdeaPosting.create name: 'pie for all', pitch: 'pie is tasty', description: 'I like pie. You like pie. We all like pie.', tags: 'pie, notcake, food, yay'
