@@ -1,11 +1,11 @@
 <%= div_for idea_posting do %>
   <h3>
-    <%= link_to idea_posting.name, idea_posting %>
+    Idea posting title: <%= link_to idea_posting.name, idea_posting %>
   </h3>
   <% if @check == true %>
-    <%= simple_format idea_posting.pitch %>
-    <%= simple_format idea_posting.description %>
-    <%= simple_format idea_posting.tags %>
+    <p>Pitch: <%= idea_posting.pitch %></p>
+    <p>Description: <%= idea_posting.description %></p>
+    <p>Tags: <%= idea_posting.tags %></p>
   <% end %>
   <%= link_to 'Show', idea_posting %>
   <%= link_to 'Edit', edit_idea_posting_path(idea_posting) %>

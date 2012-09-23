@@ -1,0 +1,8 @@
+questions
+
+to fix
+- 'profiles' path should be singular
+- 'load_idea_posting' method in feedbacks controller
+- change index_path to root_path
+- remove 'name' column from feedbacks table
+- be able to associate user with idea_posting

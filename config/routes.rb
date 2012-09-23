@@ -1,6 +1,18 @@
 Ideagarden::Application.routes.draw do
   root to:"idea_postings#index"
-  resources :idea_postings
+  
+  resources :idea_postings do
+    resources :feedbacks
+  end
+  
+  resources :users do
+    resources :profiles
+  end
+
+  resource :session
+  match '/login' => "sessions#new", as: "login"
+  match '/logout' => "sessions#destroy", as: "logout"
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
