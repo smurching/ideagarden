@@ -1,0 +1,13 @@
+<%= div_for idea_posting do %>
+  <h3>
+    <%= link_to idea_posting.name, idea_posting %>
+  </h3>
+  <% if @check == true %>
+    <%= simple_format idea_posting.pitch %>
+    <%= simple_format idea_posting.description %>
+    <%= simple_format idea_posting.tags %>
+  <% end %>
+  <%= link_to 'Show', idea_posting %>
+  <%= link_to 'Edit', edit_idea_posting_path(idea_posting) %>
+  <%= link_to 'Destroy', idea_posting, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
