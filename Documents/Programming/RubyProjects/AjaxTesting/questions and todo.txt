@@ -1,0 +1,10 @@
+questions
+
+to fix
+- 'profiles' resource should be singular
+- 'load_idea_posting' method in feedbacks controller
+- change index_path to root_path
+- remove 'name' column from feedbacks table
+- be able to associate users with idea_posting after posting is created
+- password verification
+- password encryption (bcrypt)

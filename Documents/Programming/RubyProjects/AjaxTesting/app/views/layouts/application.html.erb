@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Ideagarden</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+
+  <div id='header'>
+    <h1><%= link_to image_tag('logo.png', id: 'logo'), root_path %></h1>
+    <div id='navLinks'>
+      <% if logged_in? && registration_complete? %>
+      	<%= link_to 'Welcolme '+current_user.profile.name, user_profiles_path(current_user.id)%> |
+        <%= link_to 'New Idea posting', new_idea_posting_path %> |
+        <%= link_to "Logout", logout_path %> |
+		<%= link_to "Pending Requests: "+number_of_requests.to_s, list_joinrequests_path%> |
+      	<%end%>
+        
+	  <% if logged_in? && registration_complete? == false %>
+	  	 <%= link_to 'Finish Registration', new_user_profile_path(current_user.id) %> |
+	  	 <%= link_to "Logout", logout_path %> |
+	  <%end%> 
+
+        
+      <% if logged_in? == false %>
+        <%= link_to "Login", login_path %> | 
+        <%= link_to 'Create user', new_user_path %>
+      <% end %>
+    </div>
+  </div>
+
+  <div id='wrapper'>
+
+    <%= content_tag(:p, notice, :class => 'notice') if notice.present? %>
+    <%= content_tag(:p, alert, :class => 'alert') if alert.present? %>
+
+    <%= yield %>
+
+  </div>
+
+</body>
+</html>

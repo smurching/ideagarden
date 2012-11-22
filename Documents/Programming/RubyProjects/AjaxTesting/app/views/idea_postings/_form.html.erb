@@ -1,0 +1,36 @@
+<%= form_for(@idea_posting) do |f| %>
+  <% if @idea_posting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@idea_posting.errors.count, "error") %> prohibited this idea_posting from being saved:</h2>
+      <ul>
+      <% @idea_posting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %><br />
+  </div>
+
+  <div class="field">
+    <%= f.label :pitch %><br />
+    <%= f.text_field :pitch %><br />
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %><br />
+  </div>
+
+  <div class="field">
+    <%= f.label :tags %><br />
+    <%= f.text_field :tags %><br />
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

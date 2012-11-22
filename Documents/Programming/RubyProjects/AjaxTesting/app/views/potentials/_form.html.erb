@@ -1,0 +1,17 @@
+<%= form_for(@potential) do |f| %>
+  <% if @potential.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@potential.errors.count, "error") %> prohibited this potential from being saved:</h2>
+
+      <ul>
+      <% @potential.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
