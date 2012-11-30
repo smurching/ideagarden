@@ -1,0 +1,20 @@
+<%= div_for feedback do %>
+  <p>
+  	<% if feedback.private != true %>
+    <div class = 'feedback_help'>
+      		<%= button_to '+', helpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
+      	<div class = 'help'>
+        	<%= feedback.help %>
+      	</div>
+      	<%= button_to '-', unhelpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
+    </div>
+    <div class = 'feedback_content'>
+      <%= link_to feedback.user.profile.name, user_profiles_path(feedback.user_id) %> said: </br>
+      <%= feedback.body %> </br> 
+    </div> 
+  	</p>
+  	<br />
+  	<br />
+  <% end %>
+<% end %>
+

@@ -1,0 +1,65 @@
+commit 1fdccd38e14e463afe2184baf9878a6928794cc2
+Author: Kevin Vu <kevinvu@ubuntu.(none)>
+Date:   Sun Oct 7 13:50:44 2012 -0700
+
+    successful bootstrap install on linux, make navbar responsive, basic formating with buttons
+
+commit da4b191bef2547b66ca663d6382d7d0461865113
+Author: Kevin Vu <kevin.m.vu@gmail.com>
+Date:   Wed Oct 3 22:52:27 2012 -0700
+
+    add feedback voting system
+
+commit f0192255b5e9050514c024df53415367f0677f86
+Author: Kevin Vu <kevin.m.vu@gmail.com>
+Date:   Sat Sep 29 22:17:50 2012 -0700
+
+    add voting system
+
+commit 8240b32b6bf1beaa494b4dc72a3fa6bbfdd089d5
+Author: Kevin Vu <kevin.m.vu@gmail.com>
+Date:   Fri Sep 28 21:30:24 2012 -0700
+
+    fix link color
+
+commit eb7190022f46f4a4d129340306661a96c2a9463b
+Author: Kevin Vu <kevin.m.vu@gmail.com>
+Date:   Fri Sep 28 21:21:33 2012 -0700
+
+    add formatting for postings index
+
+commit f1017d7c96c9c84ca6228ad286b0c4743a8f24e8
+Author: Kevin Vu <kevin.m.vu@gmail.com>
+Date:   Thu Sep 27 04:16:07 2012 -0700
+
+    rebuild views
+
+commit 72d5439e4ea91b6498780ccd6a4533daa38ca025
+Author: Kevin Vu <kevin.m.vu@gmail.com>
+Date:   Sun Sep 23 12:17:28 2012 -0700
+
+    add views
+
+commit 36514f39fd1da972bfafebac50eacbdbbbedfd79
+Author: Kevin Vu <kevin.m.vu@gmail.com>
+Date:   Sun Sep 23 11:54:55 2012 -0700
+
+    basic functionality with users, profiles, idea postings, and feedback
+
+commit df042183706e9eb51c11983e12f02c8d3124429d
+Author: Kevin Vu <kevin.m.vu@gmail.com>
+Date:   Sat Sep 15 20:34:17 2012 -0700
+
+    fix seeds.rb again
+
+commit 44870180797683b4b20e50b9a2b22c020d1b8270
+Author: Kevin Vu <kevin.m.vu@gmail.com>
+Date:   Sat Sep 15 20:30:49 2012 -0700
+
+    fix seeds.rb
+
+commit b3c7a6b4c641b629d9952360dd33d3bf7f137591
+Author: Kevin Vu <kevin.m.vu@gmail.com>
+Date:   Sat Sep 15 20:26:09 2012 -0700
+
+    first commit

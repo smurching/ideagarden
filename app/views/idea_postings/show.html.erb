@@ -1,0 +1,45 @@
+<h2>Idea posting details</h2>
+<%= render @idea_posting %>
+<p>----------------------------</p>
+
+<h2>Owners</h2>
+<% @idea_posting.users.each do |user| %>
+<p><%= link_to user.profile.name, user_profiles_path(user.id) %></p>
+<% end %>
+<p>----------------------------</p>
+
+<h2>Feedback</h2>
+<%= render @idea_posting.feedbacks %>
+<p>----------------------------</p>
+
+<% if logged_in? %>
+<h2>Add feedback</h2>
+<%= form_for([@idea_posting, @idea_posting.feedbacks.new]) do |f| %>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %><br />
+    <%= f.submit 'Provide feedback' %>
+<% end %>
+<p>----------------------------</p>
+
+
+<% if @idea_posting.users.exists?(current_user.id)%>
+	<h2>Private Discussion</h2>
+	<br />
+	<br />
+	<h2>Feedback </h2>
+	<%= render 'private_feedbacks'%>
+	<p>----------------------------</p>
+
+	<h2>Add feedback</h2>
+	<%= form_for([@idea_posting, @idea_posting.feedbacks.new]) do |f| %>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %><br />
+    <%= f.hidden_field(:private, :value => true)%>
+    <%= f.submit 'Provide feedback' %>
+<% end %>
+<% end %> 
+<p>----------------------------</p>
+<%end%>
+
+
+<%= link_to 'Back', idea_postings_path %>

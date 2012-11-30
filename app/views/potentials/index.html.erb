@@ -1,0 +1,21 @@
+<h1>Listing potentials</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @potentials.each do |potential| %>
+  <tr>
+    <td><%= link_to 'Show', potential %></td>
+    <td><%= link_to 'Edit', edit_potential_path(potential) %></td>
+    <td><%= link_to 'Destroy', potential, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Potential', new_potential_path %>

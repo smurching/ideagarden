@@ -1,0 +1,27 @@
+<%= form_for(@joinrequest) do |f| %>
+  <% if @joinrequest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@joinrequest.errors.count, "error") %> prohibited this request from being sent:</h2>
+
+      <ul>
+      <% @joinrequest.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "Message" %><br />
+    <%= f.text_field :message %>
+    
+   
+  </div>
+  
+  	<%= f.hidden_field(:idea_posting_id) %>
+    <%= f.hidden_field(:userid)%>
+
+  <div class="actions">
+    <%= submit_or_cancel(f) %>
+  </div>
+<% end %>
