@@ -3,7 +3,8 @@ class ProfilesController < ApplicationController
   # GET /profiles.json
   before_filter :login_filter, :except => [:new, :create]
   def index
-    @profile = User.find(params[:user_id]).profile
+    @user = User.find(params[:user_id])
+    @profile = @user.profile
 
     respond_to do |format|
       format.html # index.html.erb
@@ -35,7 +36,8 @@ class ProfilesController < ApplicationController
     @profile = @user.build_profile(params[:profile])
 
     respond_to do |format|
-      if @profile.save
+      if @profile.save # && @user.confirmation_code = Array.new(10).map{rand(58).chr}.join && @user.save 
+        # UserMailer.welcome_email(@user).send
         format.html { redirect_to root_path, notice: 'Profile was successfully created.' }
         format.json { render json: @profile, status: :created, location: @profile }
       else

@@ -1,8 +1,8 @@
-<%= div_for feedback do %>
-  <p>
-  	<% if feedback.private != true %>
+<% unless feedback.private %>
+  	<%= div_for(feedback, :class => from_followed_user?(feedback) ? "followed_feedback" : "") do %>
+  	<p>
     <div class = 'feedback_help'>
-      		<%= button_to '+', helpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
+      	<%= button_to '+', helpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
       	<div class = 'help'>
         	<%= feedback.help %>
       	</div>
@@ -15,6 +15,9 @@
   	</p>
   	<br />
   	<br />
-  <% end %>
+  	
+ 	<% end %>
+  	
+
 <% end %>
 

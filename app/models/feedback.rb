@@ -5,4 +5,6 @@ class Feedback < ActiveRecord::Base
   belongs_to :idea_posting
   belongs_to :user
 
+  
+  
 end

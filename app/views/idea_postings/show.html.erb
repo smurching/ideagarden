@@ -9,7 +9,8 @@
 <p>----------------------------</p>
 
 <h2>Feedback</h2>
-<%= render @idea_posting.feedbacks %>
+
+<div class="feedback"><%= render @idea_posting.feedbacks %></div>
 <p>----------------------------</p>
 
 <% if logged_in? %>
@@ -22,7 +23,7 @@
 <p>----------------------------</p>
 
 
-<% if @idea_posting.users.exists?(current_user.id)%>
+<% if @idea_posting.users.exists?(current_user.id) || current_user.teacher || current_user.admin %>
 	<h2>Private Discussion</h2>
 	<br />
 	<br />
@@ -37,8 +38,9 @@
     <%= f.hidden_field(:private, :value => true)%>
     <%= f.submit 'Provide feedback' %>
 <% end %>
-<% end %> 
+
 <p>----------------------------</p>
+<% end %> 
 <%end%>
 
 

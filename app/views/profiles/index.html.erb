@@ -1,8 +1,28 @@
-<h1>Profile</h1>
+<h1><%= @profile.name %>'s Profile</h1>
+<br/>
 
-<%= @profile.name %>
-<%= @profile.bio %>
 
+<% if current_user.followings.find_by_followed_user_id(@user.id) == nil %>
+<%= link_to "Follow "+@profile.name, follow_user_path(@user.id) %>
+<%else %>
+<%= link_to "Unfollow "+@profile.name, unfollow_user_path(@user.id) %>
+<% end %>
+<br/>
+<h2> Bio </h2> 
+<p> <%= @profile.bio %> </p>
+</br> 
+</br> 
+
+<h2> <%= @profile.name %>'s Idea Postings: </h2>
+</br>
+<%= div_for(@user.idea_postings.all) do |idea_posting| %>
+  <h3>
+    Name: <%= link_to idea_posting.name, idea_posting %>
+  </h3>
+	<p>Pitch: <%= idea_posting.pitch %></p>
+    <p>Description: <%= idea_posting.description %></p>
+    <p>Tags: <%= idea_posting.tags %></p>
+<% end %>
 <br />
 <br />
 

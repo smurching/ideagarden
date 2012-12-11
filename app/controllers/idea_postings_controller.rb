@@ -11,7 +11,26 @@ class IdeaPostingsController < ApplicationController
       format.json { render json: @idea_postings }
     end
   end
+  
+  def show_followings_posts
+    followed_users = []
+    @followed_users_only = true
+    @idea_postings = []
+    for relationship_object in current_user.followings.all
+      followed_users << User.find(relationship_object.followed_user_id) # add all followed users to list
+    end
+    for user in followed_users
+     for idea_posting in user.idea_postings.all
+       @idea_postings << idea_posting
+     end
+    end
+    render 'index'
+  end
 
+
+  def index_2
+    
+  end
   # GET /idea_postings/1
   # GET /idea_postings/1.json
   def show

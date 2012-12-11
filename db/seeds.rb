@@ -27,3 +27,4 @@
 #User.find(2).idea_postings << IdeaPosting.find(1)
 #User.find(2).idea_postings << IdeaPosting.find(2)
 #User.find(3).idea_postings << IdeaPosting.find(2)
+

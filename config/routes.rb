@@ -28,7 +28,7 @@ Ideagarden::Application.routes.draw do
   # help rating
   match '/idea_postings/:id/:feedback_id/helpful' => 'helps#helpful', as: 'helpful'
   match '/idea_postings/:id/:feedback_id/unhelpful' => 'helps#unhelpful', as: 'unhelpful'
-
+  
 
   # approve and reject joinrequests
   match '/idea_postings/:id/joinrequests/:joinrequest_id/approve' => 'joinrequests#approve', as: 'approve_joinrequest'#, :via => :post
@@ -37,6 +37,26 @@ Ideagarden::Application.routes.draw do
   #user can access requests to projects he/she owns from homepage with a short url
   match '/joinrequests' => 'joinrequests#index', as: 'list_joinrequests', :via => :get
   match '/joinrequests' => 'joinrequests#create', as: 'joinrequests', :via => :post
+  
+  # allows for confirming registration
+  match '/users/:confirmation_code' => 'users#confirm', as: 'user_confirmation'
+  
+  # allows for resetting passwords
+  
+  match '/reset_password' => 'users#new_password_reset_request', as: 'new_pw_reset'
+  match '/reset_password/send' => 'users#send_password_reset_request', as: 'send_pw_reset'
+
+  match '/passwords/:reset_code' => 'users#load_password_reset_page', as: 'load_pw_reset', :via => :get
+  match '/passwords/:reset_code' => 'users#reset_password', as: 'reset_password', :via => :post
+  
+  #TEMPORARY, DELETE THIS:
+  match '/show_reset_requests' => 'users#show_pw_reset_requests', as: 'show_pw_reset'
+
+  match '/users/:id/follow' => 'users#follow', as: 'follow_user'
+  match '/users/:id/unfollow' => 'users#unfollow', as: 'unfollow_user'
+  match '/idea_postings/:id/following' => 'idea_postings#show_followings_posts', as: 'show_followings_posts'
+
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

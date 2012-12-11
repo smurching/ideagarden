@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112014849) do
+ActiveRecord::Schema.define(:version => 20121208054726) do
+
+  create_table "confirmcodes", :force => true do |t|
+    t.string   "code"
+    t.string   "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "feedbacks", :force => true do |t|
     t.integer  "idea_posting_id"
@@ -22,6 +29,20 @@ ActiveRecord::Schema.define(:version => 20121112014849) do
     t.datetime "updated_at",      :null => false
     t.integer  "help"
     t.boolean  "private"
+  end
+
+  create_table "followers", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "follower_user_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "followings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "followed_user_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "idea_postings", :force => true do |t|
@@ -65,6 +86,13 @@ ActiveRecord::Schema.define(:version => 20121112014849) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "reset_codes", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -77,10 +105,17 @@ ActiveRecord::Schema.define(:version => 20121112014849) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.string   "password_digest"
     t.string   "password_hash"
+    t.string   "confirmation_code"
+    t.boolean  "confirmed"
+    t.text     "confirm_code"
+    t.string   "reset_code"
+    t.datetime "reset_code_timestamp"
+    t.boolean  "admin",                :default => false
+    t.boolean  "teacher",              :default => false
   end
 
 end

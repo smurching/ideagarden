@@ -1,11 +1,4 @@
-
-<% if @followed_users_only == true %>
-<h1>Followed Users' Idea Postings</h1>
-<% else %>
 <h1>Idea Postings</h1>
-<% end %>
-
-
 
 <%= div_for(@idea_postings) do |idea_posting| %>
   <div class = 'voting'>
@@ -25,5 +18,5 @@
     </div>
   </div>
 <% end %>
+ 
 
-  

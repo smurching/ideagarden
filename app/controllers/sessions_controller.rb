@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  include BCrypt
+
   def create
     #if @user.password == params[:password]
     user = User.login(params[:email], params[:password])
