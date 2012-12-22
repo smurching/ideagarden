@@ -1,0 +1,11 @@
+$('.new_joinrequest').hide();
+$('.joinrequest_error').hide();
+
+<% if @request_made == true %>
+$('#new_joinrequest').show().css("color", "black").after('<br/> <%= j "Request to join project sent"%>');
+
+<%else%>
+
+$('#new_joinrequest').show().after('<br/> <p class="joinrequest_error"><%= j "Message must be at least 10 characters long" %></p>');
+
+<%end%>

@@ -5,8 +5,19 @@
   <% if @check == true %>
     <p>Pitch: <%= idea_posting.pitch %></p>
     <p>Description: <%= idea_posting.description %></p>
-    <p>Tags: <%= idea_posting.tags %></p>
-  <% end %>
+    <p>Tags: 
+		<% if idea_posting.tags.length >= 2%>
+      	<% (0..idea_posting.tags.length-2).each do |int| %>
+    	<%= idea_posting.tags[int].value %>, 
+    	<% end %>
+    	<%= idea_posting.tags.last.value%>  
+    	<%else%>
+    	<% idea_posting.tags.each do |tag| %>
+    	<%= tag.value%>
+    	<%end%>
+    	<%end%>
+	</p>
+	<%end %>
   <%= link_to 'Show', idea_posting %>
   <% if @user != nil%>
   <% if idea_posting.users.exists?(@user.id)%>
@@ -14,7 +25,7 @@
   	<%= link_to 'Destroy', idea_posting, method: :delete, data: { confirm: 'Are you sure?' } %>
   <%end%>
   <% if logged_in? && @user.idea_postings.exists?(@idea_posting.id) == false%>
-  	<%= link_to 'Request to Join', new_idea_posting_joinrequest_path(idea_posting.id)%>
+  	<%= link_to 'Request to Join', new_idea_posting_joinrequest_path(idea_posting.id), :remote => true, :id => "new_joinrequest"%>
   <%end%>
   <%end%>
 <% end %>

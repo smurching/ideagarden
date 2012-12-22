@@ -65,4 +65,39 @@ class ApplicationController < ActionController::Base
     end
     
     helper_method :login_filter
+    
+    
+    def create_tags
+    if params["technology"] != nil
+      @idea_posting.tags.new({:value => params["technology"]})
+    end
+    
+    if params["science & math"] != nil
+      @idea_posting.tags.new({:value => params["science & math"]})
+    end
+    
+    
+    if params["language"] != nil
+      @idea_posting.tags.new({:value => params["language"]})
+    end
+            
+    if params["art"] != nil
+      @idea_posting.tags.new({:value => params["art"]})
+    end
+    
+    if params["community service"] != nil
+      @idea_posting.tags.new({:value => params["community service"]})
+    end
+    
+    if params["research"] != nil
+      @idea_posting.tags.new({:value => params["research"]})
+    end
+    
+    if params["making things"] != nil
+      @idea_posting.tags.new({:value => params["making things"]})
+    end
+        
+    end
+    
+    helper_method :create_tags
 end

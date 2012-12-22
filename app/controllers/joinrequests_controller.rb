@@ -5,13 +5,18 @@ class JoinrequestsController < ApplicationController
    @idea_posting = IdeaPosting.find(params[:idea_posting_id])
    @user = User.find(current_user.id)
    @joinrequest = @idea_posting.joinrequests.new({:userid => current_user.id}, {:idea_posting_id => @idea_posting.id})
-   if current_user != nil && current_user.join_requests_mades.exists?(:idea_posting_id => @idea_posting.id) == false #if user is logged in and hasn't requested to join current project before
-      respond_to do |format|
-        format.html # new.html.erb
-        format.json { render json: @joinrequest }
-      end
-    else
-      return redirect_to root_path, notice: "You've already requested to join this project, or are not logged in."
+
+   respond_to do |format|
+        if current_user != nil && current_user.join_requests_mades.exists?(:idea_posting_id => @idea_posting.id) == false #if user is logged in and hasn't requested to join current project before
+          format.html # new.html.erb
+          format.json { render json: @joinrequest }
+          format.js
+        else
+          @request_made = true
+          format.json { render json: @idea_posting }
+          format.js 
+          format.html { redirect_to idea_posting_path(@idea_posting.id), notice: "You've already requested to join this project, or are not logged in."}
+        end
     end
  
   end
@@ -23,13 +28,16 @@ class JoinrequestsController < ApplicationController
     @user_has_made_request = current_user.join_requests_mades.new({:idea_posting_id => @idea_posting.id}) #records that user has requested to join this project
       respond_to do |format|
         if @joinrequest.save && @user_has_made_request.save #saves request in user and idea_posting models
+          @request_made = true
           format.html { redirect_to root_path, notice: 'Request to join project sent' }
           format.json { render json: root_path, status: :created, location: @joinrequest }
+          format.js
         else
           @joinrequest.destroy
           @user_has_made_request.destroy
           format.html { render action: "new" }
           format.json { render json: @joinrequest.errors, status: :unprocessable_entity }
+          format.js
         end
       end   
     else
@@ -38,6 +46,16 @@ class JoinrequestsController < ApplicationController
   end
 
   def approve 
+    
+    @all_requests = [] #[Joinrequest.new()]
+    @users = []
+    for owned_idea_posting in current_user.idea_postings.all #loops through user's idea postings
+      for pending_request in owned_idea_posting.joinrequests.all #loops through requests in each idea posting
+      @users << User.find(pending_request.userid) #adds user who is requesting to join to list of users
+      @all_requests << pending_request #adds request to allrequests
+      end
+    end
+      
     joinrequest = Joinrequest.find(params[:id])
     idea_posting = joinrequest.idea_parent
     if idea_posting.users.exists?(current_user.id)
@@ -49,11 +67,20 @@ class JoinrequestsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to list_joinrequests_path }
         format.json { head :no_content }
+        format.js
       end
     end
   end
 
   def reject 
+    @all_requests = [] #[Joinrequest.new()]
+    @users = []
+    for owned_idea_posting in current_user.idea_postings.all #loops through user's idea postings
+      for pending_request in owned_idea_posting.joinrequests.all #loops through requests in each idea posting
+      @users << User.find(pending_request.userid) #adds user who is requesting to join to list of users
+      @all_requests << pending_request #adds request to allrequests
+      end
+    end    
     joinrequest = Joinrequest.find(params[:id])
     idea_posting = joinrequest.idea_parent
     if idea_posting.users.exists?(current_user.id)
@@ -62,6 +89,7 @@ class JoinrequestsController < ApplicationController
      respond_to do |format|
         format.html { redirect_to list_joinrequests_path }
         format.json { head :no_content }
+        format.js
      end
   end
   

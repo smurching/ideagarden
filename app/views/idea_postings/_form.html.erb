@@ -25,12 +25,37 @@
     <%= f.text_area :description %><br />
   </div>
 
-  <div class="field">
-    <%= f.label :tags %><br />
-    <%= f.text_field :tags %><br />
-  </div>
+
+
+
+
+<% @tags.each do |tag| %>
+
+<%= check_box_tag(tag,tag)%>
+<%= label_tag(tag,tag)%>
+
+<%end%>
+
+
+
+<% if false%>
+<%= check_box_tag(@tags[0], @tags[0])%>
+<%= label_tag(@tags[0], @tags[0]) %>
+
+<%= check_box_tag(@tags[1], @tags[1])%>
+<%= label_tag(@tags[1], @tags[1]) %>
+
+<%= check_box_tag(@tags[2], @tags[2])%>
+<%= label_tag(@tags[2], @tags[2]) %>
+
+<%= f.fields_for :tags, @idea_posting.tags do |tag| %>
+	<%= tag.check_box :value %>
+<%end%>
+<%end %>
 
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+

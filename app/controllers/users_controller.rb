@@ -88,14 +88,17 @@ class UsersController < ApplicationController
     if @user == nil
       return redirect_to new_pw_reset_path, notice: 'Please try again - no users are registered with the email you provided.'
     end
-    @user.reset_code = Array.new(20).map{rand(10).chr}.join
-    @user.idea_postings << IdeaPosting.new()
-    ideaposting = @user.idea_postings[0]
-    reset_request = ideaposting.joinrequests.new({:message => site_url + "/passwords/" + @user.reset_code})
-    reset_request.save
+    @user.reset_code = Array.new(20).map{rand(10)}.join
+    @reset_link = site_url+"/passwords/"+@user.reset_code
+    
+    # USE THIS FOR TEST PURPOSES ONLY
+    # @user.idea_postings << IdeaPosting.new()
+    # ideaposting = @user.idea_postings[0]
+    # reset_request = ideaposting.joinrequests.new({:message => site_url + "/passwords/" + @user.reset_code})
+    # reset_request.save
     @user.save
     
-    # UserMailer.reset_password(@user).send ADD THIS WHEN YOU'RE LEGITLY SENDING EMAILS
+    UserMailer.reset_password(@user).send # ADD THIS WHEN YOU'RE LEGITLY SENDING EMAILS
     
     # user.reset_code_timestamp = DateTime.now
     return redirect_to root_path, notice: 'Reset request sent'

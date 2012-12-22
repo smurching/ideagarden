@@ -10,29 +10,28 @@
 
 <h2>Feedback</h2>
 
-<div class="feedback"><%= render @idea_posting.feedbacks %></div>
+<div class="feedback" id ="existing_feedback"><%= render @idea_posting.feedbacks %></div>
 <p>----------------------------</p>
 
 <% if logged_in? %>
 <h2>Add feedback</h2>
-<%= form_for([@idea_posting, @idea_posting.feedbacks.new]) do |f| %>
+<%= form_for([@idea_posting, @idea_posting.feedbacks.new], :remote => true, :id => "public_feedback_form") do |f| %>
     <%= f.label :body %><br />
     <%= f.text_area :body %><br />
     <%= f.submit 'Provide feedback' %>
 <% end %>
 <p>----------------------------</p>
 
-
+<br />
 <% if @idea_posting.users.exists?(current_user.id) || current_user.teacher || current_user.admin %>
 	<h2>Private Discussion</h2>
-	<br />
-	<br />
-	<h2>Feedback </h2>
-	<%= render 'private_feedbacks'%>
+	<div id="existing_private_feedback">
+	<%= render 'feedbacks/private_feedbacks'%>
+	</div>
 	<p>----------------------------</p>
 
-	<h2>Add feedback</h2>
-	<%= form_for([@idea_posting, @idea_posting.feedbacks.new]) do |f| %>
+	<h2>Add private feedback</h2>
+	<%= form_for([@idea_posting, @idea_posting.feedbacks.new], :remote => true, :id => "private_feedback_form") do |f| %>
     <%= f.label :body %><br />
     <%= f.text_area :body %><br />
     <%= f.hidden_field(:private, :value => true)%>

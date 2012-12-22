@@ -1,0 +1,10 @@
+<%unless @request_made%>
+
+$('#new_joinrequest').hide().after('<%= j render("form")%>');
+
+<%else%>
+
+$('.already_joined').hide();
+$('#new_joinrequest').after('<p class="already_joined"> <br/> <%= j "You've already requested to join this project"%></p>');
+
+<%end%>

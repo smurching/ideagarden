@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121208054726) do
+ActiveRecord::Schema.define(:version => 20121216090638) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(:version => 20121208054726) do
     t.string   "name"
     t.string   "pitch"
     t.text     "description"
-    t.string   "tags"
     t.datetime "published_at"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
@@ -102,6 +101,13 @@ ActiveRecord::Schema.define(:version => 20121208054726) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "tags", :force => true do |t|
+    t.integer  "idea_posting_id"
+    t.string   "value"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email"

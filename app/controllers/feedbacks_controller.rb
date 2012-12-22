@@ -50,9 +50,12 @@ class FeedbacksController < ApplicationController
         current_user.feedbacks << @feedback
         format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback was successfully created.' }
         format.json { render json: @feedback, status: :created, location: @feedback }
+        format.js 
       else
-        format.html { redirect_to idea_posting_path(@idea_posting.id) }
+        @failed_to_post = true
+        format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback must be at least 10 characters long' }
         format.json { render json: @feedback.errors, status: :unprocessable_entity }
+        format.js { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback must be at least 10 characters long'} #redirect_to idea_posting_path(@idea_posting.id) or render 'idea_postings/show'
       end
     end
   end

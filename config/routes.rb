@@ -55,6 +55,7 @@ Ideagarden::Application.routes.draw do
   match '/users/:id/follow' => 'users#follow', as: 'follow_user'
   match '/users/:id/unfollow' => 'users#unfollow', as: 'unfollow_user'
   match '/idea_postings/:id/following' => 'idea_postings#show_followings_posts', as: 'show_followings_posts'
+  match '/search' => 'idea_postings#search', as: 'search'
 
   
   # The priority is based upon order of creation:

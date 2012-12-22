@@ -1,0 +1,20 @@
+<%= div_for(joinrequest) do |join_request| %>
+
+
+  <div class = 'request'>
+    <div class = 'brief'>
+      <p> Request to join <%= join_request.idea_parent.name %> 
+      <p class = 'owners'> From: <%= link_to join_request.user_parent.profile.name + ", ", user_profiles_path(join_request.user_parent.id) %></p>
+     <h3 class = 'message'>Message: <%= join_request.message %></h3>
+    </div>
+  </div>
+  
+    <div class = 'decision'>
+    <%= button_to 'Approve', approve_joinrequest_path(join_request.id, join_request.idea_parent.id), :remote => true%>
+  </div>
+  <div>
+    <%= button_to 'Reject', reject_joinrequest_path(join_request.id, join_request.idea_parent.id), :remote => true%>
+  </div>
+  
+<p>----------------------------</p>
+<% end %>

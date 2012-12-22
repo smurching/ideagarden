@@ -1,0 +1,12 @@
+
+<% if @failed_to_post %>
+
+$alert("Feedback must be at least 10 characters long")
+
+<%else%>
+
+$('#existing_feedback').html("<%= escape_javascript render @idea_posting.feedbacks %>");
+$('#existing_private_feedback').html("<%= escape_javascript render 'private_feedbacks' %>");
+
+<%end%>
+
