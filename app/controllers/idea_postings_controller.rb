@@ -26,7 +26,10 @@ class IdeaPostingsController < ApplicationController
        end
      end
     end
-    render 'index'
+    respond_to do |format|
+      format.html {render 'index'}
+      format.js {render 'index'}
+    end
   end
 
 
@@ -127,7 +130,6 @@ class IdeaPostingsController < ApplicationController
   # POST /idea_postings.json
   def create
     @idea_posting = IdeaPosting.new(params[:idea_posting])
-    @tags = params[:tags_attributes]
     create_tags
     # for tag in @tags
     #  @idea_posting.tags.new({:value => tag.name})
