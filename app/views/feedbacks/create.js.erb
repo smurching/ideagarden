@@ -1,12 +1,15 @@
+$('.feedback_error').hide();
+
 
 <% if @failed_to_post %>
 
-$alert("Feedback must be at least 10 characters long")
+$('.new_feedback').show().before('<p class="feedback_error"><%= j "Message must be at least 10 characters long" %></p>');
 
 <%else%>
 
 $('#existing_feedback').html("<%= escape_javascript render @idea_posting.feedbacks %>");
 $('#existing_private_feedback').html("<%= escape_javascript render 'private_feedbacks' %>");
+$('#feedback_body').val("");
 
 <%end%>
 

@@ -10,10 +10,10 @@
   </div>
   
     <div class = 'decision'>
-    <%= button_to 'Approve', approve_joinrequest_path(join_request.id, join_request.idea_parent.id), :remote => true%>
+    <%= button_to 'Approve', approve_joinrequest_path(join_request.id, join_request.idea_parent.id), :format => :js, :remote => true%>
   </div>
   <div>
-    <%= button_to 'Reject', reject_joinrequest_path(join_request.id, join_request.idea_parent.id), :remote => true%>
+    <%= button_to 'Reject', reject_joinrequest_path(join_request.id, join_request.idea_parent.id), :format => :js, :remote => true%>
   </div>
   
 <p>----------------------------</p>

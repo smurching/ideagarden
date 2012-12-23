@@ -1,0 +1,9 @@
+$('.requests_container').html('<%= j render(@all_requests) %>');
+$('#pending_requests').html('<%= j link_to "Pending Requests: "+number_of_requests.to_s, list_joinrequests_path, :id => "pending_requests"%>');
+
+
+<%if false%>
+$('#pending_requests').css({'text-decoration': 'none', 'color': '#412D1C', 'font-size': '16px'});
+$('#pending_requests').hover().css({'background-color': 'rgba(0,0,0,0)', 'color': '#90bf3c'});
+
+<%end%>

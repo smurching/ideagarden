@@ -46,6 +46,15 @@ class JoinrequestsController < ApplicationController
   end
 
   def approve 
+
+    joinrequest = Joinrequest.find(params[:id])
+    idea_posting = joinrequest.idea_parent
+    if idea_posting.users.exists?(current_user.id)
+      new_project_user = User.find(joinrequest.userid)
+      idea_posting.users << new_project_user
+      new_project_user.idea_postings << idea_posting
+      joinrequest.destroy
+    end
     
     @all_requests = [] #[Joinrequest.new()]
     @users = []
@@ -54,25 +63,21 @@ class JoinrequestsController < ApplicationController
       @users << User.find(pending_request.userid) #adds user who is requesting to join to list of users
       @all_requests << pending_request #adds request to allrequests
       end
-    end
-      
-    joinrequest = Joinrequest.find(params[:id])
-    idea_posting = joinrequest.idea_parent
-    if idea_posting.users.exists?(current_user.id)
-      new_project_user = User.find(joinrequest.userid)
-      idea_posting.users << new_project_user
-      new_project_user.idea_postings << idea_posting
-      joinrequest.destroy
-      
+    end    
+    
       respond_to do |format|
         format.html { redirect_to list_joinrequests_path }
         format.json { head :no_content }
-        format.js
+        format.js {render 'index'}
       end
-    end
   end
 
   def reject 
+    joinrequest = Joinrequest.find(params[:id])
+    idea_posting = joinrequest.idea_parent
+    if idea_posting.users.exists?(current_user.id)
+      joinrequest.destroy
+    end
     @all_requests = [] #[Joinrequest.new()]
     @users = []
     for owned_idea_posting in current_user.idea_postings.all #loops through user's idea postings
@@ -80,16 +85,11 @@ class JoinrequestsController < ApplicationController
       @users << User.find(pending_request.userid) #adds user who is requesting to join to list of users
       @all_requests << pending_request #adds request to allrequests
       end
-    end    
-    joinrequest = Joinrequest.find(params[:id])
-    idea_posting = joinrequest.idea_parent
-    if idea_posting.users.exists?(current_user.id)
-      joinrequest.destroy
-    end
+    end        
      respond_to do |format|
         format.html { redirect_to list_joinrequests_path }
         format.json { head :no_content }
-        format.js
+        format.js {render 'index'}
      end
   end
   

@@ -1,12 +1,12 @@
 
 <% if @followed_users_only == true %>
-<h1>Followed Users' Idea Postings</h1>
+<h1 id="index_heading">Followed Users' Idea Postings</h1>
 <% else %>
-<h1>Idea Postings</h1>
+<h1 id="index_heading">Idea Postings</h1>
 <% end %>
 
-
-
+<br/>
+<div id="index_posting_list">
 <%= div_for(@idea_postings) do |idea_posting| %>
   <div class = 'voting'>
     <%= button_to '+', upvote_path(idea_posting.id, format: :js), remote: true %>
@@ -36,5 +36,6 @@
     </div>
   </div>
 <% end %>
+</div>
 
   

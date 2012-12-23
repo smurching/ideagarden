@@ -18,7 +18,7 @@
       	<%= link_to 'Welcome, '+current_user.profile.name, user_profiles_path(current_user.id)%> |
         <%= link_to 'New Idea Posting', new_idea_posting_path %> |
         <%= link_to "Logout", logout_path %> |
-		<%= link_to "Pending Requests: "+number_of_requests.to_s, list_joinrequests_path%> |
+		<%= link_to "Pending Requests: "+number_of_requests.to_s, list_joinrequests_path, :id => "pending_requests"%> |		
 		
 		<% if false %>
 		<%= "THIS BLOCK IS DISABLED AS OF NOW BECAUSE EMAIL CONFIRMATION + PASSWORD REST REQUESTS HAVEN'T BEEN INTEGRATED "%>
@@ -31,12 +31,14 @@
 	  <% if logged_in? && registration_complete? == false %>
 	  	 <%= link_to 'Finish Registration', new_user_profile_path(current_user.id) %> |
 	  	 <%= link_to "Logout", logout_path %> |
+	  	 <%= link_to 'Search Posts ', search_path %>
 	  <%end%> 
 
         
       <% if logged_in? == false %>
         <%= link_to "Login", login_path %> | 
-        <%= link_to 'Register', new_user_path %> 
+        <%= link_to 'Register', new_user_path %> |
+        <%= link_to 'Search Posts ', search_path %>
         <%if false%>
         <%= link_to 'Forgot password?', new_pw_reset_path%>
         <%end%>

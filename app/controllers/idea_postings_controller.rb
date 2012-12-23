@@ -1,8 +1,8 @@
 class IdeaPostingsController < ApplicationController
   # GET /idea_postings
   # GET /idea_postings.json
-  before_filter :login_filter, :except => [:index, :show]
-  before_filter :registration_filter, :except => [:index, :show]
+  before_filter :login_filter, :except => [:index, :show, :search]
+  before_filter :registration_filter, :except => [:index, :show, :search]
   
   def index
     @idea_postings = IdeaPosting.desc.all
@@ -27,7 +27,7 @@ class IdeaPostingsController < ApplicationController
      end
     end
     respond_to do |format|
-      format.html {render 'index'}
+      format.html 
       format.js {render 'index'}
     end
   end
