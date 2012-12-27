@@ -9,6 +9,22 @@
 	<% end %>
 <%end%>
 
+
+<%= form_tag(root_path, :remote => true, :id => "search_filters") do |f| %>
+
+
+<%= check_box_tag("followed users' posts", "value")%>
+<%= label_tag("followed_users_label","Followed Users' Posts")%>
+
+<%= check_box_tag("followers' posts","value")%>
+<%= label_tag("followers_label","Followers' posts")%>
+
+
+
+<%= submit_tag("Filter Posts", :id => "search_submit_tag")%>
+
+<%end%>
+
 <br/>
 <div id="index_posting_list">
 <%= div_for(@idea_postings) do |idea_posting| %>

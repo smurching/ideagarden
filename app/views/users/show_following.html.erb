@@ -1,0 +1,14 @@
+<% @user_list.each do |user| %>
+
+<h1><%= user.profile.name %>'s Profile</h1>
+<% if current_user.followings.find_by_followed_user_id(user.id) == nil %>
+<%= link_to "Follow "+user.profile.name, follow_user_path(user.id) %>
+<%else %>
+<%= link_to "Unfollow "+user.profile.name, unfollow_user_path(user.id) %>
+<% end %>
+<br/>
+<h2> Bio </h2> 
+<p> <%= user.profile.bio %> </p>
+</br> 
+
+<%end%>

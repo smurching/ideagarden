@@ -18,14 +18,14 @@
       	<%= link_to 'Welcome, '+current_user.profile.name, user_profiles_path(current_user.id)%> |
         <%= link_to 'New Idea Posting', new_idea_posting_path %> |
         <%= link_to "Logout", logout_path %> |
-		<%= link_to "Pending Requests: "+number_of_requests.to_s, list_joinrequests_path, :id => "pending_requests"%> |		
+		<%= link_to "Pending Requests ("+number_of_requests.to_s+")", list_joinrequests_path, :id => "pending_requests"%> |		
 		
 		<% if false %>
 		<%= "THIS BLOCK IS DISABLED AS OF NOW BECAUSE EMAIL CONFIRMATION + PASSWORD REST REQUESTS HAVEN'T BEEN INTEGRATED "%>
 		<%= link_to 'Password Reset Request', show_pw_reset_path %> |
 		<%end%>
-		<%= link_to "Followed Users' Posts", show_followings_posts_path %> |
-		<%= link_to "Followers' Posts", show_followers_posts_path %> |
+		<%= link_to "Followed Users", show_following_path %> |
+		<%= link_to "Followers", show_followers_path %> |
 		<%= link_to 'Search Posts ', search_path %>
       	<%end%>
         

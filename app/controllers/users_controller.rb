@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -167,8 +166,34 @@ class UsersController < ApplicationController
       redirect_to user_profiles_path(user_being_unfollowed.id), notice: 'Unable to unfollow '+user_being_unfollowed.profile.name
     end
   end
+  
+  
   # DELETE /users/1
   # DELETE /users/1.json
+  def show_followers
+      @user_list = []
+      @followers_not_followings = true
+      for relationship_object in current_user.followers.all
+        @user_list << User.find(relationship_object.follower_user_id) # add all followed users to list
+      end    
+      
+      if @user_list == []
+        redirect_to root_path, notice: "You don't have any followers yet"
+      end
+  end
+  
+  def show_following 
+      @user_list = []
+      @followers_not_followings = false
+      for relationship_object in current_user.followings.all
+        @user_list << User.find(relationship_object.followed_user_id) # add all followed users to list
+      end
+      
+      if @user_list == []
+        redirect_to root_path, notice: 'No users currently being followed'
+      end
+  end
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy
