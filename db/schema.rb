@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216090638) do
+ActiveRecord::Schema.define(:version => 20121225014640) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(:version => 20121216090638) do
     t.datetime "updated_at",      :null => false
     t.integer  "help"
     t.boolean  "private"
+    t.integer  "reply_id"
+    t.integer  "feedback_id"
   end
 
   create_table "followers", :force => true do |t|

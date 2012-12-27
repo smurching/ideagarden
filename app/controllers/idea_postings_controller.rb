@@ -12,7 +12,7 @@ class IdeaPostingsController < ApplicationController
     end
   end
   
-  def show_followings_posts
+  def show_followings_posts #posts of users being followed by the current user
     followed_users = []
     @followed_users_only = true
     @idea_postings = []
@@ -27,12 +27,30 @@ class IdeaPostingsController < ApplicationController
      end
     end
     respond_to do |format|
-      format.html 
+      format.html {render 'index'}
       format.js {render 'index'}
     end
   end
-
-
+  
+  def show_followers_posts #posts by followers
+  followers = []
+  @followers_only = true
+  @idea_postings = []
+  for relationship_object in current_user.followers.all
+      followers << User.find(relationship_object.follower_user_id) # add all followed users to list
+  end
+  for user in followers
+     for idea_posting in user.idea_postings.all
+       unless @idea_postings.include? idea_posting
+       @idea_postings << idea_posting
+       end
+     end
+  end
+  respond_to do |format|
+      format.html {render 'index'}
+      format.js {render 'index'}
+  end
+  end
   def search
     @idea_postings = []
     @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]

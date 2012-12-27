@@ -75,53 +75,58 @@ class UsersController < ApplicationController
 
   def confirm
     user = User.find_by_confirmation_code(params[:confirmation_code])
-    user.confirmed = true
-    redirect_to root_path, notice: 'Your registration has been confirmed!'
+    if user != nil
+      user.confirmed = true
+      user.save
+      redirect_to root_path, notice: 'Your registration has been confirmed!'
+    else
+      redirect_to root_path, notice: 'Invalid confirmation code'
+    end
   end
   
   def new_password_reset_request #loads page in which user inputs his email to send reset request
   end
   
   def send_password_reset_request #sends reset request to user's email
-    site_url = "http://localhost:3000"
     @user = User.find_by_email(params[:email])
     if @user == nil
       return redirect_to new_pw_reset_path, notice: 'Please try again - no users are registered with the email you provided.'
     end
     @user.reset_code = Array.new(20).map{rand(10)}.join
-    @reset_link = site_url+"/passwords/"+@user.reset_code
     
     # USE THIS FOR TEST PURPOSES ONLY
     # @user.idea_postings << IdeaPosting.new()
     # ideaposting = @user.idea_postings[0]
     # reset_request = ideaposting.joinrequests.new({:message => site_url + "/passwords/" + @user.reset_code})
     # reset_request.save
-    @user.save
     
-    UserMailer.reset_password(@user).send # ADD THIS WHEN YOU'RE LEGITLY SENDING EMAILS
+    @user.save
+    UserMailer.reset_password(@user).deliver # ADD THIS WHEN YOU'RE LEGITLY SENDING EMAILS
     
     # user.reset_code_timestamp = DateTime.now
     return redirect_to root_path, notice: 'Reset request sent'
   end
   
   def show_pw_reset_requests
-    @all_requests = current_user.idea_postings[0].joinrequests.all
    render 'joinrequests/pwreset'
   end
   def load_password_reset_page #loads the page in which the user picks a new password and confirms it
+     @reset_code = params[:reset_code]
+     sleep(1.seconds) #what would be cool is if this got larger with successive wrong attempts     
+     @user = User.find_by_reset_code(@reset_code)
+     if @user == nil
+       return redirect_to root_path, notice: 'Invalid page'
+     end
+
   end
   
   def reset_password #resets user's password
     @user = User.find_by_reset_code(params[:reset_code])
-    sleep(1.seconds) #what would be cool is if this got larger with successive wrong attempts
-    if params[:password_hash].length < 6 
+    @user.reset_code = nil
+    if params[:user][:password_hash].length < 6 
       return redirect_to load_pw_reset_path, notice: 'New password must be at least six characters long'
     end
-    
-    if @user == nil
-      return redirect_to root_path, notice: 'Invalid page'
-    end
-    @user.password_hash = @user.password_create(params[:password_hash])
+    @user.password_hash = @user.password_create(params[:user][:password_hash])
     @user.save
     return redirect_to root_path, notice: 'Password reset successfully'
     

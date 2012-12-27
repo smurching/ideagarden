@@ -49,10 +49,12 @@ class ApplicationController < ActionController::Base
     helper_method :registration_complete?
     
     def registration_filter
-      if current_user != nil && current_user.profile != nil
-        return true
-      else
+      if current_user.profile == nil 
         return redirect_to root_path, :notice => 'Please complete registration by creating your profile to access this feature'
+      end
+      
+      if current_user.confirmed != true
+        return redirect_to root_path, :notice => 'Please complete registration by confirming your email to access this feature'
       end
     end
     

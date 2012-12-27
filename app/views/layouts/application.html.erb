@@ -24,7 +24,8 @@
 		<%= "THIS BLOCK IS DISABLED AS OF NOW BECAUSE EMAIL CONFIRMATION + PASSWORD REST REQUESTS HAVEN'T BEEN INTEGRATED "%>
 		<%= link_to 'Password Reset Request', show_pw_reset_path %> |
 		<%end%>
-		<%= link_to "Followed Users' Posts", show_followings_posts_path(current_user.id) %> |
+		<%= link_to "Followed Users' Posts", show_followings_posts_path %> |
+		<%= link_to "Followers' Posts", show_followers_posts_path %> |
 		<%= link_to 'Search Posts ', search_path %>
       	<%end%>
         
@@ -38,10 +39,9 @@
       <% if logged_in? == false %>
         <%= link_to "Login", login_path %> | 
         <%= link_to 'Register', new_user_path %> |
-        <%= link_to 'Search Posts ', search_path %>
-        <%if false%>
+        <%= link_to 'Search Posts ', search_path %> |
         <%= link_to 'Forgot password?', new_pw_reset_path%>
-        <%end%>
+
       <% end %>
     </div>
   </div>

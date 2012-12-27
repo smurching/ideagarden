@@ -39,7 +39,7 @@ Ideagarden::Application.routes.draw do
   match '/joinrequests' => 'joinrequests#create', as: 'joinrequests', :via => :post
   
   # allows for confirming registration
-  match '/users/:confirmation_code' => 'users#confirm', as: 'user_confirmation'
+  match '/confirm/:confirmation_code' => 'users#confirm', as: 'user_confirmation'
   
   # allows for resetting passwords
   
@@ -47,14 +47,15 @@ Ideagarden::Application.routes.draw do
   match '/reset_password/send' => 'users#send_password_reset_request', as: 'send_pw_reset'
 
   match '/passwords/:reset_code' => 'users#load_password_reset_page', as: 'load_pw_reset', :via => :get
-  match '/passwords/:reset_code' => 'users#reset_password', as: 'reset_password', :via => :post
+  match '/passwords/:reset_code' => 'users#reset_password', as: 'reset_password', :via => :put
   
   #TEMPORARY, DELETE THIS:
   match '/show_reset_requests' => 'users#show_pw_reset_requests', as: 'show_pw_reset'
 
   match '/users/:id/follow' => 'users#follow', as: 'follow_user'
   match '/users/:id/unfollow' => 'users#unfollow', as: 'unfollow_user'
-  match '/idea_postings/:id/following' => 'idea_postings#show_followings_posts', as: 'show_followings_posts'
+  match '/following' => 'idea_postings#show_followings_posts', as: 'show_followings_posts'
+  match '/followers' => 'idea_postings#show_followers_posts', as: 'show_followers_posts'
   match '/search' => 'idea_postings#search', as: 'search'
 
   

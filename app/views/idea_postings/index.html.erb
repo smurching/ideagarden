@@ -1,9 +1,13 @@
 
 <% if @followed_users_only == true %>
-<h1 id="index_heading">Followed Users' Idea Postings</h1>
-<% else %>
-<h1 id="index_heading">Idea Postings</h1>
-<% end %>
+<h1 id="index_heading">Followed Users' Posts</h1>
+<%else%>
+	<% if @followers_only == true %>
+		<h1 id="index_heading">Followers' Posts</h1>
+	<%else%>
+		<h1 id="index_heading">Idea Postings</h1>
+	<% end %>
+<%end%>
 
 <br/>
 <div id="index_posting_list">
@@ -20,7 +24,7 @@
     <div class = 'brief'>
       <h2 class = 'title'><%= link_to idea_posting.name, idea_posting %></h2>
       <p class = 'owners'>by <% idea_posting.users.each do |user| %><%= link_to user.profile.name + ", ", user_profiles_path(user.id) %><% end %></p>
-      <h3 class = 'pitch'>Pitch: <%= idea_posting.pitch %></h3>
+      <h3 class = 'pitch'>Pitch: <%= simple_format(idea_posting.pitch) %></h3>
       <h3>Tags: 
 		<% if idea_posting.tags.length >= 2%>
       	<% (0..idea_posting.tags.length-2).each do |int| %>

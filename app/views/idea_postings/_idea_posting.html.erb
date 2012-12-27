@@ -3,7 +3,7 @@
     Name: <%= link_to idea_posting.name, idea_posting %>
   </h3>
     <p>Pitch: <%= idea_posting.pitch %></p>
-    <p>Description: <%= idea_posting.description %></p>
+    <p>Description: <%= simple_format(idea_posting.description) %></p>
     <p>Tags: 
 		<% if idea_posting.tags.length >= 2%>
       		<% (0..idea_posting.tags.length-2).each do |int| %>

@@ -36,8 +36,9 @@ class ProfilesController < ApplicationController
     @profile = @user.build_profile(params[:profile])
 
     respond_to do |format|
-      if @profile.save # && @user.confirmation_code = Array.new(10).map{rand(58).chr}.join && @user.save 
-        # UserMailer.welcome_email(@user).send
+      @user.confirmation_code = Array.new(20).map{rand(10)}.join
+      UserMailer.welcome_email(@user).deliver
+      if @profile.save && @user.save 
         format.html { redirect_to root_path, notice: 'Profile was successfully created.' }
         format.json { render json: @profile, status: :created, location: @profile }
       else

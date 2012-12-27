@@ -5,10 +5,10 @@
 	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />  
 </head>  
 <body>
-	<h1>Welcome to Ideagarden, <%= @user.profile.name %></h1>
-	<p> You're now a member of Ideagarden! 
+	<h3>Welcome to Ideagarden, <%= @user.profile.name%></h3> <br/> <br/> 
+	<p> 
 		To confirm your registration, please follow the link below: <br/>   
 	</p>    
-	<p> Confirmation Link: <%= link_to user_confirmation_path(@user.confirmation_code) %>. </p>
+	<p> Confirmation Link: <%= user_confirmation_url(@user.confirmation_code) %>. </p>
 </body>
 </html>
