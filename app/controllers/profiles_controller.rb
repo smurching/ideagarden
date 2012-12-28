@@ -39,7 +39,22 @@ class ProfilesController < ApplicationController
       @user.confirmation_code = Array.new(20).map{rand(10)}.join
       UserMailer.welcome_email(@user).deliver
       if @profile.save && @user.save 
-        format.html { redirect_to root_path, notice: 'Profile was successfully created.' }
+        case
+        when @user.email["gmail.com"] != nil
+          @email_url = "http://www.gmail.com"
+        when @user.email["yahoo.com"] != nil
+          @email_url = "http://www.mail.yahoo.com"
+        when @user.email["hotmail.com"] != nil
+          @email_url = "http://www.hotmail.com"
+        when @user.email["live.com"] != nil
+          @email_url = "http://www.live.com"
+        when @user.email["http://comcast.net"] != nil
+          @email_url = "https://www.login.comcast.net/login"
+        else
+          @email_url = "nothing to report"
+        end 
+        
+        format.html { redirect_to root_path, notice: 'Profile was successfully created. Please confirm your registration at '+@email_url }
         format.json { render json: @profile, status: :created, location: @profile }
       else
         format.html { render action: "new" }
