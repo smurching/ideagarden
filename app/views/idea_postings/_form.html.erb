@@ -1,7 +1,7 @@
 <%= form_for(@idea_posting) do |f| %>
   <% if @idea_posting.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@idea_posting.errors.count, "error") %> prohibited this idea_posting from being saved:</h2>
+      <h2><%= pluralize(@idea_posting.errors.count, "error") %> prohibited this idea posting from being saved:</h2>
       <ul>
       <% @idea_posting.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -26,9 +26,6 @@
   </div>
 
 
-
-
-
 <% @tags.each do |tag| %>
 
 <%= check_box_tag(tag,tag)%>
@@ -38,20 +35,7 @@
 
 
 
-<% if false%>
-<%= check_box_tag(@tags[0], @tags[0])%>
-<%= label_tag(@tags[0], @tags[0]) %>
 
-<%= check_box_tag(@tags[1], @tags[1])%>
-<%= label_tag(@tags[1], @tags[1]) %>
-
-<%= check_box_tag(@tags[2], @tags[2])%>
-<%= label_tag(@tags[2], @tags[2]) %>
-
-<%= f.fields_for :tags, @idea_posting.tags do |tag| %>
-	<%= tag.check_box :value %>
-<%end%>
-<%end %>
 
   <div class="actions">
     <%= f.submit %>

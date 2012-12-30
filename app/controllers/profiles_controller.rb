@@ -50,8 +50,6 @@ class ProfilesController < ApplicationController
           @email_url = "http://www.live.com"
         when @user.email["http://comcast.net"] != nil
           @email_url = "https://www.login.comcast.net/login"
-        else
-          @email_url = "nothing to report"
         end 
         
         format.html { redirect_to root_path, notice: 'Profile was successfully created. Please confirm your registration at '+@email_url }

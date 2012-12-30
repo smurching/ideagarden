@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
-  # GET /users
-  # GET /users.json
+
   def index
     @users = User.all
     respond_to do |format|
@@ -10,8 +9,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
     @user = User.find(params[:id])
 
@@ -21,8 +18,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/new
-  # GET /users/new.json
+
   def new
     @user = User.new
 
@@ -50,7 +46,7 @@ class UsersController < ApplicationController
     end
   end
   
-  # GET /users/1/edit
+
   def edit
     @user = User.find(params[:id])
   end
@@ -68,9 +64,13 @@ class UsersController < ApplicationController
       end
     end
   end
-  # POST /users
-  # POST /users.json
 
+
+  #
+  # 
+  # USER CONFIRMATION ACTIONS
+  #
+  #
 
   def confirm
     user = User.find_by_confirmation_code(params[:confirmation_code])
@@ -82,6 +82,35 @@ class UsersController < ApplicationController
       redirect_to root_path, notice: 'Invalid confirmation code'
     end
   end
+  
+  def resend_confirmation
+        case
+        when current_user.email["gmail.com"] != nil
+          email_url = "http://www.gmail.com"
+          
+        when current_user.email["yahoo.com"] != nil
+          email_url = "http://www.mail.yahoo.com"
+          
+        when current_user.email["hotmail.com"] != nil
+          email_url = "http://www.hotmail.com"
+          
+        when current_user.email["live.com"] != nil
+          email_url = "http://www.live.com"
+          
+        when @user.email["http://comcast.net"] != nil
+          email_url = "https://www.login.comcast.net/login"
+          
+        end 
+    if current_user.confirmed != true
+      UserMailer.welcome_email(current_user).deliver
+    end
+    redirect_to root_path, notice: 'Confirmation email resent'
+  end
+  #
+  # 
+  # RESET PASSWORD ACTIONS
+  #
+  #
   
   def new_password_reset_request #loads page in which user inputs his email to send reset request
   end
@@ -111,7 +140,6 @@ class UsersController < ApplicationController
   end
   def load_password_reset_page #loads the page in which the user picks a new password and confirms it
      @reset_code = params[:reset_code]
-     sleep(1.seconds) #what would be cool is if this got larger with successive wrong attempts     
      @user = User.find_by_reset_code(@reset_code)
      if @user == nil
        return redirect_to root_path, notice: 'Invalid page'
@@ -120,6 +148,7 @@ class UsersController < ApplicationController
   end
   
   def reset_password #resets user's password
+    sleep(0.5.seconds) #what would be cool is if this got larger with successive wrong attempts         
     @user = User.find_by_reset_code(params[:reset_code])
     @user.reset_code = nil
     if params[:user][:password_hash].length < 6 
@@ -130,8 +159,14 @@ class UsersController < ApplicationController
     return redirect_to root_path, notice: 'Password reset successfully'
     
   end
-  # PUT /users/1
-  # PUT /users/1.json
+
+
+
+  #
+  # 
+  # FOLLOWING/FOLLOWER ACTIONS
+  #
+  #
 
   def follow
     user_being_followed = User.find(params[:id])
@@ -168,8 +203,7 @@ class UsersController < ApplicationController
   end
   
   
-  # DELETE /users/1
-  # DELETE /users/1.json
+
   def show_followers
       @user_list = []
       @followers_not_followings = true
@@ -193,6 +227,13 @@ class UsersController < ApplicationController
         redirect_to root_path, notice: 'No users currently being followed'
       end
   end
+
+
+  #
+  # 
+  # DESTROY USER
+  #
+  #
 
   def destroy
     @user = User.find(params[:id])

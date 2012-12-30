@@ -8,6 +8,11 @@
   clear: both;
 }
 
+.feedback_content{
+  width:495px;
+  word-wrap:break-word;
+  clear:both;
+}
 
 .followed_feedback {
   background-color: rgb(183,213,121);
@@ -36,12 +41,16 @@ h1 {
   margin-bottom: 40px;
   padding-bottom: 20px;
   border-bottom: 1px solid #BBB;
-  width: 70%;
+  width: 90%;
   float: left;
+  position: relative;
+  height: 140px;
+
 }
 
 .posting > div {
   float: left;
+
 }
 
 .thumbnail {
@@ -52,7 +61,22 @@ h1 {
 }
 
 .brief {
-  margin-left: 20px;
+  position: absolute; /* brief is positioned with respect to 'class=posting' div, which holds posting text content */
+  left: 150px;
+
+}
+
+.pitch > p {
+  min-height: 0px;
+  word-wrap: break-word;
+  width: 445px;
+}
+
+
+.pitch {
+  min-height: 0px;
+  word-wrap: break-word;
+  width: 445px;
 }
 
 .title, .owners {
@@ -81,4 +105,6 @@ h1 {
   color: #90bf3c;
 }
 
-
+.tags {
+  font-size: 14px;	
+}

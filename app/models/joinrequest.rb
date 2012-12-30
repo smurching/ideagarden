@@ -1,6 +1,6 @@
 class Joinrequest < ActiveRecord::Base
   
-  validates :message, :length => {:within => 10..1000}
+  validates :message, :length => {:within => 10..250}
   attr_accessible :idea_posting_id, :message, :userid
   belongs_to :idea_posting
   belongs_to :user

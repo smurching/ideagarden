@@ -30,7 +30,14 @@
       	<%end%>
         
 	  <% if logged_in? && registration_complete? == false %>
-	  	 <%= link_to 'Finish Registration', new_user_profile_path(current_user.id) %> |
+	  	 <% if current_user.profile == nil %>
+	  	 	<%= link_to 'Complete Profile', new_user_profile_path(current_user.id) %> |
+	  	 <%end%>
+
+	  	 
+	  	 <% unless current_user.confirmed == true %>
+	  	 	<%= link_to 'Resend Confirmation', resend_user_confirmation_path%> |
+	  	 <%end%>
 	  	 <%= link_to "Logout", logout_path %> |
 	  	 <%= link_to 'Search Posts ', search_path %>
 	  <%end%> 

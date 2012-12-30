@@ -1,0 +1,27 @@
+.decision {
+	float:left;
+	padding-right: 20px;
+	vertical-align:baseline;
+}
+
+.request_content {
+	float:left;
+	vertical-align:top;
+	
+}
+
+.request {
+	float:left;
+  	border-bottom: 1px solid #BBB;
+    width: 80%;		
+    height: 140px;
+}
+
+.joinrequest {
+	clear:both;
+}
+
+.message {
+	width:445px;
+	word-wrap:break-word;
+}

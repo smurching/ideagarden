@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     
     
     def registration_complete?
-      if current_user != nil && current_user.profile != nil
+      if current_user != nil && current_user.profile != nil && current_user.confirmed
         return true
       else
         return false

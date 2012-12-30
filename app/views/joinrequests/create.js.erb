@@ -6,6 +6,6 @@ $('.new_joinrequest').hide();
 
 <%else%>
 
-$('.new_joinrequest').before('<p class="joinrequest_error"><%= j "Message must be at least 10 characters long" %></p>');
+$('.new_joinrequest').before('<p class="joinrequest_error"><%= j "Message must be in between 10 and 250 characters" %></p>');
 
 <%end%>

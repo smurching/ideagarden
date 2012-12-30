@@ -40,6 +40,7 @@ Ideagarden::Application.routes.draw do
   
   # allows for confirming registration
   match '/confirm/:confirmation_code' => 'users#confirm', as: 'user_confirmation'
+  match '/resend_confirmation' => 'users#resend_confirmation', as: 'resend_user_confirmation'
   
   # allows for resetting passwords
   

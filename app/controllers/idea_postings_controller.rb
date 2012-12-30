@@ -146,6 +146,7 @@ class IdeaPostingsController < ApplicationController
   # POST /idea_postings
   # POST /idea_postings.json
   def create
+    @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]
     @idea_posting = IdeaPosting.new(params[:idea_posting])
     create_tags
     # for tag in @tags
@@ -158,7 +159,7 @@ class IdeaPostingsController < ApplicationController
         format.html { redirect_to @idea_posting, notice: 'Idea posting was successfully created.' }
         format.json { render json: @idea_posting, status: :created, location: @idea_posting }
       else
-        format.html { render action: "new" }
+        format.html { render "new" }
         format.json { render json: @idea_posting.errors, status: :unprocessable_entity }
       end
     end
@@ -167,6 +168,7 @@ class IdeaPostingsController < ApplicationController
   # PUT /idea_postings/1
   # PUT /idea_postings/1.json
   def update
+    @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]    
     @idea_posting = IdeaPosting.find(params[:id])
       if @idea_posting.users.exists?(current_user.id) #does user own the idea posting? if yes, update the posting
         @idea_posting.tags.each do |tag|
@@ -175,10 +177,10 @@ class IdeaPostingsController < ApplicationController
         create_tags
         respond_to do |format|
           if @idea_posting.update_attributes(params[:idea_posting])
-            format.html { return redirect_to @idea_posting, notice: 'Idea posting was successfully updated.' }
+            format.html { redirect_to @idea_posting, notice: 'Idea posting was successfully updated.' }
             format.json { head :no_content }
           else
-            format.html { return redirect_to action: "edit" }
+            format.html { render action: "edit" }
             format.json { render json: @idea_posting.errors, status: :unprocessable_entity }
           end
         end

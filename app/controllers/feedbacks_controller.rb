@@ -53,7 +53,7 @@ class FeedbacksController < ApplicationController
         format.js 
       else
         @failed_to_post = true
-        format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback must be at least 10 characters long' }
+        format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback must be between 10 and 1000 characters' }
         format.json { render json: @feedback.errors, status: :unprocessable_entity }
         format.js 
       end

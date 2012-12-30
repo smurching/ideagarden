@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121227040835) do
+ActiveRecord::Schema.define(:version => 20121230060901) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
@@ -24,13 +24,13 @@ ActiveRecord::Schema.define(:version => 20121227040835) do
     t.integer  "idea_posting_id"
     t.integer  "user_id"
     t.string   "name"
-    t.string   "body"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "help"
     t.boolean  "private"
     t.integer  "reply_id"
     t.integer  "feedback_id"
+    t.text     "body"
   end
 
   create_table "followers", :force => true do |t|
@@ -73,10 +73,10 @@ ActiveRecord::Schema.define(:version => 20121227040835) do
 
   create_table "joinrequests", :force => true do |t|
     t.integer  "userid"
-    t.string   "message"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "idea_posting_id"
+    t.text     "message"
   end
 
   create_table "private_messages", :force => true do |t|
