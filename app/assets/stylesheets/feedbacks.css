@@ -1,12 +1,13 @@
 /* feedback */
 
 .feedback {
-  clear: both;
+  clear: both;  
 }
 
 .feedback_content {
   float: left;
   margin-left: 10px;
+  background-color: rgb(183,213,121);  
 }
 
 /* feedback help rating */

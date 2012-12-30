@@ -6,17 +6,24 @@
 
 .feedback{
   clear: both;
+  
 }
 
 .feedback_content{
   width:495px;
   word-wrap:break-word;
   clear:both;
+  
 }
 
 .followed_feedback {
   background-color: rgb(183,213,121);
   clear: both;
+}
+
+.followed_feedback.feedback_content {
+  background-color: rgb(183, 213, 121);
+	
 }
 
 /* pale green (modified from amy's logo): rgb(183,213,121)*/

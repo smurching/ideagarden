@@ -3,7 +3,7 @@ $('.feedback_error').hide();
 
 <% if @failed_to_post %>
 
-$('.new_feedback').show().before('<p class="feedback_error"><%= j "Message must be at least 10 characters long" %></p>');
+$('.new_feedback').show().before('<p class="feedback_error"><%= j "Message must be between 10 and 1000 characters" %></p>');
 
 <%else%>
 
