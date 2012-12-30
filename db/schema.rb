@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121230060901) do
+ActiveRecord::Schema.define(:version => 20121230095203) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
@@ -24,13 +24,13 @@ ActiveRecord::Schema.define(:version => 20121230060901) do
     t.integer  "idea_posting_id"
     t.integer  "user_id"
     t.string   "name"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.integer  "help"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.boolean  "private"
     t.integer  "reply_id"
     t.integer  "feedback_id"
     t.text     "body"
+    t.integer  "help",            :default => 0
   end
 
   create_table "followers", :force => true do |t|
@@ -54,9 +54,9 @@ ActiveRecord::Schema.define(:version => 20121230060901) do
     t.datetime "published_at"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
-    t.integer  "potential"
     t.boolean  "IsOwner",      :default => false
     t.integer  "OwnerID",      :default => -1
+    t.integer  "potential",    :default => 0
   end
 
   create_table "idea_postings_users", :id => false, :force => true do |t|
