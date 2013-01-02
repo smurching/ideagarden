@@ -37,7 +37,6 @@ class IdeaPostingsController < ApplicationController
           end
         end
       end           
-   
     else
       @idea_postings = IdeaPosting.desc.all
     end

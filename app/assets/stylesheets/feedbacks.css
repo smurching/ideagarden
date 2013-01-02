@@ -7,9 +7,12 @@
 .feedback_content {
   float: left;
   margin-left: 10px;
-  background-color: rgb(183,213,121);  
 }
 
+.followed_feedback.feedback_content {
+  background-color: rgb(183,213,121);  
+	
+}
 /* feedback help rating */
 
 .feedback_help * {
