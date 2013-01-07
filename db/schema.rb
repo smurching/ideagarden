@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121230095203) do
+ActiveRecord::Schema.define(:version => 20130107014900) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
@@ -122,13 +122,13 @@ ActiveRecord::Schema.define(:version => 20121230095203) do
     t.datetime "updated_at",                              :null => false
     t.string   "password_digest"
     t.string   "password_hash"
-    t.string   "confirmation_code"
     t.boolean  "confirmed"
     t.text     "confirm_code"
     t.string   "reset_code"
     t.datetime "reset_code_timestamp"
     t.boolean  "admin",                :default => false
     t.boolean  "teacher",              :default => false
+    t.string   "confirmation_code"
   end
 
 end
