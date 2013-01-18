@@ -9,7 +9,7 @@
   margin-left: 10px;
 }
 
-.followed_feedback.feedback_content {
+.followed_feedback.feedback_content_container {
   background-color: rgb(183,213,121);  
 	
 }
@@ -22,7 +22,6 @@
 /* highlighting for followed users' feedback */
 
 .followed_feedback {
-  background-color: rgb(149,192,61);
   clear: both;
 }
 
@@ -36,4 +35,13 @@
 
 .feedback_content > a:visited {
 	COLOR: #000000;
+}
+
+.reply {
+    position: relative;
+    left: 50px;    
+}
+
+.topic {
+   position: relative;
 }

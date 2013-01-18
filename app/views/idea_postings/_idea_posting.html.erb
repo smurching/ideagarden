@@ -26,7 +26,7 @@
   
   <% if logged_in? && @user.idea_postings.exists?(@idea_posting.id) == false %>
   		<%unless @user.join_requests_mades.exists?(:idea_posting_id => @idea_posting.id) %>
-  		<%= link_to 'Request to Join', new_idea_posting_joinrequest_path(idea_posting.id), :remote => true, :id => "new_joinrequest"%>
+  		<%= button_to 'Request to Join', new_idea_posting_joinrequest_path(idea_posting.id), :remote => true, :id => "new_joinrequest", :method => :get%>
   		<%else%>
   		<h3>Request to join project sent</h3>
   		<%end%>	

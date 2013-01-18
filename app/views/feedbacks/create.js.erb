@@ -7,9 +7,18 @@ $('.new_feedback').show().before('<p class="feedback_error"><%= j "Message must 
 
 <%else%>
 
-$('#existing_feedback').html("<%= escape_javascript render @idea_posting.feedbacks %>");
-$('#existing_private_feedback').html("<%= escape_javascript render 'private_feedbacks' %>");
-$('#feedback_body').val("");
-
+	/*
+	* $('#existing_feedback').html("<%= escape_javascript render @idea_posting.feedbacks %>");
+	* $('#existing_private_feedback').html("<%= escape_javascript render 'private_feedbacks' %>");
+	*/
+	
+	<%unless @feedback.private %>
+		$('#feedback_body').val("");
+		$('#existing_feedback').append('<%= j render(@feedback)%>');
+	<%else%>
+		$('#private_feedback_body').val("");
+		$('#existing_private_feedback').append('<%= j render(@feedback)%>');
+	<%end%>
+	
 <%end%>
 

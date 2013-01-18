@@ -77,7 +77,12 @@ class UsersController < ApplicationController
     if user != nil
       user.confirmed = true
       user.save
-      redirect_to root_path, notice: 'Your registration has been confirmed!'
+      if user.teacher == true
+        redirect_to root_path, notice: "Your registration has been confirmed! You've also been validated as a teacher, so you should be able to access private feedback and files posted under individual projects."
+      else
+        redirect_to root_path, notice: 'Your registration has been confirmed!'        
+      end
+
     else
       redirect_to root_path, notice: 'Invalid confirmation code'
     end

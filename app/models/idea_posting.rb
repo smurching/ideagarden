@@ -16,4 +16,24 @@ class IdeaPosting < ActiveRecord::Base
   def build_joinrequest
     self.joinrequests << Joinrequest.new()
   end
+  
+  def private_feedbacks
+    private_feedbacks = []
+    for feedback in self.feedbacks
+      if feedback.private
+        private_feedbacks << feedback
+      end 
+    end
+    return private_feedbacks
+  end
+  
+  def public_feedbacks
+    public_feedbacks = []
+    for feedback in self.feedbacks
+      unless feedback.private
+        public_feedbacks << feedback
+      end 
+    end
+    return public_feedbacks
+  end
 end

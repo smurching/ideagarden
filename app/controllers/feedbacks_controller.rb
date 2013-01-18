@@ -41,13 +41,33 @@ class FeedbacksController < ApplicationController
 
   # POST /feedbacks
   # POST /feedbacks.json
+  def create2
+    @feedback = @idea_posting.feedbacks.new(params[:feedback])
+    if params[:feedback][:topic] || params[:feedback][:topic] == false
+      @idea_posting = IdeaPosting.find(params[:idea_posting_id]) # set idea posting variable, should be 'load_idea_posting' method
+      respond_to do |format|
+        if @feedback.save
+          current_user.feedbacks << @feedback
+          format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback was successfully created.' }
+          format.json { render json: @feedback, status: :created, location: @feedback }
+          format.js 
+        else
+          @failed_to_post = true
+          format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback must be between 10 and 1000 characters' }
+          format.json { render json: @feedback.errors, status: :unprocessable_entity }
+          format.js 
+        end
+      end
+    end     
+  end
+  
   def create
     @idea_posting = IdeaPosting.find(params[:idea_posting_id]) # set idea posting variable, should be 'load_idea_posting' method
     @feedback = @idea_posting.feedbacks.new(params[:feedback])
 
     respond_to do |format|
       if @feedback.save
-        current_user.feedbacks << @feedback
+        current_user.feedbacks << @feedback #Sets user_id of feedback to the ID of the current user
         format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback was successfully created.' }
         format.json { render json: @feedback, status: :created, location: @feedback }
         format.js 
@@ -57,7 +77,7 @@ class FeedbacksController < ApplicationController
         format.json { render json: @feedback.errors, status: :unprocessable_entity }
         format.js 
       end
-    end
+    end    
   end
 
   # PUT /feedbacks/1
@@ -75,7 +95,41 @@ class FeedbacksController < ApplicationController
       end
     end
   end
-
+  
+  def new_reply
+    @idea_posting = IdeaPosting.find(params[:id]) #posting is passed in as an instance variable so that its ID can be passed to the create action
+    @feedback = Feedback.find(params[:feedback_id]) #parent feedback
+    respond_to do |format|
+      format.html {render '_form'}
+      format.js 
+    end
+  end
+  def cancel_reply #there has to be a better way of doing this - cancel buttons should be available to all controllers
+    @idea_posting = IdeaPosting.find(params[:id])
+    @feedback = Feedback.find(params[:feedback_id])
+    respond_to do |format|
+      format.html {redirect_to idea_posting_path}
+      format.js
+    end
+  end
+  def create_reply
+    @idea_posting = IdeaPosting.find(params[:id])
+    @feedback = Feedback.find(params[:feedback_id])
+    if @feedback.private == nil || @idea_posting.users.include?(current_user)
+    @child = @feedback.feedbacks.new(params[:feedback])
+    respond_to do |format|
+      if @child.save
+        current_user.feedbacks << @child #Sets user_id of feedback to the ID of the current user
+        format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Reply saved'}
+        format.js
+      else
+        format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Something prevented your reply from being saved'}
+      end            
+    end
+   else
+     redirect_to idea_posting_path(@idea_posting.id), notice: "You don't have permission to do that"
+   end
+ end
   # DELETE /feedbacks/1
   # DELETE /feedbacks/1.json
   def destroy
@@ -87,4 +141,5 @@ class FeedbacksController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
 end

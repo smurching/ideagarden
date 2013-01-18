@@ -1,0 +1,22 @@
+
+$('#feedback_<%=@feedback.id%> >> .reply_link').after('<div class = "reply_form"><br/><%= j render('form')%></div>'); 
+
+<%if false%>
+$('#feedback_<%=@feedback.id%>').append('<div class = "reply_form"><br/><%= j render('form')%></div>'); 
+
+<%end%>
+ 
+ 
+ 
+/* form is inserted after link to allow it to remain within the div for the parent feedback
+ * this makes it possible to hide only the form that is submitted in create_reply.js.erb
+ * (e.g. if the user has two forms open to reply to two different parent feedbacks, he can submit one form without hiding the other)
+ */ 
+$('#feedback_<%=@feedback.id%> > .reply_link').hide();
+
+
+
+
+
+
+

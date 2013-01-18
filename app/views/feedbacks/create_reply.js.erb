@@ -1,0 +1,11 @@
+
+$('#feedback_<%=@feedback.id%> > .reply_link').show();
+$('#feedback_<%=@feedback.id%> >> .reply_form').hide(); /* the reply form div selected in this line was inserted into the div_for(feedback) div in new_reply.js.erb */
+
+
+$('#feedback_<%=@feedback.id%>').append('<%= j render(@child) %>');
+
+
+
+
+

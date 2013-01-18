@@ -34,6 +34,11 @@ Ideagarden::Application.routes.draw do
   match '/idea_postings/:id/joinrequests/:joinrequest_id/approve' => 'joinrequests#approve', as: 'approve_joinrequest'#, :via => :post
   match '/idea_postings/:id/joinrequests/:joinrequest_id/reject' => 'joinrequests#reject', as: 'reject_joinrequest'#, :via => :post
   
+  #this reply action creates child feedback - feedback that is posted in response to other feedback
+  match '/idea_posting/:id/reply/:feedback_id' => 'feedbacks#new_reply', as: 'new_reply', :via => :get #creates actual reply, the action to load the reply template is just feedbacks#new
+  match '/idea_posting/:id/reply/:feedback_id' => 'feedbacks#create_reply', as: 'create_reply', :via => :post
+  match '/idea_posting/:id/cancel/:feedback_id' => 'feedbacks#cancel_reply', as: 'cancel_reply', :via => :post
+  
   #user can access requests to projects he/she owns from homepage with a short url
   match '/joinrequests' => 'joinrequests#index', as: 'list_joinrequests', :via => :get
   match '/joinrequests' => 'joinrequests#create', as: 'joinrequests', :via => :post
@@ -58,6 +63,7 @@ Ideagarden::Application.routes.draw do
   match '/following' => 'users#show_following', as: 'show_following'
   match '/followers' => 'users#show_followers', as: 'show_followers'
   match '/search' => 'idea_postings#search', as: 'search'
+
 
   
   # The priority is based upon order of creation:
