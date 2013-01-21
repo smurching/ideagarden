@@ -41,26 +41,7 @@ class FeedbacksController < ApplicationController
 
   # POST /feedbacks
   # POST /feedbacks.json
-  def create2
-    @feedback = @idea_posting.feedbacks.new(params[:feedback])
-    if params[:feedback][:topic] || params[:feedback][:topic] == false
-      @idea_posting = IdeaPosting.find(params[:idea_posting_id]) # set idea posting variable, should be 'load_idea_posting' method
-      respond_to do |format|
-        if @feedback.save
-          current_user.feedbacks << @feedback
-          format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback was successfully created.' }
-          format.json { render json: @feedback, status: :created, location: @feedback }
-          format.js 
-        else
-          @failed_to_post = true
-          format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback must be between 10 and 1000 characters' }
-          format.json { render json: @feedback.errors, status: :unprocessable_entity }
-          format.js 
-        end
-      end
-    end     
-  end
-  
+
   def create
     @idea_posting = IdeaPosting.find(params[:idea_posting_id]) # set idea posting variable, should be 'load_idea_posting' method
     @feedback = @idea_posting.feedbacks.new(params[:feedback])
@@ -104,7 +85,7 @@ class FeedbacksController < ApplicationController
       format.js 
     end
   end
-  def cancel_reply #there has to be a better way of doing this - cancel buttons should be available to all controllers
+  def cancel_reply #there should be a better way of doing this - cancel buttons should be available to all controllers
     @idea_posting = IdeaPosting.find(params[:id])
     @feedback = Feedback.find(params[:feedback_id])
     respond_to do |format|
@@ -123,7 +104,9 @@ class FeedbacksController < ApplicationController
         format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Reply saved'}
         format.js
       else
+        @failed_to_post = true
         format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Something prevented your reply from being saved'}
+        format.js
       end            
     end
    else

@@ -1,9 +1,10 @@
 
 
 $('#feedback_<%=@feedback.id%>').each(function(){
-	
-	
 
+	var container = $(this).parent('.feedback_content_container');
+	var container_height = container.height();
+	
 	var topic_div = $(this).parents('.topic');
 	var topic_div_height = topic_div.height();
 	var root_feedback_div = topic_div.parent('.feedback');
@@ -11,22 +12,19 @@ $('#feedback_<%=@feedback.id%>').each(function(){
 	
 	var feedback_height=$(this).height();		
 	
-	root_feedback_div.height(root_feedback_div_height+386);
-	
-	<%unless @feedback.topic%>
-	
-	$('#feedback_<%=@feedback.id%>').parents('.reply').each(function(){
-		var parent_feedback = $(this).parent('.feedback');
-		var parent_feedback_height = parent_feedback.height();
-		parent_feedback.height(parent_feedback_height+386);
-	});
-	
-	<%end%>	
+	topic_div.height(topic_div_height+386);
+	root_feedback_div.height(root_feedback_div_height+386);	
 	
 	$(this).height(feedback_height+386);
 
 	
-
+	/* var topic_div = $(this).parents('.topic');
+	* var root_feedback_div = topic_div.parent('.feedback');
+	* root_feedback_div.height(self.height()+386);	
+	* container.height(container_height+386);
+	*
+	*/
+	
 });
 
 $('#feedback_<%=@feedback.id%> >>> .reply_link').after('<div class = "reply_form"><br/><%= j render('form')%></div>'); 

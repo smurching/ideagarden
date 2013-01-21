@@ -1,1 +1,32 @@
-$('#feedback_<%=@feedback.id%> >> .reply_form').hide();
+$('#feedback_<%=@feedback.id%> >>> .reply_form').remove();
+$('#feedback_<%=@feedback.id%>').each(function(){
+
+
+	
+	/* REDUCING THE SIZE OF THE DIV THAT IS BEING REPLIED TO */
+	var feedback_height=$(this).height();
+	$(this).height(feedback_height-386); /* take away the height needed for the form (386px), add in enough height to insert the child div */
+	
+	
+	/* REDUCING THE HEIGHT OF THE HIGHEST TIER FEEDBACK DIV (FEEDBACK DIV FOR TOPIC) */
+	var topic_div = $(this).parents('.topic');
+	var root_feedback_div = topic_div.parent('.feedback');
+	var root_feedback_div_height = root_feedback_div.height();
+	root_feedback_div.height(root_feedback_div_height-386);
+	
+	
+	/* REDUCING THE SIZE OF ALL THE PARENT REPLY DIVS FOR THE FEEDBACK BEING POSTED */
+		$('#feedback_<%=@feedback.id%>').parents('.reply').each(function(){
+		var parent_feedback = $(this).parent('.feedback');
+		var parent_feedback_height = parent_feedback.height();
+		parent_feedback.height(parent_feedback_height-386);
+	});
+
+
+
+
+
+
+});
+$('#feedback_<%=@feedback.id%> >>> .reply_link').unbind('click', false).css('color', 'black');
+

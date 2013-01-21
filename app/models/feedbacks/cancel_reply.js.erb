@@ -1,0 +1,14 @@
+$('#feedback_<%=@feedback.id%> >>> .reply_form').remove();
+$('#feedback_<%=@feedback.id%>').each(function(){
+	var feedback_height=$(this).height();
+	
+	$(this).height(feedback_height-386);
+	
+	var topic_div = $(this).parents('.topic');
+	var root_feedback_div = topic_div.parent('.feedback');
+	var root_feedback_div_height = root_feedback_div.height();
+	
+	root_feedback_div.height(root_feedback_div_height-386);		
+});
+$('#feedback_<%=@feedback.id%> >>> .reply_link').unbind('click', false).css('color', 'black');
+

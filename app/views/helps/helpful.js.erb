@@ -1,1 +1,1 @@
-$('#feedback_<%= @feedback.id %> > .feedback_help > .help' ).html("<%= escape_javascript render(:file => 'helps/help.html.erb') %>");
+$('#feedback_<%= @feedback.id %> >>> .feedback_help > .help' ).html("<%= j render ('help') %>");

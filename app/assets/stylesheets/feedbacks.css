@@ -29,11 +29,15 @@
   	font-weight: bold;
   }
   
-.feedback_content > a:active {
+.feedback_content > a {
 	COLOR: #000000;
+	font-weight: bold;
+	text-decoration: none;	
 }
 
-.feedback_content > a:visited {
+.reply_link {
+
+	font-weight: bold;
 	COLOR: #000000;
 }
 
@@ -42,6 +46,17 @@
     left: 50px;    
 }
 
+.feedback_error{
+	position:relative;
+}
 .topic {
    position: relative;
+}
+
+.cancel_reply_button {
+	float:left;
+}
+
+.submit_reply {
+	float:left;
 }

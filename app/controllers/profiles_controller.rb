@@ -51,8 +51,8 @@ class ProfilesController < ApplicationController
         when @user.email["http://comcast.net"] != nil
           @email_url = "https://www.login.comcast.net/login"
         end 
-        
-        format.html { redirect_to root_path, notice: 'Profile was successfully created. Please confirm your registration at '+@email_url }
+        @registration_string = @email_url != nil ? "Please confirm your registration at "+@email_url : "Please check your email for a confirmation link."
+        format.html { redirect_to root_path, notice: 'Profile was successfully created. '+@registration_string }
         format.json { render json: @profile, status: :created, location: @profile }
       else
         format.html { render action: "new" }

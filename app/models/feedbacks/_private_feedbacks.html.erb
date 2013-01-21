@@ -1,8 +1,8 @@
+<%= div_for(@idea_posting.feedbacks, :class => "feedback") do |feedback|%>
 
-
-  	<%= div_for(feedback, :class => from_followed_user?(feedback) ? "followed_feedback" : "") do %>
-  	<div class= <%= feedback.topic ? "topic" : "reply"%>> 
-  	<div class="feedback_content_container">
+<% if feedback.private %>
+  	<%= div_for(feedback, :class => from_followed_user?(feedback) ? 'followed_feedback': '') do %>
+  	<p>
     <div class = 'feedback_help'>
       	<%= button_to '+', helpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
       	<div class = 'help'>
@@ -10,21 +10,17 @@
       	</div>
       	<%= button_to '-', unhelpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
     </div>
-    
     <div class = 'feedback_content'>
       <%= link_to feedback.user.profile.name, user_profiles_path(feedback.user_id) %> said: </br>
       <%= feedback.body %> </br> 
     </div> 
-    <%if logged_in?%>
-      <%= link_to 'Reply', new_reply_path(@idea_posting.id, feedback.id), class: "reply_link", remote: true%>
-    <%end%>
-
-
-  	</div>
+     <%= link_to 'Reply', new_reply_path(@idea_posting.id, feedback.id), class: "reply_link", remote: true%>
+  	</p>
   	<br />
-  	<%= render feedback.feedbacks%>
-  	</div>
+  	<br />
+  	
+  	
  	<% end %>
 
-
-
+<% end %>
+<% end %>

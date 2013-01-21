@@ -5,7 +5,7 @@
 }
 
 .feedback{
-  clear: both;
+  overflow: hidden;
   
 }
 
@@ -18,12 +18,16 @@
 
 .followed_feedback {
   clear: both;
-  background-color: rgb(183, 213, 121);  
+
 }
 
 .feedback_content_container{
-  background-color: rgb(183, 213, 121);
+  overflow:hidden;
 	
+}
+
+.followed_feedback .feedback_content_container {
+  background-color: rgb(183, 213, 121);
 }
 
 /* pale green (modified from amy's logo): rgb(183,213,121)*/

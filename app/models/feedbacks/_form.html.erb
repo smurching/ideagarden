@@ -12,6 +12,6 @@
   <% end %>
   
     <%= f.text_area :body %><br />
-    <%= f.submit "Reply", :class => "submit_reply" %> 
+    <%= f.submit %> 
 <% end %>
 <%= button_to "Cancel", cancel_reply_path(@idea_posting.id, @feedback.id), :remote => true %>
