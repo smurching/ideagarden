@@ -8,6 +8,8 @@ gem 'rails', '3.2.11'
 gem 'pg'
 
 gem 'heroku'
+gem 'paperclip'
+gem 'cocaine'
 
 
 # Gems used only for assets and not required

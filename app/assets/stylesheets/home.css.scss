@@ -1,0 +1,85 @@
+#home {
+
+  * {
+    border: 1px solid red;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  .header_top {
+    height: 50px;
+    width: 100%;
+    border: 1px solid black;
+    table {
+      width: 100%;
+      height: inherit;
+      td:not(#gap) {
+        padding: 0px 10px;
+        width: 1px;
+        white-space: nowrap;
+      }
+      .search {
+        width: 5px;
+      }
+      .logo {
+        width: 300px;
+      }
+    }
+  }
+
+  .home_container {
+    .logo {
+      text-align: center;
+      height: 200px;
+    }
+    .container_mid {
+      width: 700px;
+      margin: {
+        left: auto;
+        right: auto;
+      }
+    }
+    .carousel {
+      width: 680px;
+      height: 330px;
+      margin: {
+        left: auto;
+        right: auto;
+      }
+      .center {
+        width: 500px;
+      }
+    }
+    .submit_button {
+      height: 40px;
+      width: 100%;
+    }
+    .info_boxes {
+      width: 400px;
+      height: 150px;
+      margin: {
+        left: auto;
+        right: auto;
+      }  
+    }
+  }
+
+  footer {
+    padding: {
+      left: 30px;
+      bottom: 20px;
+    }
+    .idea_plots {
+      td {
+        width: 100px;
+        height: 100px;
+        padding: 0px 10px;
+      }
+    }
+    nav td {
+      padding: 0px 5px;
+    }
+  }
+}

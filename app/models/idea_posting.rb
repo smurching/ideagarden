@@ -1,5 +1,5 @@
 class IdeaPosting < ActiveRecord::Base
-  attr_accessible :name, :pitch, :description, :user_id
+  attr_accessible :name, :pitch, :description, :user_id, :potential
   # validates :tags, :format => {:in => %w(technology, art, music, biology, chemistry, physics, math, science, english, literature,foreign language)}
   validates :pitch, :length => {:within => 10..110}
   validates :name, :length => {:within => 10..50}  
@@ -36,4 +36,15 @@ class IdeaPosting < ActiveRecord::Base
     end
     return public_feedbacks
   end
+  
+  def upvote
+    votes = potential
+    update_attributes(potential: votes+=1)
+  end
+
+  def unvote
+    votes = potential
+    update_attributes(potential: votes-=1)
+  end
+    
 end

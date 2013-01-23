@@ -21,11 +21,18 @@
 
 <%= div_for(@idea_postings) do |idea_posting| %>
   <div class = 'voting'>
-    <%= button_to '+', upvote_path(idea_posting.id, format: :js), remote: true %>
+    <% if logged_in? %>
+      <% if current_user.posting_votes.include? idea_posting.id %>
+        <%= button_to '+', unvote_path(idea_posting.id), :class => "vote_button unvote_button" %>
+      <% else %>
+        <%= button_to '+', upvote_path(idea_posting.id), :class => "vote_button upvote_button" %>
+      <% end %>
+    <% else %>
+      <%= button_to '+', upvote_path(idea_posting.id), :class => "vote_button upvote_button" %>
+    <% end %>
     <div class = 'potential'>
       <%= idea_posting.potential %>
     </div>
-    <%= button_to '-', downvote_path(idea_posting.id), format: :js, remote: true %>
   </div>
   <div class = 'posting'>
     <div class = 'thumbnail'></div>

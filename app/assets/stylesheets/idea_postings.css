@@ -42,6 +42,37 @@
   margin-right: 10px;
 }
 
+.vote_button {
+  border: none;
+  background-color: transparent;
+  font-size: 25px;
+  text-align: center;
+  padding: 0px;
+  color: #333;
+  width: 30px;
+  height: 30px;
+}
+
+.upvote_button:hover {
+  background-color: #333;
+  color:#FFF;
+}
+
+.unvote_button {
+  background-color: #333;
+  color:#FFF;
+}
+
+.unvote_button:hover {
+  background-color: transparent;
+  color: #333;
+}
+
+.potential {
+  margin-top:10px; 
+  font-size: 20px;
+}
+
 /* idea_posting details */
 
 h1 {
@@ -119,3 +150,6 @@ h1 {
 .tags {
   font-size: 14px;	
 }
+
+
+

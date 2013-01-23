@@ -102,4 +102,9 @@ class ApplicationController < ActionController::Base
     end
     
     helper_method :create_tags
+    
+  def access_denied
+    redirect_to login_path, :notice => "Please log in to continue" and return false
+  end
+    
 end

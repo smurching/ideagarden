@@ -1,6 +1,7 @@
 class VotesController < ApplicationController
 
-  before_filter :authenticate
+  before_filter :login_filter
+  before_filter :registration_filter
 
   def posting_vote
     idea_posting_id = params[:id]

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130113012600) do
+ActiveRecord::Schema.define(:version => 20130123074026) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
@@ -89,8 +89,12 @@ ActiveRecord::Schema.define(:version => 20130113012600) do
     t.integer  "user_id"
     t.string   "name"
     t.string   "bio"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "reset_codes", :force => true do |t|
@@ -130,6 +134,7 @@ ActiveRecord::Schema.define(:version => 20130113012600) do
     t.datetime "reset_code_timestamp"
     t.boolean  "admin",                :default => false
     t.boolean  "teacher",              :default => false
+    t.string   "posting_votes"
   end
 
 end

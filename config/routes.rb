@@ -22,8 +22,8 @@ Ideagarden::Application.routes.draw do
   match '/logout' => "sessions#destroy", as: "logout"
 
   # potential rating
-  match '/:id/upvote' => 'potentials#upvote', as: 'upvote'
-  match '/:id/downvote' => 'potentials#downvote', as: 'downvote'
+  match '/:id/upvote' => 'votes#posting_vote', as: 'upvote'
+  match '/:id/unvote' => 'votes#posting_unvote', as: 'unvote'
 
   # help rating
   match '/idea_postings/:id/:feedback_id/helpful' => 'helps#helpful', as: 'helpful'

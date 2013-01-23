@@ -8,6 +8,9 @@
 
  $(function() {
   $('#search_filters').submitOnCheck();
+  
+   $('#search_submit_tag').hide();
+
  })();
   
 
