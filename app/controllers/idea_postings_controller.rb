@@ -8,6 +8,7 @@ class IdeaPostingsController < ApplicationController
     
     case
     when params["followed users' posts"] != nil && current_user != nil
+      @followed_users_only = true
       @idea_postings = []
       followed_users = []
       for relationship_object in current_user.followings.all

@@ -1,2 +1,16 @@
-$('#index_posting_list' ).html('<%= j render("idea_postings/search_results") %>');
-$('#search_submit_tag').hide(); 
+
+<%if @upvoted || @unvoted%>
+	<%if @upvoted %>
+		$('#idea_posting_<%= @idea_posting.id %> > .voting > .potential').html("<%= j @idea_posting.potential.to_s %>");
+		$('#idea_posting_<%= @idea_posting.id %> > .voting > .voting_button').html("<%= j render('potentials/unvote_button')%>");
+		
+	<%end%>
+
+	<%if @unvoted%>
+		$('#idea_posting_<%= @idea_posting.id %> > .voting > .potential').html("<%= j @idea_posting.potential.to_s %>");
+		$('#idea_posting_<%=@idea_posting.id%> > .voting > .voting_button').html("<%= j render('potentials/upvote_button') %>");
+	<%end%>
+	
+<%else%>
+$('#index_posting_list').html('<%= j render("idea_postings/search_results") %>');
+<%end%>

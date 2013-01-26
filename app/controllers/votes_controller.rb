@@ -5,20 +5,36 @@ class VotesController < ApplicationController
 
   def posting_vote
     idea_posting_id = params[:id]
-    idea_posting = IdeaPosting.find(idea_posting_id)
-    idea_posting.upvote
-    current_user.posting_votes << idea_posting_id.to_i
-    current_user.save
-    redirect_to root_path, notice: "You upvoted '#{idea_posting.name}'"
+    unless current_user.posting_votes.include?(idea_posting_id.to_i)   
+      @idea_posting = IdeaPosting.find(idea_posting_id)   
+      @idea_posting.upvote
+      current_user.posting_votes << idea_posting_id.to_i
+      current_user.save
+      @upvoted = true
+      respond_to do |format|
+        format.html {redirect_to root_path, notice: "You upvoted '#{idea_posting.name}'"}
+        format.js {render 'idea_postings/index'}  
+      end
+    else
+      redirect_to root_path   
+    end
   end
 
   def posting_unvote
     idea_posting_id = params[:id]
-    idea_posting = IdeaPosting.find(idea_posting_id)
-    idea_posting.unvote
-    current_user.posting_votes.delete(idea_posting_id.to_i)
-    current_user.save
-    redirect_to root_path, notice: "You unvoted '#{idea_posting.name}'"
+    if current_user.posting_votes.include?(idea_posting_id.to_i)       
+      @idea_posting = IdeaPosting.find(idea_posting_id)
+      @idea_posting.unvote
+      current_user.posting_votes.delete(idea_posting_id.to_i)
+      current_user.save
+      @unvoted = true    
+      respond_to do |format|
+        format.html {redirect_to root_path, notice: "You unvoted '#{idea_posting.name}'"}
+        format.js {render'idea_postings/index'}
+      end
+    else
+      redirect_to root_path
+    end
   end
 
   def check_vote

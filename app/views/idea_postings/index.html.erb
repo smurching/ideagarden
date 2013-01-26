@@ -31,15 +31,17 @@ Please confirm your email to complete your registration: <br/>
 <div id="index_posting_list">
 <%= div_for(@idea_postings) do |idea_posting| %>
   <div class = 'voting'>
+  	<div class = 'voting_button'>
     <% if logged_in? %>
       <% if current_user.posting_votes.include? idea_posting.id %>
-        <%= button_to '+', unvote_path(idea_posting.id), :class => "vote_button unvote_button" %>
+        <%= button_to '+', unvote_path(idea_posting.id), :class => "vote_button unvote_button", :remote => true %>
       <% else %>
-        <%= button_to '+', upvote_path(idea_posting.id), :class => "vote_button upvote_button" %>
+        <%= button_to '+', upvote_path(idea_posting.id), :class => "vote_button upvote_button", :remote => true %>
       <% end %>
     <% else %>
-      <%= button_to '+', upvote_path(idea_posting.id), :class => "vote_button upvote_button" %>
+      <%= button_to '+', upvote_path(idea_posting.id), :class => "vote_button upvote_button", :remote => true %>
     <% end %>
+    </div>
     <div class = 'potential'>
       <%= idea_posting.potential %>
     </div>
