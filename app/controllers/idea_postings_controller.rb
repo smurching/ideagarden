@@ -1,47 +1,11 @@
 class IdeaPostingsController < ApplicationController
   # GET /idea_postings
   # GET /idea_postings.json
-  before_filter :login_filter, :except => [:index, :show, :search]
-  before_filter :registration_filter, :except => [:index, :show, :search]
+  before_filter :login_filter, :except => [:index, :show, :search, :filter_by_followers]
+  before_filter :registration_filter, :except => [:index, :show, :search, :filter_by_followers]
   
   def index
-    
-    case
-    when params["followed users' posts"] != nil && current_user != nil
-      @followed_users_only = true
-      @idea_postings = []
-      followed_users = []
-      for relationship_object in current_user.followings.all
-        followed_users << User.find(relationship_object.followed_user_id) # add all followed users to list
-      end
-      
-      for user in followed_users
-        for idea_posting in user.idea_postings.all
-          unless @idea_postings.include? idea_posting
-            @idea_postings << idea_posting
-          end
-        end
-      end
-    
-    
-    when params["followers' posts"] != nil && current_user != nil
-      followers = []
-      @followers_only = true
-      @idea_postings = []
-      for relationship_object in current_user.followers.all
-        followers << User.find(relationship_object.follower_user_id) # add all followed users to list
-      end
-      for user in followers
-        for idea_posting in user.idea_postings.all
-          unless @idea_postings.include? idea_posting
-            @idea_postings << idea_posting
-          end
-        end
-      end           
-    else
-      @idea_postings = IdeaPosting.desc.all
-    end
-    
+    @idea_postings = IdeaPosting.desc.all
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @idea_postings }
@@ -49,7 +13,50 @@ class IdeaPostingsController < ApplicationController
     end
   end
   
+  def filter_by_followers
+    @filtering = true
+    case
+    when params["followed users' posts"] != nil && current_user != nil
+      @idea_postings = []
+      followed_users = []
+      for relationship_object in current_user.followings.all
+        followed_users << User.find(relationship_object.followed_user_id) # add all followed users to list
+      end
+           
+      for user in followed_users
+        for idea_posting in user.idea_postings.all
+          unless @idea_postings.include? idea_posting
+            @idea_postings << idea_posting
+          end
+        end
+      end      
+      
+    when params["followers' posts"] != nil && current_user != nil
+      followers = []
+      @idea_postings = []
+      for relationship_object in current_user.followers.all
+        followers << User.find(relationship_object.follower_user_id) # add all followed users to list
+      end
+      
+      for user in followers
+        for idea_posting in user.idea_postings.all
+          unless @idea_postings.include? idea_posting
+            @idea_postings << idea_posting
+          end
+        end
+      end
+    else
+      @idea_postings = IdeaPosting.all
+    end
 
+    respond_to do |format|
+      format.html {render 'index'}
+      format.json { render json: @idea_postings }
+      format.js {render 'index'}
+    end      
+      
+  end
+  
   def search
     @idea_postings = []
     @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]

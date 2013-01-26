@@ -1,16 +1,26 @@
+$('.notice').remove();
+<%unless logged_in? %>
+	$('#wrapper').prepend('<p class = "notice">Please login to access this feature</p>');
+<%end%>
 
-<%if @upvoted || @unvoted%>
-	<%if @upvoted %>
+<%if @registration_needed %> 
+	$('#wrapper').prepend('<p class = "notice">Please complete your registration to access this feature</p>');
+<%end%>
+
+
+<%if @upvoted %>
 		$('#idea_posting_<%= @idea_posting.id %> > .voting > .potential').html("<%= j @idea_posting.potential.to_s %>");
 		$('#idea_posting_<%= @idea_posting.id %> > .voting > .voting_button').html("<%= j render('potentials/unvote_button')%>");
 		
-	<%end%>
+<%end%>
 
-	<%if @unvoted%>
+<%if @unvoted%>
 		$('#idea_posting_<%= @idea_posting.id %> > .voting > .potential').html("<%= j @idea_posting.potential.to_s %>");
 		$('#idea_posting_<%=@idea_posting.id%> > .voting > .voting_button').html("<%= j render('potentials/upvote_button') %>");
-	<%end%>
+<%end%>
 	
-<%else%>
+<%if @filtering %>
 $('#index_posting_list').html('<%= j render("idea_postings/search_results") %>');
 <%end%>
+
+

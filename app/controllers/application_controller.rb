@@ -49,12 +49,20 @@ class ApplicationController < ActionController::Base
     helper_method :registration_complete?
     
     def registration_filter
-      if current_user.profile == nil 
-        return redirect_to root_path, :notice => 'Please complete registration by creating your profile to access this feature'
+      if current_user.profile == nil
+        @registration_incomplete = true 
+        respond_to do |format| 
+          format.html {redirect_to root_path, :notice => 'Please complete registration by clicking the confirmation link in your email to access this feature'}
+          format.js {render 'idea_postings/index'}
+        end
       end
       
       if current_user.confirmed != true
-        return redirect_to root_path, :notice => 'Please complete registration by confirming your email to access this feature'
+        @registration_incomplete = true        
+        respond_to do |format| 
+          format.html {redirect_to root_path, :notice => 'Please complete registration by clicking the confirmation link in your email to access this feature'}
+          format.js {render 'idea_postings/index'}
+        end
       end
     end
     
@@ -62,7 +70,10 @@ class ApplicationController < ActionController::Base
     
     def login_filter
       if current_user == nil
-        return redirect_to root_path, :notice => 'Please log in to access this feature'
+        respond_to do |format| 
+          format.html {redirect_to root_path, :notice => 'Please log in to access this feature'}
+          format.js {render 'idea_postings/index'}
+        end
       end
     end
     

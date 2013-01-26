@@ -62,7 +62,10 @@ Ideagarden::Application.routes.draw do
   match '/users/:id/unfollow' => 'users#unfollow', as: 'unfollow_user'
   match '/following' => 'users#show_following', as: 'show_following'
   match '/followers' => 'users#show_followers', as: 'show_followers'
+  
+  # search/filter actions
   match '/search' => 'idea_postings#search', as: 'search'
+  match '/filter_by_followers' => 'idea_postings#filter_by_followers', as: 'filter_by_followers'
 
 
   

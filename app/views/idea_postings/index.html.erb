@@ -17,7 +17,7 @@ Please confirm your email to complete your registration: <br/>
 
 <%if current_user != nil%>
 
-<%= form_tag(root_path, :remote => true, :id => "search_filters") do |f| %>
+<%= form_tag(filter_by_followers_path, :remote => true, :id => "search_filters") do |f| %>
 <%= check_box_tag("followed users' posts", "value")%>
 <%= label_tag("followed_users_label","Followed Users' Posts")%>
 <%= check_box_tag("followers' posts","value")%>
