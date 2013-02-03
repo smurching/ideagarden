@@ -102,7 +102,7 @@ class UsersController < ApplicationController
         when current_user.email["live.com"] != nil
           email_url = "http://www.live.com"
           
-        when @user.email["http://comcast.net"] != nil
+        when current_user.email["http://comcast.net"] != nil
           email_url = "https://www.login.comcast.net/login"
           
         end 

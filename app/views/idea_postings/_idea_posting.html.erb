@@ -1,4 +1,4 @@
-<%= div_for idea_posting do %>
+<%= div_for idea_posting, :class => "posting_details" do %>
   <h3>
     Name: <%= link_to idea_posting.name, idea_posting %>
   </h3>
@@ -18,10 +18,12 @@
 	</p>
 
   <% if @user != nil%>
- 
+
   <% if idea_posting.users.exists?(@user.id)%>
+  <div class = "modification_links">  
   	<%= link_to 'Edit', edit_idea_posting_path(idea_posting) %>
   	<%= link_to 'Destroy', idea_posting, method: :delete, data: { confirm: 'Are you sure?' } %>
+ </div>  	
   <%end%>
   
   <% if logged_in? && @user.idea_postings.exists?(@idea_posting.id) == false %>
@@ -32,4 +34,12 @@
   		<%end%>	
   <%end%>
   <%end%>
+  
+  
+  <p>----------------------------</p>
+
+<h2>Owners</h2>
+<% @idea_posting.users.each do |user| %>
+<p><%= link_to user.profile.name, user_profiles_path(user.id) %></p>
+<% end %>
 <% end %>

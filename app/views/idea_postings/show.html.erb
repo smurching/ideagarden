@@ -1,11 +1,7 @@
-<h2>Idea posting details</h2>
-<%= render @idea_posting %>
-<p>----------------------------</p>
+<h2>Posting Details</h2>
 
-<h2>Owners</h2>
-<% @idea_posting.users.each do |user| %>
-<p><%= link_to user.profile.name, user_profiles_path(user.id) %></p>
-<% end %>
+<%= render @idea_posting %>
+
 <p>----------------------------</p>
 
 <h2>Feedback</h2>

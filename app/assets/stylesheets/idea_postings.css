@@ -1,8 +1,13 @@
 /* general div */
 
+a{
+	text-decoration:none;
+	color:black;
+}
 .idea_posting {
   clear: both;
 }
+
 
 .feedback{
   overflow: hidden;
@@ -151,5 +156,20 @@ h1 {
   font-size: 14px;	
 }
 
+/* Styles for idea_postings/show */
+.posting_details a{
+	color:black;
+}
+
+.posting_details a:hover {
+	color:gray;
+}
+
+.modification_links {
+	font-weight:bold;
+	font-size:15px;
+}
+
+	
 
 

@@ -1,0 +1,16 @@
+$('#login').each(function(){
+	var offset = $(this).offset();
+	$(this).css('font-weight', 'bold');
+	$(this).after('<%= j render('form')%>');
+	$('.new_session').css({'position' : 'absolute', 'left' : offset.left-25, 'top' : offset.top+12, 'background-color' : '#F1F1F1', 'z-index' : '1', 
+	'border' : '1px solid #BBB', 'padding' : '25px', 'border-top' : 'none', 'padding-top' : '0px'});
+});
+
+
+
+$('#wrapper').click(function(){ 
+	$('.new_session').remove();
+	$('#login').css('font-weight', 'normal');
+	
+});
+

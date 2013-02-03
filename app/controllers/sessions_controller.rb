@@ -17,6 +17,13 @@ class SessionsController < ApplicationController
     redirect_to root_path, :notice => "You successfully logged out"
   end
   
+  def new
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+  
 end
 
 
