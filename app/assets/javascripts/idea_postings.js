@@ -7,12 +7,13 @@
  }
 
  $(function() {
-  $('#search_filters').submitOnCheck();
-  
-   $('#search_submit_tag').hide();
+ $('#search_filters').submitOnCheck(); 
+ $('#search_submit_tag').hide();
+ $('#login_filter').hide();   
 
  })();
   
+
 
 
 /* jQuery.fn.submitOnCheck = ->

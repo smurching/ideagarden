@@ -1,0 +1,23 @@
+<%= form_tag create_login_or_register_path, :class => "login_or_register_form" do %>
+  <h3 id = "login_or_register_header">Please login or signup for Ideagarden to access this feature</h3> </br>
+  <div class="field">
+    <%= label_tag :email %><br />
+    <%= text_field_tag :email %>
+  </div>
+  <div class="field">
+    <%= label_tag "Password" %><br />
+    <%= password_field_tag :password_hash %>
+  </div>
+  
+  <div class = "field" id = "confirm_password">
+  	<%= label_tag "Confirm Password" %> <br/>
+  	<%= password_field_tag :password_hash_confirmation %>
+  </div>
+  
+  <div class="actions">
+    <%= submit_tag 'Login or Register' %>
+  </div>
+  
+
+  
+<% end %>

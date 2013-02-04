@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
       if current_user.profile == nil
         @registration_incomplete = true 
         respond_to do |format| 
-          format.html {redirect_to root_path, :notice => 'Please complete registration by clicking the confirmation link in your email to access this feature'}
+          format.html {redirect_to root_path, :notice => 'Please complete registration by completing your profile to access this feature'}
           format.js {render 'idea_postings/index'}
         end
       end
@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
       if current_user == nil
         respond_to do |format| 
           format.html {redirect_to root_path, :notice => 'Please log in to access this feature'}
-          format.js {render 'idea_postings/index'}
+          format.js {redirect_to new_login_or_register_path}
         end
       end
     end

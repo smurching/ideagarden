@@ -3,14 +3,16 @@ html {
 
 a img {
   border: none;
-}
+  -ms-interpolation-mode: bicubic;
 
+}
 
 
 body {
   margin: 0px;
   padding: 0px;
   color: #333;
+  height:100%;
 }
 
 /* PAGE NAV */
@@ -79,6 +81,23 @@ a {
   color: #42b2e6;	
 }
 
+#login_filter{
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255,255,255,0.8);
+  position:fixed;
+  top:0px;
+  left:0px;
+  z-index:1;
+}
+
+html {height:100%;}
+
+#everything_div{
+  height: 100%;
+  width: 100%;
+  position:fixed;
+}
 
 
 

@@ -66,7 +66,11 @@ Ideagarden::Application.routes.draw do
   # search/filter actions
   match '/search' => 'idea_postings#search', as: 'search'
   match '/filter_by_followers' => 'idea_postings#filter_by_followers', as: 'filter_by_followers'
+  
+  match '/sessions/new_login_or_register' => 'sessions#new_login_or_register', as: 'new_login_or_register'
 
+  match '/sessions/new_login_or_register' => 'sessions#create_login_or_register', as: 'create_login_or_register'  
+  match '/existing_user' => 'users#existing_user', as: 'existing_user_path'
 
   
   # The priority is based upon order of creation:

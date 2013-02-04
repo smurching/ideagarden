@@ -29,11 +29,17 @@ class UsersController < ApplicationController
   end
 
   def create #email to confirm user is sent after profile is created - it is therefore in the profiles#create
-    if params[:user][:password_hash].length < 6
-      return redirect_to new_user_path, notice: 'Password must be at least six characters long'
-    end
-    @user = User.new(params[:user]) #password_hash won't be assigned if it's protected from mass-assignment - it currently is not.
-    @user.password_hash = @user.password_create(@user.password_hash)
+    if params[:user] != nil
+      if params[:user][:password_hash].length < 6
+        return redirect_to new_user_path, notice: 'Password must be at least six characters long'
+      end
+      @user = User.new(params[:user]) #password_hash won't be assigned if it's protected from mass-assignment - it currently is not.
+      @user.password_hash = @user.password_create(@user.password_hash)
+      
+   else
+     @user = User.new(:email => params[:email], :password_hash => params[:password_hash])
+     @user.password_hash = @user.password_create(@user.password_hash)
+   end
 
     respond_to do |format|
       if @user.save
@@ -163,6 +169,17 @@ class UsersController < ApplicationController
     @user.save
     return redirect_to root_path, notice: 'Password reset successfully'
     
+  end
+  
+  def existing_user
+    @user = User.find_by_email(params[:email])
+    if @user == nil
+      @return_value = false
+    else
+      @return_value = true
+    end
+    render :inline => "<p id ='response'><%= @return_value %></p>"
+
   end
 
 

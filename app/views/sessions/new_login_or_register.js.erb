@@ -1,0 +1,73 @@
+$('#login_filter').show();
+
+$('#login_filter').after('<%= j render('login_or_register_form')%>');
+$('#confirm_password').hide();
+
+
+$('.login_or_register_form').css({"position" : "fixed", "background-color" : 
+	"#90bf3c", "z-index" : 1, "padding" : "20px", "width" : "500px",
+	"border" : "2px solid black"
+	});
+
+
+	
+$(window).resize(function(){
+	$('.login_or_register_form').css({
+		"left" : ($(window).width() - $('.login_or_register_form').outerWidth())/2,
+		"top" : ($(window).height() - $('.login_or_register_form').outerHeight())/2
+	});	
+});
+
+
+
+$('#login_filter').click(function(){
+	$(this).hide();
+	$('.login_or_register_form').remove();
+});
+
+$(window).resize();
+
+
+
+
+$('#password_hash').click(function(){
+	$('#email').bind('keyup', function(){ 
+		$.get('/existing_user', {email: $('#email').val()}, function(data){
+
+		var response_value = $(data).text();
+		$('#register_please').remove();
+		if (response_value=="false"){
+			$('#confirm_password').show();
+			$('.login_or_register_form').attr('action', 'users');
+		    $('#confirm_password').before('<p id = "register_please"><%= j "We couldn't find a user with that email. Please change the email, or confirm your password to register!" %></p>');
+		    
+		    var email_position = $('#email').position();
+		    
+		    
+		    $('#register_please').css({'top' : email_position.top-18, 'left' : email_position.left+170, 'position' : 'absolute'});						
+		}
+		
+		else{
+			$('#confirm_password').hide();
+		    $('.login_or_register_form').attr('action', 'session')
+
+
+		}
+	
+	}, "html"
+	);	
+	
+	});
+	
+	$('#email').keyup();
+		
+
+	
+	
+});
+
+
+
+
+
+
