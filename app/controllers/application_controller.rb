@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   protected
-  
+
     # Returns the currently logged in user or nil if there isn't one
     def current_user
       return unless session[:user_id]
@@ -117,5 +117,5 @@ class ApplicationController < ActionController::Base
   def access_denied
     redirect_to login_path, :notice => "Please log in to continue" and return false
   end
-    
+
 end

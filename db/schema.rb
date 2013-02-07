@@ -20,10 +20,12 @@ ActiveRecord::Schema.define(:version => 20130123074026) do
     t.datetime "updated_at", :null => false
   end
 
+
   create_table "feedbacks", :force => true do |t|
     t.integer  "idea_posting_id"
     t.integer  "user_id"
     t.string   "name"
+
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.boolean  "private"
@@ -52,18 +54,22 @@ ActiveRecord::Schema.define(:version => 20130123074026) do
     t.string   "name"
     t.string   "pitch"
     t.text     "description"
+    
+
     t.datetime "published_at"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.boolean  "IsOwner",      :default => false
     t.integer  "OwnerID",      :default => -1
     t.integer  "potential",    :default => 0
+
   end
 
   create_table "idea_postings_users", :id => false, :force => true do |t|
     t.integer "idea_posting_id"
     t.integer "user_id"
   end
+
 
   create_table "join_requests_mades", :force => true do |t|
     t.integer  "idea_posting_id"
@@ -113,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20130123074026) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
 
   create_table "tags", :force => true do |t|
     t.integer  "idea_posting_id"

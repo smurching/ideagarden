@@ -1,6 +1,7 @@
 class IdeaPostingsController < ApplicationController
   # GET /idea_postings
   # GET /idea_postings.json
+
   before_filter :login_filter, :except => [:index, :show, :search, :filter_by_followers]
   before_filter :registration_filter, :except => [:index, :show, :search, :filter_by_followers]
   
@@ -112,13 +113,13 @@ class IdeaPostingsController < ApplicationController
   end
 
 
+
   # GET /idea_postings/1
   # GET /idea_postings/1.json
   def show
     @idea_posting = IdeaPosting.find(params[:id])
     @user = current_user
     @check = true
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @idea_posting }
@@ -197,12 +198,10 @@ class IdeaPostingsController < ApplicationController
   # DELETE /idea_postings/1
   # DELETE /idea_postings/1.json
   def destroy
-    
     @idea_posting = IdeaPosting.find(params[:id])
     if @idea_posting.users.exists?(current_user.id)
          @idea_posting.destroy
     end
-
     respond_to do |format|
       format.html { redirect_to idea_postings_url }
       format.json { head :no_content }

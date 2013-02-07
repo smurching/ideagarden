@@ -39,8 +39,6 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.find(params[:id])
   end
 
-  # POST /feedbacks
-  # POST /feedbacks.json
 
   def create
     @idea_posting = IdeaPosting.find(params[:idea_posting_id]) # set idea posting variable, should be 'load_idea_posting' method
@@ -76,6 +74,7 @@ class FeedbacksController < ApplicationController
       end
     end
   end
+
   
   def new_reply
     @idea_posting = IdeaPosting.find(params[:id]) #posting is passed in as an instance variable so that its ID can be passed to the create action
@@ -124,5 +123,4 @@ class FeedbacksController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
 end

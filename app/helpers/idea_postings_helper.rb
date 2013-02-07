@@ -1,4 +1,5 @@
 module IdeaPostingsHelper
+
   def from_followed_user?(feedback) 
     feedback_creator = User.find(feedback.user_id)
     if logged_in?
@@ -9,4 +10,5 @@ module IdeaPostingsHelper
       return false  
     end 
   end
+
 end

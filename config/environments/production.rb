@@ -19,6 +19,7 @@ Ideagarden::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
+
   
   config.action_mailer.smtp_settings = {
   address: "smtp.gmail.com",
@@ -31,6 +32,7 @@ Ideagarden::Application.configure do
   }
   
   config.action_mailer.default_url_options = { host: "ideagarden.herokuapp.com" }
+
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

@@ -1,11 +1,11 @@
 class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
+
   before_filter :login_filter, :except => [:new, :create]
   def index
     @user = User.find(params[:user_id])
     @profile = @user.profile
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @profiles }
@@ -34,7 +34,6 @@ class ProfilesController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @profile = @user.build_profile(params[:profile])
-
     respond_to do |format|
       @user.confirmation_code = Array.new(20).map{rand(10)}.join
       UserMailer.welcome_email(@user).deliver
@@ -65,7 +64,6 @@ class ProfilesController < ApplicationController
   # PUT /profiles/1.json
   def update
     @profile = Profile.find(params[:id])
-
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
         format.html { redirect_to root_path, notice: 'Profile was successfully updated.' }
@@ -82,7 +80,6 @@ class ProfilesController < ApplicationController
   def destroy
     @profile = Profile.find(params[:id])
     @profile.destroy
-
     respond_to do |format|
       format.html { redirect_to profiles_url }
       format.json { head :no_content }

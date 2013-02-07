@@ -16,6 +16,7 @@ class SessionsController < ApplicationController
     reset_session
     redirect_to root_path, :notice => "You successfully logged out"
   end
+
   
   def new
     respond_to do |format|
@@ -37,5 +38,4 @@ class SessionsController < ApplicationController
   end
   
 end
-
 

@@ -1,13 +1,16 @@
 class UsersController < ApplicationController
 
 
+
   def index
     @users = User.all
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
     end
   end
+
 
   def show
     @user = User.find(params[:id])
@@ -28,6 +31,7 @@ class UsersController < ApplicationController
     end
   end
 
+
   def create #email to confirm user is sent after profile is created - it is therefore in the profiles#create
     if params[:user] != nil
       if params[:user][:password_hash].length < 6
@@ -40,7 +44,6 @@ class UsersController < ApplicationController
      @user = User.new(:email => params[:email], :password_hash => params[:password_hash])
      @user.password_hash = @user.password_create(@user.password_hash)
    end
-
     respond_to do |format|
       if @user.save
         format.html { redirect_to new_user_profile_path(@user.id), notice: 'User was successfully created.' }
@@ -51,12 +54,15 @@ class UsersController < ApplicationController
       end
     end
   end
+
   
 
   def edit
     @user = User.find(params[:id])
   end
   
+
+
   def update
     @user = User.find(params[:id])
 
@@ -70,6 +76,7 @@ class UsersController < ApplicationController
       end
     end
   end
+
 
 
   #

@@ -4,6 +4,7 @@ Ideagarden::Application.routes.draw do
 
 
 
+
 #  match '/idea_postings/:id/joinrequest_id/' => "joinrequests#create", as "joinrequest_path"
     
   root to:"idea_postings#index"
@@ -11,6 +12,7 @@ Ideagarden::Application.routes.draw do
   resources :idea_postings do
     resources :feedbacks
     resources :joinrequests
+
   end
   
   resources :users do
