@@ -73,6 +73,8 @@ Ideagarden::Application.routes.draw do
 
   match '/sessions/new_login_or_register' => 'sessions#create_login_or_register', as: 'create_login_or_register'  
   match '/existing_user' => 'users#existing_user', as: 'existing_user_path'
+  
+  match '/idea_postings/:idea_posting_id/feedbacks/:id/update' => "feedbacks#update", as: 'update_idea_posting_feedback'
 
   
   # The priority is based upon order of creation:

@@ -17,9 +17,9 @@ end
   validates :email, :uniqueness => true
   validates :password_hash, :confirmation => true
   validates :email, :format => {:with => /\A[a-zA-Z0-9]+@[a-zA-Z]+[.][a-zA-Z.]+\z/, :message => 'is not valid. Please input a valid email address'}  
-  attr_accessible :email, :password_hash, :email_confirmation, :password_hash_confirmation, :posting_votes
+  attr_accessible :email, :email_confirmation, :password_hash_confirmation, :posting_votes
   #unaccessible attributes: reset_code, confirmation_code
-  
+  attr_accessor :accessible
 
   
   has_one :profile
@@ -57,6 +57,10 @@ end
  def self.password_create(new_password)
   @password = Password.create(new_password)
   self.password_hash = @password
+ end
+ 
+ def mass_assignment_authorizer(accessible)
+    super + (accessible || [])
  end
  
 end

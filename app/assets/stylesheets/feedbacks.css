@@ -35,7 +35,7 @@
 	text-decoration: none;	
 }
 
-.reply_link {
+.reply_link, .edit_link, .delete_link {
 
 	font-weight: bold;
 	COLOR: #000000;
