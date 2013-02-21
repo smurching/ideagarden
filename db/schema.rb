@@ -11,25 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123074026) do
-
-  create_table "confirmcodes", :force => true do |t|
-    t.string   "code"
-    t.string   "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
+ActiveRecord::Schema.define(:version => 20130216082819) do
 
   create_table "feedbacks", :force => true do |t|
     t.integer  "idea_posting_id"
     t.integer  "user_id"
     t.string   "name"
-
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.boolean  "private"
-    t.integer  "reply_id"
     t.integer  "feedback_id"
     t.text     "body"
     t.integer  "help",            :default => 0
@@ -54,22 +44,16 @@ ActiveRecord::Schema.define(:version => 20130123074026) do
     t.string   "name"
     t.string   "pitch"
     t.text     "description"
-    
-
     t.datetime "published_at"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.boolean  "IsOwner",      :default => false
-    t.integer  "OwnerID",      :default => -1
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.integer  "potential",    :default => 0
-
   end
 
   create_table "idea_postings_users", :id => false, :force => true do |t|
     t.integer "idea_posting_id"
     t.integer "user_id"
   end
-
 
   create_table "join_requests_mades", :force => true do |t|
     t.integer  "idea_posting_id"
@@ -103,13 +87,6 @@ ActiveRecord::Schema.define(:version => 20130123074026) do
     t.datetime "photo_updated_at"
   end
 
-  create_table "reset_codes", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "code"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -119,7 +96,6 @@ ActiveRecord::Schema.define(:version => 20130123074026) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-
 
   create_table "tags", :force => true do |t|
     t.integer  "idea_posting_id"
@@ -132,16 +108,14 @@ ActiveRecord::Schema.define(:version => 20130123074026) do
     t.string   "email"
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
-    t.string   "password_digest"
     t.string   "password_hash"
-    t.string   "confirmation_code"
-    t.boolean  "confirmed"
-    t.text     "confirm_code"
     t.string   "reset_code"
     t.datetime "reset_code_timestamp"
     t.boolean  "admin",                :default => false
     t.boolean  "teacher",              :default => false
+    t.string   "confirmation_code"
     t.string   "posting_votes"
+    t.boolean  "confirmed",            :default => false
   end
 
 end

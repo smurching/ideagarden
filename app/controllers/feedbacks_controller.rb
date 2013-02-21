@@ -36,7 +36,16 @@ class FeedbacksController < ApplicationController
 
   # GET /feedbacks/1/edit
   def edit
+    @editing = true
+    @idea_posting = IdeaPosting.find(params[:idea_posting_id])
     @feedback = Feedback.find(params[:id])
+    if current_user.feedbacks.exists?(@feedback.id) && Time.now-@feedback.created_at < 3600 
+      respond_to do |format|
+        format.js
+      end
+    else
+      redirect_to root_path, notice: "You don't have permission to do that"
+    end
   end
 
 
@@ -62,21 +71,29 @@ class FeedbacksController < ApplicationController
   # PUT /feedbacks/1
   # PUT /feedbacks/1.json
   def update
-    @feedback = Feedback.find(params[:id])
-
+    @feedback = Feedback.find(params[:id])    
+    if current_user.feedbacks.exists?(@feedback.id) && Time.now-@feedback.created_at < 3600 #write something here that checks how old feedback is    
     respond_to do |format|
       if @feedback.update_attributes(params[:feedback])
-        format.html { redirect_to @feedback, notice: 'Feedback was successfully updated.' }
+        @updated = true
+        format.html { redirect_to root_path, notice: 'Feedback was successfully updated.' }
         format.json { head :no_content }
+        format.js
       else
-        format.html { render action: "edit" }
+        @updated = false
+        format.html { redirect_to edit_feedback_path(@feedback.id), notice: "Errors prevented your edits from being saved" }
         format.json { render json: @feedback.errors, status: :unprocessable_entity }
+        format.js 
       end
+      end
+    else
+      redirect_to root_path, notice: "You don't have permission to do that"
     end
   end
 
   
   def new_reply
+    @replying = true
     @idea_posting = IdeaPosting.find(params[:id]) #posting is passed in as an instance variable so that its ID can be passed to the create action
     @feedback = Feedback.find(params[:feedback_id]) #parent feedback
     respond_to do |format|
@@ -84,19 +101,22 @@ class FeedbacksController < ApplicationController
       format.js 
     end
   end
+  
   def cancel_reply #there should be a better way of doing this - cancel buttons should be available to all controllers
     @idea_posting = IdeaPosting.find(params[:id])
     @feedback = Feedback.find(params[:feedback_id])
     respond_to do |format|
-      format.html {redirect_to idea_posting_path}
+      format.html {redirect_to idea_posting_path(@idea_posting.id)}
       format.js
     end
   end
+  
   def create_reply
     @idea_posting = IdeaPosting.find(params[:id])
     @feedback = Feedback.find(params[:feedback_id])
     if @feedback.private == nil || @idea_posting.users.include?(current_user)
     @child = @feedback.feedbacks.new(params[:feedback])
+    @child.idea_posting_id = @idea_posting.id
     respond_to do |format|
       if @child.save
         current_user.feedbacks << @child #Sets user_id of feedback to the ID of the current user
@@ -115,12 +135,19 @@ class FeedbacksController < ApplicationController
   # DELETE /feedbacks/1
   # DELETE /feedbacks/1.json
   def destroy
+    @id = params[:id]
+    @idea_posting = IdeaPosting.find(params[:idea_posting_id])
     @feedback = Feedback.find(params[:id])
+    if current_user.feedbacks.exists?(@feedback.id) && @feedback.feedbacks == []  #write something here that checks how old feedback is   
     @feedback.destroy
-
-    respond_to do |format|
-      format.html { redirect_to feedbacks_url }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to idea_posting_path(@idea_posting.id) }
+        format.json { head :no_content }
+        format.js
+      end
+    else
+      redirect_to root_path, notice: "You don't have permission to do that"
     end
+    
   end
 end

@@ -10,5 +10,13 @@ module FeedbacksHelper
       return false  
     end 
   end
+  
+  def posted_by_user?(feedback, user)
+    if user.feedbacks.exists?(feedback)
+      return true
+    else
+      return false
+    end
+  end
 
 end
