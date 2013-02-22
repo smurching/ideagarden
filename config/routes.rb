@@ -15,6 +15,8 @@ Ideagarden::Application.routes.draw do
 
   end
   
+  resources :private_messages
+    
   resources :users do
     resources :profiles
   end

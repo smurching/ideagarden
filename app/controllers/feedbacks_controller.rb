@@ -116,7 +116,6 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.find(params[:feedback_id])
     if @feedback.private == nil || @idea_posting.users.include?(current_user)
     @child = @feedback.feedbacks.new(params[:feedback])
-    @child.idea_posting_id = @idea_posting.id
     respond_to do |format|
       if @child.save
         current_user.feedbacks << @child #Sets user_id of feedback to the ID of the current user

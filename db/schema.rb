@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130216082819) do
+ActiveRecord::Schema.define(:version => 20130221094353) do
 
   create_table "feedbacks", :force => true do |t|
     t.integer  "idea_posting_id"
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(:version => 20130216082819) do
   create_table "private_messages", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.text     "body"
+    t.integer  "user_id"
   end
 
   create_table "profiles", :force => true do |t|
@@ -85,6 +87,14 @@ ActiveRecord::Schema.define(:version => 20130216082819) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+  end
+
+  create_table "recipients", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "private_message_id"
+    t.boolean  "active"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "sessions", :force => true do |t|

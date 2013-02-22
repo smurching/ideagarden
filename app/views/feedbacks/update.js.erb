@@ -1,8 +1,8 @@
 
 $('.feedback_error').hide();
 <%if @updated %>
-$('#feedback_<%=@feedback.id%> >>> .reply_link').unbind('click', false).css('color', 'black');
-$('#feedback_<%=@feedback.id%> >>> .edit_link').unbind('click', false).css('color', 'black');
+$('#feedback_<%=@feedback.id%> >>>> .reply_link').unbind('click', false).css('color', 'black');
+$('#feedback_<%=@feedback.id%> >>>> .edit_link').unbind('click', false).css('color', 'black');
 $('#feedback_<%=@feedback.id%> >>> .reply_form').remove(); /* the reply form div selected in this line was inserted into the div_for(feedback) div in new_reply.js.erb */
 $('#feedback_<%=@feedback.id%> >>>> #feedback_body').html('<%=j @feedback.body %>');
 

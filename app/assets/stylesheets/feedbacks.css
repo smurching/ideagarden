@@ -2,6 +2,7 @@
 
 .feedback {
   clear: both;  
+  padding-top:10px;
 }
 
 .feedback_content {
@@ -43,7 +44,8 @@
 
 .reply {
     position: relative;
-    left: 50px;    
+    padding-left:10px;
+
 }
 
 .feedback_error{
@@ -51,6 +53,13 @@
 }
 .topic {
    position: relative;
+}
+
+.child_feedbacks {
+	border-left: 2px solid rgb(183,213,121);
+	position:relative;
+	left:30px;
+	
 }
 
 .cancel_reply_button {

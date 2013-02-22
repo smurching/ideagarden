@@ -17,6 +17,8 @@
  	<span id = "feedback_body">
     <%= feedback.body %> </span>
     </div> 
+    
+    <div class = "feedback_links">
     <%if logged_in?%>
       <%= link_to 'Reply', new_reply_path(@idea_posting.id, feedback.id), class: "reply_link", remote: true%>
       <% if current_user.feedbacks.exists?(feedback) && Time.now-feedback.created_at < 3600%>
@@ -26,12 +28,14 @@
      	 <%end%>
       <% end %>
     <%end%>
+    </div>
 
 
   	</div>
   	<br />
-  	<%= render feedback.feedbacks%>
+  	<div class = "child_feedbacks"> <%= render feedback.feedbacks%> </div>
   	</div>
+  	
  	<% end %>
 
 

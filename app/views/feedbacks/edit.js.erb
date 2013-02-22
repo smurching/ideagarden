@@ -29,7 +29,7 @@ $('#feedback_<%=@feedback.id%>').each(function(){
 
 });
 
-$('#feedback_<%=@feedback.id%> >>> .edit_link').after('<div class = "reply_form"><br/><%= j render('form')%></div>'); 
+$('#feedback_<%=@feedback.id%> >>> .feedback_links').after('<div class = "reply_form"><br/><%= j render('form')%></div>');
 
  
 /* form is inserted after link to allow it to remain within the div for the parent feedback
@@ -37,8 +37,8 @@ $('#feedback_<%=@feedback.id%> >>> .edit_link').after('<div class = "reply_form"
  * (e.g. if the user has two forms open to reply to two different parent feedbacks, he can submit one form without hiding the other)
  */ 
 
-$('#feedback_<%=@feedback.id%> >>> .edit_link').css("color", 'grey').bind('click', false);
-$('#feedback_<%=@feedback.id%> >>> .reply_link').css("color", 'grey').bind('click', false);
+$('#feedback_<%=@feedback.id%> >>>> .edit_link').css("color", 'grey').bind('click', false);
+$('#feedback_<%=@feedback.id%> >>>> .reply_link').css("color", 'grey').bind('click', false);
 
 
 

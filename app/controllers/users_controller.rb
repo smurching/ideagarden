@@ -37,16 +37,17 @@ class UsersController < ApplicationController
       if params[:user][:password_hash].length < 6
         return redirect_to new_user_path, notice: 'Password must be at least six characters long'
       end
-      @user = User.new() #password_hash won't be assigned if it's protected from mass-assignment - it currently is not.
+      @user = User.new #password_hash won't be assigned if it's protected from mass-assignment - it currently is not.
       @user.accessible = [:password_hash]
-      @user.update_attributes(params[:user])      
+      @user.attributes = params[:user]      
       @user.password_hash = @user.password_create(@user.password_hash)
 
       
    else
-     @user = User.new(:email => params[:email], :password_hash => params[:password_hash])
-     @user.password_hash = @user.password_create(@user.password_hash)
-     @user.accessible = [:password_hash]     
+     @user = User.new
+     @user.accessible = [:password_hash]
+     @user.email = params[:email]
+     @user.password_hash = @user.password_create(params[:password_hash])
    end
     respond_to do |format|
       if @user.save

@@ -29,6 +29,7 @@ end
   has_many :join_requests_mades
   has_many :followings #follows many people - this is worded weirdly but that's what it means
   has_many :followers
+  has_many :private_messages
   serialize :posting_votes, Array
   
   
@@ -52,14 +53,14 @@ end
     else
       return @user 
     end
-  end
+ end
   
  def self.password_create(new_password)
   @password = Password.create(new_password)
   self.password_hash = @password
  end
  
- def mass_assignment_authorizer(accessible)
+ def mass_assignment_authorizer(role = :default)
     super + (accessible || [])
  end
  
