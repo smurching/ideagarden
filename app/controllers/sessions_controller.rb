@@ -4,11 +4,18 @@ class SessionsController < ApplicationController
     #if @user.password == params[:password]
     user = User.login(params[:email], params[:password_hash])
     if user != false
+      @logged_in = true
       session[:user_id] = user.id
-      redirect_to root_path, :notice => "Logged in successfully"
+      respond_to do |format|
+        format.html {redirect_to root_path, :notice => "Logged in successfully"}
+        format.js      
+      end
     else
-      flash.now[:alert] = "Invalid email/password combination"
-      render :action => 'new'
+      @logged_in = false
+      respond_to do |format|
+        format.html {render 'new', :notice => "Invalid username/password combination"}
+        format.js  
+      end
     end
   end
 
@@ -31,11 +38,7 @@ class SessionsController < ApplicationController
     end
   end
   
-  def create_login_or_register
-    if params[:password_confirmation_hash] == nil #if user isn't registering, then do the following
-      
-    end
-  end
+
   
 end
 

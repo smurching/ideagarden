@@ -28,11 +28,13 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
+      format.js
     end
   end
 
 
   def create #email to confirm user is sent after profile is created - it is therefore in the profiles#create  
+  @profile = Profile.new
     if params[:user] != nil
       if params[:user][:password_hash].length < 6
         return redirect_to new_user_path, notice: 'Password must be at least six characters long'
@@ -51,11 +53,15 @@ class UsersController < ApplicationController
    end
     respond_to do |format|
       if @user.save
+        @user_created = true
         format.html { redirect_to new_user_profile_path(@user.id), notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
+        format.js {render 'profiles/new'}
       else
+        @user_created = false
         format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.js {render 'profiles/new'}
       end
     end
   end

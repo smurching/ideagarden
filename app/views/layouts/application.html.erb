@@ -18,15 +18,11 @@
       	<%= link_to 'Welcome, '+current_user.profile.name, user_profiles_path(current_user.id)%> |
         <%= link_to 'New Idea Posting', new_idea_posting_path %> |
         <%= link_to "Logout", logout_path %> |
-		<%= link_to "Pending Requests ("+number_of_requests.to_s+")", list_joinrequests_path, :id => "pending_requests"%> |		
-		
-		<% if false %>
-		<%= "THIS BLOCK IS DISABLED AS OF NOW BECAUSE EMAIL CONFIRMATION + PASSWORD REST REQUESTS HAVEN'T BEEN INTEGRATED "%>
-		<%= link_to 'Password Reset Request', show_pw_reset_path %> |
-		<%end%>
-		<%= link_to "Followed Users", show_following_path %> |
+		<%= link_to "Requests ("+number_of_requests.to_s+")", list_joinrequests_path, :id => "pending_requests"%> |		
+		<%= link_to "Following", show_following_path %> |
 		<%= link_to "Followers", show_followers_path %> |
-		<%= link_to 'Search Posts ', search_path %>
+		<%= link_to 'Search', search_path %> |
+		<%= link_to 'Inbox', private_messages_path %>
       	<%end%>
         
 	  <% if logged_in? && registration_complete? == false %>
@@ -45,7 +41,7 @@
         
       <% if logged_in? == false %>
         <%= link_to "Login", login_path, :id => "login", :remote => true %> |         
-        <%= link_to 'Register', new_user_path %> |
+        <%= link_to 'Register', new_user_path, :id => "register", :remote => true%> |
         <%= link_to 'Search Posts ', search_path %> |
         <%= link_to 'Forgot password?', new_pw_reset_path%>
 

@@ -77,7 +77,7 @@ Ideagarden::Application.routes.draw do
   match '/existing_user' => 'users#existing_user', as: 'existing_user_path'
   
   match '/idea_postings/:idea_posting_id/feedbacks/:id/update' => "feedbacks#update", as: 'update_idea_posting_feedback'
-
+  match '/private_messages/filter' => "private_messages#filter", as: 'filter_private_messages'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,19 @@
+<%if @user_created%>
+$('#wrapper').html('<%= j render("profiles/form")%>');
+$('.new_profile').before('<h2><%="Step 2/3:"%> </h2> <h3> <%= "Fill out your profile" %></h3>');
+
+
+$('.login_or_register_form').each(function(){
+	$(this).remove();
+	$('#login_filter').hide();
+});
+
+
+
+
+
+
+
+<%else%>
+
+<%end%>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221094353) do
+ActiveRecord::Schema.define(:version => 20130222234637) do
 
   create_table "feedbacks", :force => true do |t|
     t.integer  "idea_posting_id"
@@ -71,10 +71,12 @@ ActiveRecord::Schema.define(:version => 20130221094353) do
   end
 
   create_table "private_messages", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.text     "body"
     t.integer  "user_id"
+    t.boolean  "active",       :default => true
+    t.integer  "recipient_id"
   end
 
   create_table "profiles", :force => true do |t|

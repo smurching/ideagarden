@@ -15,7 +15,7 @@
       <%= feedback.created_at.to_formatted_s(:normal_format)%> <br/>
       <%= link_to feedback.user.profile.name, user_profiles_path(feedback.user_id) %> said: <br/>
  	<span id = "feedback_body">
-    <%= feedback.body %> </span>
+    <%= simple_format(feedback.body) %> </span>
     </div> 
     
     <div class = "feedback_links">
@@ -32,7 +32,6 @@
 
 
   	</div>
-  	<br />
   	<div class = "child_feedbacks"> <%= render feedback.feedbacks%> </div>
   	</div>
   	

@@ -36,7 +36,7 @@ class ProfilesController < ApplicationController
     @profile = @user.build_profile(params[:profile])
     respond_to do |format|
       @user.confirmation_code = Array.new(20).map{rand(10)}.join
-      UserMailer.welcome_email(@user).deliver
+      # UserMailer.welcome_email(@user).deliver
       if @profile.save && @user.save 
         case
         when @user.email["gmail.com"] != nil
@@ -53,9 +53,11 @@ class ProfilesController < ApplicationController
         @registration_string = @email_url != nil ? "Please confirm your registration at "+@email_url : "Please check your email for a confirmation link."
         format.html { redirect_to root_path, notice: 'Profile was successfully created. '+@registration_string }
         format.json { render json: @profile, status: :created, location: @profile }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
