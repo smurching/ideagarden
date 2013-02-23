@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(:version => 20130222234637) do
 
+  create_table "confirmcodes", :force => true do |t|
+    t.string   "code"
+    t.string   "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "feedbacks", :force => true do |t|
     t.integer  "idea_posting_id"
     t.integer  "user_id"
@@ -97,6 +104,13 @@ ActiveRecord::Schema.define(:version => 20130222234637) do
     t.boolean  "active"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+  end
+
+  create_table "reset_codes", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "sessions", :force => true do |t|
