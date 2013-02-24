@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Ideagarden" %></title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner row-fixed">
+            <ul class="nav pull-right">
+              <li><%= link_to 'Find a Post', search_path %></li>
+              <% if logged_in? == false %>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Login</a>
+                  <ul class="dropdown-menu pull-right">
+                    <%= form_tag session_path, :class => "new_session" do %>
+                      <div class="field">
+                        <%= label_tag :email %><br />
+                        <%= text_field_tag :email %>
+                      </div>
+                      <div class="field">
+                        <%= label_tag "Password" %><br />
+                        <%= password_field_tag :password_hash %>
+                      </div>
+                      <div class="actions">
+                        <%= submit_tag 'Login' %>
+                      </div>
+                    <% end %>
+                  </ul>
+                </li>
+              <% end %>
+              <li><a>   </a></li><!--for margin-->
+            </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container-fixed">
+      <h1><%= link_to image_tag('logo.png', id: 'logo'), root_path %></h1>
+    </div><!--end container-->
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "application" %>
+
+  </body>
+</html>
