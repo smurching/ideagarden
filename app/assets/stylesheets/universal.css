@@ -4,18 +4,22 @@ html {
 a img {
   border: none;
   -ms-interpolation-mode: bicubic;
-
 }
 
 
 body {
-  margin: 0px;
-  padding: 0px;
-  color: #333;
-  height:100%;
+  margin-top: 40px;
 }
 
 /* PAGE NAV */
+
+#main-content {
+  box-shadow: 0px 0px 10px #999;
+}
+
+.dropdown-menu {
+  padding: 15%;
+}
 
 #header {
   background-color:#F1F1F1;
