@@ -17,9 +17,9 @@ end
   validates :email, :uniqueness => true
   validates :password_hash, :confirmation => true
   validates :email, :format => {:with => /\A[a-zA-Z0-9]+@[a-zA-Z]+[.][a-zA-Z.]+\z/, :message => 'is not valid. Please input a valid email address'}  
-  attr_accessible :email, :password_hash, :email_confirmation, :password_hash_confirmation, :posting_votes
+  attr_accessible :email, :email_confirmation, :password_hash_confirmation, :posting_votes
   #unaccessible attributes: reset_code, confirmation_code
-  
+  attr_accessor :accessible
 
   
   has_one :profile
@@ -29,6 +29,7 @@ end
   has_many :join_requests_mades
   has_many :followings #follows many people - this is worded weirdly but that's what it means
   has_many :followers
+  has_many :private_messages
   serialize :posting_votes, Array
   
   
@@ -52,11 +53,15 @@ end
     else
       return @user 
     end
-  end
+ end
   
  def self.password_create(new_password)
   @password = Password.create(new_password)
   self.password_hash = @password
+ end
+ 
+ def mass_assignment_authorizer(role = :default)
+    super + (accessible || [])
  end
  
 end

@@ -1,5 +1,9 @@
 
-<%= form_for(@feedback.feedbacks.new, :remote => true, :id => "public_feedback_form", :url => create_reply_path(@idea_posting.id, @feedback.id)) do |f| %>
+<% if @replying %>
+
+<%= form_for(@feedback.feedbacks.new, :remote => true, :id => "public_feedback_form", :url => 
+create_reply_path(@idea_posting.id, @feedback.id)) do |f| %>
+
   	<% if @feedback.errors.any? %>
       <div id="error_explanation">
       <h2><%= pluralize(@feedback.errors.count, "error") %> prohibited this feedback from being saved:</h2>
@@ -12,6 +16,33 @@
   <% end %>
   
     <%= f.text_area :body %><br />
-    <%= f.submit "Reply", :class => "submit_reply" %> 
+    <%= f.submit "Reply", :class => "submit_feedback", :id => "submit_reply" %>
 <% end %>
 <%= button_to "Cancel", cancel_reply_path(@idea_posting.id, @feedback.id), :remote => true %>
+
+
+<%end%>
+
+
+<%if @editing %>
+
+<%= form_for(@feedback, :remote => true,
+ :id => "public_feedback_form", :url => update_idea_posting_feedback_path) do |f| %>
+
+  	<% if @feedback.errors.any? %>
+      <div id="error_explanation">
+      <h2><%= pluralize(@feedback.errors.count, "error") %> prohibited this feedback from being saved:</h2>
+      <ul><
+      <% @feedback.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+    <%= f.text_area :body %><br />
+    <%= f.submit "Update", :class => "submit_feedback", :id => "submit_update"%>
+<% end %>
+<%= button_to "Cancel", cancel_reply_path(@idea_posting.id, @feedback.id), :remote => true %>
+
+<%end%>

@@ -1,0 +1,7 @@
+<%= form_tag(private_messages_path) do %>
+  <%= label_tag "Recipient" %> <br/>
+  <%= text_field_tag :recipient %> <br/>
+  <%= label_tag "Body" %> <br/>
+  <%= text_field_tag :body %> <br/>
+  <%= submit_tag "Submit" %>
+<%end%>

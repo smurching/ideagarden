@@ -9,6 +9,8 @@
  $(function() {
  $('#search_filters').submitOnCheck(); 
  $('#search_submit_tag').hide();
+ $('body').prepend(
+	'<div id ="login_filter"></div>');
  $('#login_filter').hide();   
 
  })();

@@ -28,29 +28,40 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
+      format.js
     end
   end
 
 
-  def create #email to confirm user is sent after profile is created - it is therefore in the profiles#create
+  def create #email to confirm user is sent after profile is created - it is therefore in the profiles#create  
+  @profile = Profile.new
     if params[:user] != nil
       if params[:user][:password_hash].length < 6
         return redirect_to new_user_path, notice: 'Password must be at least six characters long'
       end
-      @user = User.new(params[:user]) #password_hash won't be assigned if it's protected from mass-assignment - it currently is not.
+      @user = User.new #password_hash won't be assigned if it's protected from mass-assignment - it currently is not.
+      @user.accessible = [:password_hash]
+      @user.attributes = params[:user]      
       @user.password_hash = @user.password_create(@user.password_hash)
+
       
    else
-     @user = User.new(:email => params[:email], :password_hash => params[:password_hash])
-     @user.password_hash = @user.password_create(@user.password_hash)
+     @user = User.new
+     @user.accessible = [:password_hash]
+     @user.email = params[:email]
+     @user.password_hash = @user.password_create(params[:password_hash])
    end
     respond_to do |format|
       if @user.save
+        @user_created = true
         format.html { redirect_to new_user_profile_path(@user.id), notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
+        format.js {render 'profiles/new'}
       else
+        @user_created = false
         format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.js {render 'profiles/new'}
       end
     end
   end
@@ -65,7 +76,6 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }

@@ -61,6 +61,12 @@ module Ideagarden
     
     # Heroku requires the line below:
     config.assets.initialize_on_precompile = false
+    
+    config.time_zone = 'Pacific Time (US & Canada)'
+    
+    config.active_record.default_timezone = :local
+    
+    
 
   end
 end

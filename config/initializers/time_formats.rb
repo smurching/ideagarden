@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:normal_format] = "At %H:%M %p on %m/%d/%Y"

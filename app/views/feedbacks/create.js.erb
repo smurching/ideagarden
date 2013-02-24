@@ -1,9 +1,9 @@
-$('.feedback_error').hide();
+$('.feedback_error').remove();
 
 
 <% if @failed_to_post %>
 
-$('.new_feedback').show().before('<p class="feedback_error"><%= j "Message must be between 10 and 1000 characters" %></p>');
+$('.new_feedback').before('<br/><p class="feedback_error"><%= j "Message must be between 10 and 1000 characters" %></p>');
 
 <%else%>
 
@@ -13,10 +13,10 @@ $('.new_feedback').show().before('<p class="feedback_error"><%= j "Message must 
 	*/
 	
 	<%unless @feedback.private %>
-		$('#feedback_body').val("");
+		$('.new_feedback > #feedback_body').val("");
 		$('#existing_feedback').append('<%= j render(@feedback)%>');
 	<%else%>
-		$('#private_feedback_body').val("");
+		$('.new_feedback > #private_feedback_body').val("");
 		$('#existing_private_feedback').append('<%= j render(@feedback)%>');
 	<%end%>
 	

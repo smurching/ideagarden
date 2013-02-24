@@ -1,0 +1,21 @@
+<div id = "pm_links">
+<%= link_to "New conversation", new_private_message_path %>
+
+
+
+</div>
+
+
+<%= form_tag(filter_private_messages_path, :remote => true, :id => "search_filters") do |f| %>
+
+<% @tags.each do |tag| %>
+
+<%= check_box_tag(tag,tag)%>
+<%= label_tag(tag,tag, :class => "search_filter")%>
+
+<%end%>
+<%= submit_tag("Filter Messages", :id => "search_submit_tag")%>
+
+<%end%>
+
+<%= render(@private_messages)%>

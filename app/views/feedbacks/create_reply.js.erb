@@ -2,12 +2,13 @@
 $('.feedback_error').remove();
 <%unless @failed_to_post%>
 $('#feedback_<%=@feedback.id%> >>> .reply_link').unbind('click', false).css('color', 'black');
+$('#feedback_<%=@feedback.id%> >>> .edit_link').unbind('click', false).css('color', 'black');
 $('#feedback_<%=@feedback.id%> >>> .reply_form').remove(); /* the reply form div selected in this line was inserted into the div_for(feedback) div in new_reply.js.erb */
 
 <%if @feedback.topic%>
-$('#feedback_<%=@feedback.id%> > .topic').append('<%= j render(@child) %>');
+$('#feedback_<%=@feedback.id%> > .topic > .child_feedbacks').append('<%= j render(@child) %>');
 <%else%>
-$('#feedback_<%=@feedback.id%> > .reply').append('<%= j render(@child) %>');
+$('#feedback_<%=@feedback.id%> > .reply > .child_feedbacks').append('<%= j render(@child) %>');
 <%end%>
 
 $('#feedback_<%=@feedback.id%>').each(function(){
