@@ -26,6 +26,9 @@ class SessionsController < ApplicationController
 
   
   def new
+    if defined? params[:register]
+      redirect_to new_user_path
+    end
     respond_to do |format|
       format.html
       format.js

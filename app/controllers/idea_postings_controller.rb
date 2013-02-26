@@ -7,6 +7,7 @@ class IdeaPostingsController < ApplicationController
   
   def index
     @idea_postings = IdeaPosting.desc.all
+    @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @idea_postings }

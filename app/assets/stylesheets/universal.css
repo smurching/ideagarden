@@ -13,16 +13,18 @@ body {
 
 /* PAGE NAV */
 
-#main-content {
-  box-shadow: 0px 0px 10px #999;
+.main-content {
 }
 
 .dropdown-menu {
   padding: 15%;
 }
 
+.header {
+  margin-bottom: 3%;
+}
+
 #header {
-  background-color:#F1F1F1;
   height: 85px;
   width: 100%;
   position: absolute;
@@ -44,9 +46,10 @@ body {
 
 #logo {
   float: left;
-  margin-left: 70px;
-  margin-top:10px; 
-  width:200px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-left: 50px;
+  width:100px;
 }
 
 #logo:hover {
@@ -75,10 +78,6 @@ body {
 /* */
 
 #wrapper {
-  margin-top: 150px;
-  width: 850px;
-  margin-right:auto;
-  margin-left:auto;
 }
 
 a {

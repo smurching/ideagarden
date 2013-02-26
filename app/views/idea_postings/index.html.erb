@@ -1,73 +1,86 @@
 
-<%if @email_url != nil%>
-<p>
-Please confirm your email to complete your registration: <br/>
-<%= link_to "Inbox", @email_url%>
-</p>
-<%end%>
+<div class="filters well span2">
+  <h3>Search Posts</h3>
+  <%= form_tag(search_path, :remote => true, :id => "search_filters") do |f| %> 
+  <% @tags.each do |tag| %> 
+  <label class="checkbox">
+    <%= check_box_tag(tag,tag) + tag %>
+  </label> 
+  <%end%>
 
-<% if @followed_users_only == true %>
-<h1 id="index_heading">Followed Users' Posts</h1>
-<%else%>
-	<% if @followers_only == true %>
-		<h1 id="index_heading">Followers' Posts</h1>
-	<%else%>
-		<h1 id="index_heading">Idea Postings</h1>
-	<% end %>
-<%end%>
+  <%= submit_tag("Submit search", :id => "search_submit_tag")%> 
+  <%end%>
+</div>
+<div class="well span10">
+  <%if @email_url != nil%>
+  <p>
+  Please confirm your email to complete your registration: <br/>
+  <%= link_to "Inbox", @email_url%>
+  </p>
+  <%end%> 
 
-<%if current_user != nil%>
+  <% if @followed_users_only == true %>
+  <h2 id="index_heading">Followed Users' Posts</h2>
+  <%else%>
+  	<% if @followers_only == true %>
+  		<h1 id="index_heading">Followers' Posts</h1>
+  	<%else%>
+  		<h2 id="index_heading">Idea Postings</h2>
+  	<% end %>
+  <%end%> 
 
-<%= form_tag(filter_by_followers_path, :remote => true, :id => "search_filters") do |f| %>
-<%= check_box_tag("followed users' posts", "value")%>
-<%= label_tag("followed_users_label","Followed Users' Posts")%>
-<%= check_box_tag("followers' posts","value")%>
-<%= label_tag("followers_label","Followers' posts")%>
-<%= submit_tag("Filter Posts", :id => "search_submit_tag")%>
-<%end%>
+  <%if current_user != nil%>  
 
-<%end%>
+  <%= form_tag(filter_by_followers_path, :remote => true, :id => "search_filters") do |f| %>
+  <%= check_box_tag("followed users' posts", "value")%>
+  <%= label_tag("followed_users_label","Followed Users' Posts")%>
+  <%= check_box_tag("followers' posts","value")%>
+  <%= label_tag("followers_label","Followers' posts")%>
+  <%= submit_tag("Filter Posts", :id => "search_submit_tag")%>
+  <%end%> 
 
-<br/>
-<div id="index_posting_list">
-<%= div_for(@idea_postings) do |idea_posting| %>
-  <div class = 'voting'>
-  	<div class = 'voting_button'>
-    <% if logged_in? %>
-      <% if current_user.posting_votes.include? idea_posting.id %>
-        <%= button_to '+', unvote_path(idea_posting.id), :class => "vote_button unvote_button", :remote => true %>
+  <%end%> 
+
+  <br/>
+  <div id="index_posting_list">
+  <%= div_for(@idea_postings) do |idea_posting| %>
+    <div class = 'voting'>
+    	<div class = 'voting_button'>
+      <% if logged_in? %>
+        <% if current_user.posting_votes.include? idea_posting.id %>
+          <%= button_to '+', unvote_path(idea_posting.id), :class => "vote_button unvote_button", :remote => true %>
+        <% else %>
+          <%= button_to '+', upvote_path(idea_posting.id), :class => "vote_button upvote_button", :remote => true %>
+        <% end %>
       <% else %>
         <%= button_to '+', upvote_path(idea_posting.id), :class => "vote_button upvote_button", :remote => true %>
       <% end %>
-    <% else %>
-      <%= button_to '+', upvote_path(idea_posting.id), :class => "vote_button upvote_button", :remote => true %>
-    <% end %>
+      </div>
+      <div class = 'potential'>
+        <%= idea_posting.potential %>
+      </div>
     </div>
-    <div class = 'potential'>
-      <%= idea_posting.potential %>
+    <div class = 'posting'>
+      <div class = 'thumbnail'></div>
+      <div class = 'brief'>
+        <h2 class = 'title'><%= link_to idea_posting.name, idea_posting %></h2>
+        <p class = 'owners'>by <% idea_posting.users.each do |user| %><%= link_to user.profile.name + ", ", user_profiles_path(user.id) %><% end %></p>
+        <h3 class = 'pitch'>Pitch: <%= simple_format(idea_posting.pitch) %></h3>
+        <h3 class = "tags">Tags: 
+  		<% if idea_posting.tags.length >= 2%>
+        	<% (0..idea_posting.tags.length-2).each do |int| %>
+      	<%= idea_posting.tags[int].value+", " %>
+      	<% end %>
+      	<%= idea_posting.tags.last.value%>  
+      	<%else%>
+      	<% idea_posting.tags.each do |tag| %>
+      	<%= tag.value%>
+      	<%end%>
+      	<%end%>
+        </h3>
+      </div>
     </div>
-  </div>
-  <div class = 'posting'>
-    <div class = 'thumbnail'></div>
-    <div class = 'brief'>
-      <h2 class = 'title'><%= link_to idea_posting.name, idea_posting %></h2>
-      <p class = 'owners'>by <% idea_posting.users.each do |user| %><%= link_to user.profile.name + ", ", user_profiles_path(user.id) %><% end %></p>
-      <h3 class = 'pitch'>Pitch: <%= simple_format(idea_posting.pitch) %></h3>
-      <h3 class = "tags">Tags: 
-		<% if idea_posting.tags.length >= 2%>
-      	<% (0..idea_posting.tags.length-2).each do |int| %>
-    	<%= idea_posting.tags[int].value+", " %>
-    	<% end %>
-    	<%= idea_posting.tags.last.value%>  
-    	<%else%>
-    	<% idea_posting.tags.each do |tag| %>
-    	<%= tag.value%>
-    	<%end%>
-    	<%end%>
-      </h3>
-    </div>
-  </div>
-<% end %>
+  <% end %>
+  </div>  
 </div>
-
-  
+    
