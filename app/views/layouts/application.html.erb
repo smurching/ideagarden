@@ -34,7 +34,7 @@
 	  	 <% unless current_user.confirmed == true %>
 	  	 	<%= link_to 'Resend Confirmation Email', resend_user_confirmation_path%> |
 	  	 <%end%>
-	  	 <%= link_to "Logout", logout_path %> |
+	  	 <%= link_to "Logout", logout_path, :remote => true%> |
 	  	 <%= link_to 'Search Posts ', search_path %>
 	  <%end%> 
 

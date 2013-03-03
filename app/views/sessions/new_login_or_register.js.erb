@@ -37,7 +37,7 @@ $('#password_hash').click(function(){
 		$('#register_please').remove();
 		if (response_value=="false"){
 			$('#confirm_password').show();
-			$('.login_or_register_form').attr('action', 'users');
+			$('.login_or_register_form').attr('action', '/users');
 		    $('#confirm_password').before('<p id = "register_please"><%= j "We couldn't find a user with that email. Please change the email, or confirm your password to register!" %></p>');
 		    
 		    var email_position = $('#email').position();
@@ -48,7 +48,7 @@ $('#password_hash').click(function(){
 		
 		else{
 			$('#confirm_password').hide();
-		    $('.login_or_register_form').attr('action', 'session')
+		    $('.login_or_register_form').attr('action', '/session')
 
 
 		}

@@ -36,7 +36,7 @@ class ProfilesController < ApplicationController
     @profile = @user.build_profile(params[:profile])
     respond_to do |format|
       @user.confirmation_code = Array.new(20).map{rand(10)}.join
-      # UserMailer.welcome_email(@user).deliver
+      UserMailer.welcome_email(@user).deliver
       if @profile.save && @user.save 
         case
         when @user.email["gmail.com"] != nil

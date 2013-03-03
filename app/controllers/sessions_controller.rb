@@ -21,7 +21,10 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_path, :notice => "You successfully logged out"
+    respond_to do |format|
+      format.html {redirect_to root_path, :notice => "You successfully logged out"}
+      format.js 
+    end
   end
 
   
