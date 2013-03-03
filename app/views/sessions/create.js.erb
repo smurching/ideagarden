@@ -1,8 +1,7 @@
 $('.notice').remove();
 $('#password_hash').before('<p id = "login_failed"><%= j "Invalid username/password combination" %></p>');
 $('#login_failed').hide();
-
-
+ 
 
 <%if @logged_in %>
 
@@ -13,23 +12,21 @@ $('#login_failed').hide();
 		$('.login_or_register_form').remove();
 		
 	<%else%>
+
 		$('#navLinks').html('<%= link_to "Logout", logout_path, :remote => true %> | <%= link_to 'Search Posts ', search_path %>');
 		$('#login_filter').hide();
 		$('.login_or_register_form').remove();
-		
 		<%if current_user.profile == nil %>
 			 $('#navLinks').prepend('<%= link_to 'Complete Profile', new_user_profile_path(current_user.id) %> |');
 		<%end%>
-		
-		<%if current_user.confirmed != true %>
+
+		 <%if current_user.confirmed != true %>
    			$('#navLinks').prepend('<%= link_to 'Resend Confirmation Email', resend_user_confirmation_path %>');
 		 <%end%>
-		  
 	<%end%>
-<%else%>
 
-		var email_position = $('#email').position(); 
+<%else%>
+		var email_position = $('#email').position();
 		$('#login_failed').show();
 		$('#login_failed').css({'top' : email_position.top-18, 'left' : email_position.left+170, 'position' : 'absolute'});						
- 
 <%end%>
