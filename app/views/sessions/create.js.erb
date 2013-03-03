@@ -1,6 +1,7 @@
 $('.notice').remove();
+$('#login_failed').remove();
 $('#password_hash').before('<p id = "login_failed"><%= j "Invalid username/password combination" %></p>');
-$('#login_failed').hide();
+
  
 
 <%if @logged_in %>
@@ -28,5 +29,6 @@ $('#login_failed').hide();
 <%else%>
 		var email_position = $('#email').position();
 		$('#login_failed').show();
-		$('#login_failed').css({'top' : email_position.top-18, 'left' : email_position.left+170, 'position' : 'absolute'});						
+		$('#login_failed').css({'top' : email_position.top-18, 'left' : email_position.left+170, 'position' : 'absolute'});
+		$('.new_session').css({'width':'300px'});						
 <%end%>
