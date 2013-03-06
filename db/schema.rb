@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222234637) do
+ActiveRecord::Schema.define(:version => 20130303121328) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
@@ -113,6 +113,14 @@ ActiveRecord::Schema.define(:version => 20130222234637) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "senders", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "private_message_id"
+    t.boolean  "active"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -142,6 +150,8 @@ ActiveRecord::Schema.define(:version => 20130222234637) do
     t.string   "confirmation_code"
     t.string   "posting_votes"
     t.boolean  "confirmed",            :default => false
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
   end
 
 end

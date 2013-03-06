@@ -31,6 +31,10 @@ end
   has_many :followers
   has_many :private_messages
   serialize :posting_votes, Array
+  has_many :recipients
+  has_many :private_messages, :through => :recipients
+  has_many :senders
+  has_many :users, :through => :senders
   
   
   #BCRYPT STUFF STARTS HERE
@@ -64,4 +68,7 @@ end
     super + (accessible || [])
  end
  
+ def name
+   return self.profile.name
+ end
 end

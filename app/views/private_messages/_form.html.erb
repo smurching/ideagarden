@@ -1,7 +1,39 @@
+
+<%if false%>
+
 <%= form_tag(private_messages_path) do %>
-  <%= label_tag "Recipient" %> <br/>
-  <%= text_field_tag :recipient %> <br/>
+  <%= label_tag "Recipients" %> <br/>
+  <%= text_field_tag :recipients %> <br/>
   <%= label_tag "Body" %> <br/>
   <%= text_field_tag :body %> <br/>
   <%= submit_tag "Submit" %>
+<%end%>
+
+<%end%>
+
+<%if false %>
+<%= form_for(@private_message) do |f| %>
+	<%= f.label "Recipients" %> <br/>
+	<%= f.collection_select :recipient_ids, User.all, :id, :name, {}, {multiple: true}%> <br/>
+
+	<%= f.label :body %>	<br/>
+	<%= f.text_field :body %> <br/>
+
+	<%= f.submit %>
+<%end%>
+<%end%>
+
+<%if true%>
+
+<%= form_for(@private_message) do |f| %>
+	<div class = "field">
+		<%= f.label :user_tokens, "Recipients"%><br/>
+		<%= f.text_field :user_tokens, data: {load: @private_message.users} %> <br/>
+	</div>
+	<%= f.label :body %>	<br/>
+	<%= f.text_field :body %> <br/>
+
+	<%= f.submit %>
+<%end%>
+
 <%end%>

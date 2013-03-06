@@ -11,6 +11,7 @@ class PrivateMessagesController < ApplicationController
     respond_to do |format|
       format.html
       format.js
+      format.json { render json: @private_messages}
     end
   end
   
@@ -27,18 +28,18 @@ class PrivateMessagesController < ApplicationController
   end
   
   def create
-    @recipient = User.find(Profile.find_by_name(params[:recipient]).user_id)
-    @private_message = PrivateMessage.new(:body => params[:body], :recipient_id => @recipient.id, :user_id => current_user.id)
+    @private_message = PrivateMessage.new(params[:private_message])
+    @private_message.user_ids << params[:recipient_ids]
     if @private_message.save
       @message_saved = true
       respond_to do |format|
-        format.html redirect_to private_messages_path, notice: "Message sent"
+        format.html {redirect_to private_messages_path, notice: "Message sent"}
         format.js
       end
     else
       @message_saved = false
       respond_to do |format|
-        format.html redirect_to new_private_message_path, notice: "Errors prevented your message from being sent"
+        format.html {redirect_to new_private_message_path, notice: "Errors prevented your message from being sent"}
         format.js
       end
     end

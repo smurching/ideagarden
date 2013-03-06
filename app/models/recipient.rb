@@ -1,3 +1,4 @@
 class Recipient < ActiveRecord::Base
-  # attr_accessible :title, :body
+  has_one :user
+  has_one :private_message
 end
