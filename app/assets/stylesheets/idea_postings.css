@@ -127,6 +127,19 @@ h1 {
   width: 445px;
 }
 
+.state > p {
+  min-height: 0px;
+  word-wrap: break-word;
+  width: 445px;
+}
+
+
+.state {
+  min-height: 0px;
+  word-wrap: break-word;
+  width: 445px;
+}
+
 .title, .owners {
   display: inline
 }

@@ -1,49 +1,64 @@
 
-<h2>Posting Details</h2>
+<!--tabs-->
+<div id="content">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#idea_details" data-toggle="tab">Idea Details</a></li>
+        <li><a href="#public_comments" data-toggle="tab">Public Comments</a></li>
+        <li><a href="#private_comments" data-toggle="tab">Private Comments</a></li>
+    </ul>
 
-<%= render @idea_posting %>
+    <div id="my-tab-content" class="tab-content">
+    	
+    	<!--public comments-->
+        <div class="tab-pane" id="public_comments">
+			<h2>Feedback</h2>
 
-<p>----------------------------</p>
+			<div class="feedback" id ="existing_feedback"><%= render @idea_posting.public_feedbacks %></div> 
+			<br/>
+			<p>----------------------------</p>
 
-<h2>Feedback</h2>
+			<% if logged_in? %>
+				<h2>Add feedback</h2>
+				<%= form_for([@idea_posting, @idea_posting.feedbacks.new], :remote => true, :id => "public_feedback_form") do |f| %>
+				    <%= f.text_area :body, :id => "feedback_body", :style => "width:95%;" %><br /><br />
+				    <%= f.hidden_field :topic, :value => true%>
+				    <%= f.submit 'Provide feedback' %>
+				<% end %>
+			<% end %>
+	
+        </div>
+        
+        <!--private comments-->
+        <div class="tab-pane" id="private_comments">
+        	<% if logged_in? %>
+            	<% if @idea_posting.users.exists?(current_user.id) || current_user.teacher || current_user.admin %>
+					<h2>Private Discussion</h2>
+					<div id="existing_private_feedback">
+						<%= render @idea_posting.private_feedbacks%>
+					</div>
+					<p>----------------------------</p>
+		
+					<h2>Add private feedback</h2>
+					<%= form_for([@idea_posting, @idea_posting.feedbacks.new], :remote => true, :id => "private_feedback_form") do |f| %>
+					    <%= f.text_area :body, :id => "private_feedback_body", :style => "width:95%;" %><br />
+					    <%= f.hidden_field(:private, :value => true)%>
+					    <%= f.hidden_field :topic, :value => true%>    
+					    <%= f.submit 'Provide feedback' %>
+					<% end %>
+					
+				<% end %> 
+			<%end%>
+        </div>
+        
+        
+        <!--posting details-->
+        <div class="tab-pane active" id="idea_details">
+            <%= render @idea_posting %>
+        </div>
+        
+    </div>
+</div>
 
-<div class="feedback" id ="existing_feedback"><%= render @idea_posting.public_feedbacks %></div> 
-<br/>
-<p>----------------------------</p>
-
-<% if logged_in? %>
-<h2>Add feedback</h2>
-<%= form_for([@idea_posting, @idea_posting.feedbacks.new], :remote => true, :id => "public_feedback_form") do |f| %>
-    <%= f.label :body %><br />
-    <%= f.text_area :body, :id => "feedback_body"%><br />
-    <%= f.hidden_field :topic, :value => true%>
-    <%= f.submit 'Provide feedback' %>
-<% end %>
-<br/>
-
-<p>----------------------------</p>
-
-<br />
-<% if @idea_posting.users.exists?(current_user.id) || current_user.teacher || current_user.admin %>
-	<h2>Private Discussion</h2>
-	<div id="existing_private_feedback">
-	<%= render @idea_posting.private_feedbacks%>
-	</div>
-	<p>----------------------------</p>
-
-	<h2>Add private feedback</h2>
-	<%= form_for([@idea_posting, @idea_posting.feedbacks.new], :remote => true, :id => "private_feedback_form") do |f| %>
-    <%= f.label :body %><br />
-    <%= f.text_area :body, :id => "private_feedback_body" %><br />
-    <%= f.hidden_field(:private, :value => true)%>
-    <%= f.hidden_field :topic, :value => true%>    
-    <%= f.submit 'Provide feedback' %>
-<% end %>
-
-<br/>
-<p>----------------------------</p>
-<% end %> 
-<%end%>
 
 
 <%= link_to 'Back', idea_postings_path %>

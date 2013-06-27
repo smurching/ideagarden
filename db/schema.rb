@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222234637) do
+ActiveRecord::Schema.define(:version => 20130619193402) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
@@ -52,9 +52,10 @@ ActiveRecord::Schema.define(:version => 20130222234637) do
     t.string   "pitch"
     t.text     "description"
     t.datetime "published_at"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.integer  "potential",    :default => 0
+    t.boolean  "state",        :default => false
   end
 
   create_table "idea_postings_users", :id => false, :force => true do |t|

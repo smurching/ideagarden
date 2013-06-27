@@ -5,6 +5,8 @@ class IdeaPostingsController < ApplicationController
   before_filter :login_filter, :except => [:index, :show, :search, :filter_by_followers]
   before_filter :registration_filter, :except => [:index, :show, :search, :filter_by_followers]
   
+  
+  
   def index
     @idea_postings = IdeaPosting.desc.all
     respond_to do |format|

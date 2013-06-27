@@ -1,6 +1,6 @@
 class IdeaPosting < ActiveRecord::Base
 
-  attr_accessible :name, :pitch, :description, :user_id, :potential
+  attr_accessible :name, :pitch, :description, :user_id, :potential, :state
   # validates :tags, :format => {:in => %w(technology, art, music, biology, chemistry, physics, math, science, english, literature,foreign language)}
   validates :pitch, :length => {:within => 10..110}
   validates :name, :length => {:within => 10..50}  

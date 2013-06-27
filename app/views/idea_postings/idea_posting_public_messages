@@ -5,30 +5,29 @@
     <%= link_to idea_posting.name, idea_posting %>
   </h3>
   
+  <!--tabs-->
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="">Home</a>
+    </li>
+    <li><a href="?public_chat=true">Public Chat</a></li>
+    <li><a href="?private_chat=true">Private Chat</a></li>
+  </ul>
+  
   <!--User Header-->
   <table cellpadding="5">
 	<tr>
   		<td id="menu" style="float:left; background-color:#EEEEEE;">
 			<img src="https://profile-a.xx.fbcdn.net/hprofile-ash4/c178.0.604.604/s160x160/252231_1002029915278_1941483569_n.jpg", alt="Profile Picture" width="100" height="100">
   		</td>
-  		<td id="content" width="90%" style="background-color:#EEEEEE;">
-    		
-    		<div style="font-size:18px;">
-    			<b><%= idea_posting.pitch %></b>
-    		</div>
-
-    		<div style="font-size:16px;"> 
-    		 <% @idea_posting.users.each do |user| %>
-				<%= link_to user.profile.name, user_profiles_path(user.id) %>
-			<% end %>
-			</div>
-			
+  		<td id="content" style="background-color:#EEEEEE; font-size:18px; width:90%">
+    		<%= idea_posting.pitch %><br/>
+    		<br/> 
  			<% if idea_posting.state == true %>
     			<span class="badge badge-success">Under Execution</span>	      	
    			<% else %>
   				<span class="badge badge-info">In Development</span>	      	
- 			<% end %>
-			 	
+ 			<% end %> 	
   		</td>
   	</tr>
   </table>
@@ -81,4 +80,11 @@
   
   <br/>
   
+  <p>----------------------------</p>
+
+<h2>Owners</h2>
+<% @idea_posting.users.each do |user| %>
+<p><%= link_to user.profile.name, user_profiles_path(user.id) %></p>
+<% end %>
+
 <% end %>
