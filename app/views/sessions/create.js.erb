@@ -1,30 +1,34 @@
-$('.notice').hide()
+$('.notice').remove();
+$('#login_failed').remove();
+$('#password_hash').before('<p id = "login_failed"><%= j "Invalid username/password combination" %></p>');
+
+ 
+
 <%if @logged_in %>
-	$('#login_filter').hide();
-	$('.login_or_register_form').remove();
-	$('.new_session').remove();	
-	<%if registration_complete? %>
-		$('#navLinks').html('<%= j link_to 'Welcome, '+current_user.profile.name, user_profiles_path(current_user.id)%> | <%= link_to 'New Idea Posting', new_idea_posting_path %> | <%= link_to "Logout", logout_path, :remote => true %> | <%= link_to "Requests ("+number_of_requests.to_s+")", list_joinrequests_path, :id => "pending_requests"%> |	<%= link_to "Following", show_following_path %> | <%= link_to "Followers", show_followers_path %> | <%= link_to 'Search', search_path %> | <%= link_to 'Inbox', private_messages_path %>');
 
-	<%elsif current_user.profile == nil && current_user.confirmed != true %>
-		$('#navLinks').html('<%= j link_to 'Complete Profile', new_user_profile_path(current_user.id) %> | <%= link_to 'Resend Confirmation Email', resend_user_confirmation_path%> | <%= link_to "Logout", logout_path, :remote => true %> | <%= link_to 'Search Posts ', search_path %>');
-	
-	<%elsif current_user.profile == nil %>
-		$('#navLinks').html('<%= j link_to 'Complete Profile', new_user_profile_path(current_user.id) %> |  <%= link_to "Logout", logout_path, :remote => true %> | <%= link_to 'Search Posts ', search_path %>');
+	 <%if registration_complete? %>
+		$('.new_session').remove();
+		$('#navLinks').html('<%= j link_to 'Welcome, '+current_user.profile.name, user_profiles_path(current_user.id)%> | <%= link_to 'New Idea Posting', new_idea_posting_path %> | <%= link_to "Logout", logout_path, :remote => true %> | <%= link_to "Requests ("+number_of_requests.to_s+")", list_joinrequests_path, :id => "pending_requests"%> |	 <%= link_to "Following", show_following_path %> | <%= link_to "Followers", show_followers_path %> | <%= link_to 'Search', search_path %> | <%= link_to 'Inbox', private_messages_path %>');
+		$('#login_filter').hide();
+		$('.login_or_register_form').remove();
 		
-	<%elsif current_user.confirmed == false%>
-		$('#navLinks').html('<%= j link_to 'Resend Confirmation Email', resend_user_confirmation_path%> | <%= link_to "Logout", logout_path, :remote => true %> | <%= link_to 'Search Posts ', search_path %>');	
-		
-	<%end%>		
-	
+	<%else%>
 
-		
-		
+		$('#navLinks').html('<%= link_to "Logout", logout_path, :remote => true %> | <%= link_to 'Search Posts ', search_path %>');
+		$('#login_filter').hide();
+		$('.login_or_register_form').remove();
+		<%if current_user.profile == nil %>
+			 $('#navLinks').prepend('<%= link_to 'Complete Profile', new_user_profile_path(current_user.id) %> |');
+		<%end%>
+
+		 <%if current_user.confirmed != true %>
+   			$('#navLinks').prepend('<%= link_to 'Resend Confirmation Email', resend_user_confirmation_path %>');
+		 <%end%>
+	<%end%>
+
 <%else%>
-	$('#password_hash').before('<p id = "login_failed"><%= j "Invalid username + password combination" %></p>');
-	$('.new_session').css({'width' : '300px'});						
-	var email_position = $('#email').position();
-	$('#login_failed').css({'top' : email_position.top-18, 'left' : email_position.left+170, 'position' : 'absolute'});	
-
+		var email_position = $('#email').position();
+		$('#login_failed').show();
+		$('#login_failed').css({'top' : email_position.top-18, 'left' : email_position.left+170, 'position' : 'absolute'});
+		$('.new_session').css({'width':'300px'});						
 <%end%>
-
