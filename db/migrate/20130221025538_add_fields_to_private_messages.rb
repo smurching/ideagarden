@@ -1,8 +1,10 @@
 class AddFieldsToPrivateMessages < ActiveRecord::Migration
   def change
+    
     unless column_exists? :private_messages, :body
       add_column :private_messages, :body, :text
     end
+    
     unless column_exists? :private_messages, :user_id
       add_column :private_messages, :user_id, :integer
     end
