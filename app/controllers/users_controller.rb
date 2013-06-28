@@ -35,6 +35,8 @@ class UsersController < ApplicationController
 
   def create #email to confirm user is sent after profile is created - it is therefore in the profiles#create  
   @profile = Profile.new
+  
+    # if user signed up through html registration form
     if params[:user] != nil
       if params[:user][:password_hash].length < 6
         return redirect_to new_user_path, notice: 'Password must be at least six characters long'
@@ -44,17 +46,31 @@ class UsersController < ApplicationController
       @user.attributes = params[:user]      
       @user.password_hash = @user.password_create(@user.password_hash)
 
-      
+   #if user signed up through facebook   
+   elsif params[:facebook] == "true"
+     @user = User.new 
+     @user.email = params[:email]    
+     @user.facebook = true
+     @user.profile = Profile.new
+     @user.profile.name =  params[:firstname]+" "+params[:lastname]
+     @user.profile.save(validate: false)     
+     
+   #if user signed up through javascript popup (e.g. when user tries to vote without logging in)
    else
      @user = User.new
      @user.accessible = [:password_hash]
      @user.email = params[:email]
      @user.password_hash = @user.password_create(params[:password_hash])
    end
+   
     respond_to do |format|
       if @user.save
+        if @user.facebook
+          @user.profile.user_id = @user.id
+          @user.profile.save(validate: false)
+        end         
         @user_created = true
-        format.html { redirect_to new_user_profile_path(@user.id), notice: 'User was successfully created.' }
+        format.html { redirect_to new_user_profile_path(@user.id), notice: 'Registration successful! Please take a moment to fill out a profile' }
         format.json { render json: @user, status: :created, location: @user }
         format.js {render 'profiles/new'}
       else

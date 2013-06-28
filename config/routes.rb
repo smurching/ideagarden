@@ -24,6 +24,15 @@ Ideagarden::Application.routes.draw do
   resource :session
   match '/login' => "sessions#new", as: "login"
   match '/logout' => "sessions#destroy", as: "logout"
+  
+  #facebook login/registration
+  match '/fb_login' => "sessions#create", as: "fb_login"
+  match '/fb_register' => "users#create", as: "fb_register"
+  match '/users/:user_id/profiles' => "profiles#create", as: "fb_profile_create", :via => :put
+  
+  #facebook posting
+  match '/idea_postings/:id/fb_post' => "idea_postings#fb_post", as: "fb_post"
+  match '/idea_postings/:id/fb_share' => "idea_postings#share_fb_post", as: "share_fb_post"
 
   # potential rating
   match '/:id/upvote' => 'votes#posting_vote', as: 'upvote'
@@ -78,6 +87,11 @@ Ideagarden::Application.routes.draw do
   
   match '/idea_postings/:idea_posting_id/feedbacks/:id/update' => "feedbacks#update", as: 'update_idea_posting_feedback'
   match '/private_messages/filter' => "private_messages#filter", as: 'filter_private_messages'
+  
+  #login with facebook
+  match 'auth/:provider/callback' => 'sessions#create', as: "facebook_login"
+  match 'auth/failure' => 'idea_postings#index', as: "facebook_login_fail"
+
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

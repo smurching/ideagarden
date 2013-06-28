@@ -1,4 +1,53 @@
+<%if session[:facebook] != true%>
+
 <%= form_for(@idea_posting) do |f| %>
+  <% if @idea_posting.errors.any? %>
+    <div id="error_explanation">
+
+      <h2><%= pluralize(@idea_posting.errors.count, "error") %> prohibited this idea posting from being saved:</h2>
+
+      <ul>
+      <% @idea_posting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %><br />
+  </div>
+
+  <div class="field">
+    <%= f.label :pitch %><br />
+    <%= f.text_field :pitch %><br />
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %><br />
+  </div>
+
+
+
+<% @tags.each do |tag| %>
+
+<%= check_box_tag(tag,tag)%>
+<%= label_tag(tag,tag)%>
+
+<%end%>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<%elsif false%>
+
+
+<%= form_for(@idea_posting, :remote => true) do |f| %>
   <% if @idea_posting.errors.any? %>
     <div id="error_explanation">
 
@@ -44,6 +93,6 @@
   </div>
 <% end %>
 
-
+<%end%>
 
 

@@ -134,9 +134,9 @@ class IdeaPostingsController < ApplicationController
       # @idea_posting.tags.new({:value => "cake"})
       @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]
       respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @idea_posting }
-    end
+        format.html # new.html.erb
+        format.json { render json: @idea_posting }
+      end
     else
       return redirect_to root_path
     end
@@ -160,17 +160,26 @@ class IdeaPostingsController < ApplicationController
     # for tag in @tags
     #  @idea_posting.tags.new({:value => tag.name})
     # end
-    respond_to do |format|
-      if @idea_posting.save
-        current_user.idea_postings << @idea_posting #idea_posting added to current user
-        @idea_posting.users << User.find(current_user.id) #current user added to idea_posting's list of owners
-        format.html { redirect_to @idea_posting, notice: 'Idea posting was successfully created.' }
-        format.json { render json: @idea_posting, status: :created, location: @idea_posting }
-      else
-        format.html { render "new" }
-        format.json { render json: @idea_posting.errors, status: :unprocessable_entity }
+    
+
+      respond_to do |format|
+        if @idea_posting.save
+          current_user.idea_postings << @idea_posting #idea_posting added to current user
+          @idea_posting.users << User.find(current_user.id) #current user added to idea_posting's list of owners
+          
+          if session[:facebook]
+            format.js 
+          else
+            format.html { redirect_to @idea_posting, notice: 'Idea posting was successfully created.' }
+            format.json { render json: @idea_posting, status: :created, location: @idea_posting }
+          end        
+          
+        else
+          format.html { render "new" }
+          format.json { render json: @idea_posting.errors, status: :unprocessable_entity }
+        end
       end
-    end
+
   end
 
   # PUT /idea_postings/1

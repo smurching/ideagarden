@@ -1,0 +1,10 @@
+
+
+
+
+$.get("https://graph.facebook.com/me/ideagarden-dev:post_?access_token=<%=current_user.access_token%>&method=POST&idea=http%3A%2F%2Fsamples.ogp.me%2F481278298619258");
+
+$.get("/", function(data){
+	$("body").html(data);
+	
+});
