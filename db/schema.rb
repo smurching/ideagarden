@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130628013317) do
+ActiveRecord::Schema.define(:version => 20130628182904) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
