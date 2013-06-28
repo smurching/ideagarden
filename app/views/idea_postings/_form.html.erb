@@ -44,10 +44,10 @@
 <% end %>
 
 
-<%elsif false%>
+<%else %>
 
 
-<%= form_for(@idea_posting, :remote => true) do |f| %>
+<%= form_for(@idea_posting) do |f| %>
   <% if @idea_posting.errors.any? %>
     <div id="error_explanation">
 

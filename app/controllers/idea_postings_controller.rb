@@ -168,6 +168,7 @@ class IdeaPostingsController < ApplicationController
           @idea_posting.users << User.find(current_user.id) #current user added to idea_posting's list of owners
           
           if session[:facebook]
+            format.html { redirect_to @idea_posting, notice: "Idea posting was successfully created"}
             format.js 
           else
             format.html { redirect_to @idea_posting, notice: 'Idea posting was successfully created.' }

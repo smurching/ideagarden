@@ -19,7 +19,9 @@ class SessionsController < ApplicationController
     end
     
     # tries to log the user in through facebook callback information
-    user = User.find_by_email(request.info.email)
+    unless request == nil
+      user = User.find_by_email(request.info.email)
+    end
     
     # if facebook information doesn't match an existing user,
     # try to log in using information from a login form
