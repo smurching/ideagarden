@@ -1,3 +1,51 @@
 input[type="submit"]{
 	float:left;
 }
+
+.header {
+  border-bottom:1px solid black;
+  overflow:hidden;
+}
+
+h1 {
+  float:left;
+  margin:0px;
+  padding:0;
+
+}
+
+.header_right {
+  float:right;
+  margin:0px;
+  padding:0px;
+  font-size:20px;
+}
+
+.profile_pic {
+	padding-left:5px;
+	padding-right:5px;
+	padding-bottom:5px;	
+}
+
+.bio {
+	padding-right:5px;
+}
+
+.profile_body_container {
+   	overflow: hidden; /* add this to contain floated children */
+	background-color:#EEEEEE;
+   	padding-top:5px;
+	padding-bottom:5px;
+}
+.profile_body_left {
+    float:left; /* add this */
+}
+.profile_body_right {
+    float: left; /* add this */
+}
+
+
+.follow_edit_link { color: white; }
+a.follow_edit_link:hover, a.follow_edit_link:active, a.follow_edit_link:visited { color: white; }
+
+

@@ -64,4 +64,43 @@ end
     super + (accessible || [])
  end
  
+  def postings_commented_on
+   posting_list = []
+   copy = []
+   users_feedbacks = []
+   self.feedbacks.each do |feedback|
+     users_feedbacks << feedback
+   end
+   users_feedbacks.each do |feedback| # loop through the user's feedbacks
+      if feedback.idea_posting_id != nil  #if a feedback is a direct comment on a posting, add the posting to the list of postings
+        posting = IdeaPosting.find(feedback.idea_posting_id)
+        unless posting_list.include?(posting)
+          posting_list << posting
+        end         
+      # if a feedback (denoted x) is a reply to another piece of feedback,
+      # loop through all of x's parents until the result is a feedback
+      # that is a direct comment on a posting         
+ 
+            
+      else           
+        root_feedback_found = false
+        current_feedback = feedback 
+        while root_feedback_found == false
+          parent = Feedback.find(current_feedback.feedback_id) # parent is the piece of feedback that the current feedback belongs to
+          if parent.idea_posting_id != nil
+            root_feedback_found = true
+            posting = IdeaPosting.find(parent.idea_posting_id)
+            unless posting_list.include?(posting)
+              posting_list << posting
+            end
+          end        
+          users_feedbacks.delete(parent)
+          copy.delete(parent)          
+          current_feedback = parent
+        end
+      end
+     end
+ return posting_list   
+ end
+ 
 end
