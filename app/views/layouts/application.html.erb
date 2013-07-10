@@ -3,7 +3,7 @@
 
 
 <head>
-	
+  <link rel="canonical" href="http://ideagarden.herokuapp.com<%=object_page_path(@idea_posting.id)%>/" />	
   <title>Ideagarden</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
@@ -12,8 +12,8 @@
 	<meta property="fb:app_id"          content="480121678734920" /> 
 	<meta property="og:type"            content="ideagarden-dev:project_idea" /> 
 	<meta property="og:url"             content="http://ideagarden.herokuapp.com<%=object_page_path(@idea_posting.id)%>/" /> 
-	<meta property="og:title"           content=<%=@idea_posting.name%> /> 
-	<meta property="project_idea:pitch"    content=<%=@idea_posting.pitch%> />  
+	<meta property="og:title"           content="<%=@idea_posting.name%>" /> 
+	<meta property="project_idea:pitch"    content="<%=@idea_posting.pitch%>" /> 
   <%end%>  
   
 
