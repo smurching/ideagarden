@@ -113,7 +113,10 @@ class IdeaPostingsController < ApplicationController
     end
   end
 
-
+  def channel
+    #renders channel.html  
+  end
+  
   def opengraph_object
     @idea_posting = IdeaPosting.find(params[:id])
     if @idea_posting != nil
