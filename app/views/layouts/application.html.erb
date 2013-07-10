@@ -4,12 +4,12 @@
 
 <head>
   <title>Ideagarden</title>
-  	<link rel="canonical" href="http://ideagarden.herokuapp.com/opengraph_object/1/" />	  
+  <% if request.original_url.index("opengraph_object") != nil%>	  
 	<meta property="fb:app_id"          content="<%=ENV["FACEBOOK_APP_ID"]%>" /> 
 	<meta property="og:type"            content="ideagarden:project_idea" /> 
-	<meta property="og:url"             content="http://ideagarden.herokuapp.com/opengraph_object/1"  /> 
-	<meta property="og:title"           content="test title" /> 
-	<meta property="project_idea:pitch"    content="test pitch" /> 
+	<meta property="og:title"           content="<%=@idea_posting.name%>" /> 
+	<meta property="ideagarden:pitch"    content="<%=@idea_posting.pitch%>" />
+  <%end%> 
 
 
 
