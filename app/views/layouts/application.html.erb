@@ -4,12 +4,12 @@
 
 <head>
   <title>Ideagarden</title>
-  	<link rel="canonical" href="<%=request.original_url%>" />	    	
-  	<meta property="og:url"				content=<%=request.original_url%>/>	  
-	<meta property="fb:app_id"          content="<%=ENV["FACEBOOK_APP_ID"]%>" /> 
-	<meta property="og:type"            content="ideagarden:project_idea" /> 
-	
+
 	<%if @idea_posting != nil %>
+  	<link rel="canonical" href="<%=request.base_url+fb_object_path(@idea_posting.id)%>" />	    	
+  	<meta property="og:url"				content="<%=request.base_url+fb_object_path(@idea_posting.id)%>"/>	  
+	<meta property="fb:app_id"          content="<%=ENV["FACEBOOK_APP_ID"]%>" /> 
+	<meta property="og:type"            content="ideagarden:project_idea" /> 	
 	<meta property="og:title"           content="<%=@idea_posting.name%>" />
 	<meta property="og:title"           content="<%=@idea_posting.name%>" /> 
 	<meta property="ideagarden:pitch"    content="<%=@idea_posting.pitch%>" />
