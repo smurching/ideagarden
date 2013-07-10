@@ -5,9 +5,11 @@
 <head>
   <title>Ideagarden</title>
   <% if request.original_url.index("opengraph_object") != nil%>
-  	<link rel="canonical" href="<%=request.original_url%>" />	    		  
+  	<link rel="canonical" href="<%=request.original_url%>" />	    	
+  	<meta property="og:url"				content=<%=request.original_url%>/>	  
 	<meta property="fb:app_id"          content="<%=ENV["FACEBOOK_APP_ID"]%>" /> 
 	<meta property="og:type"            content="ideagarden:project_idea" /> 
+	<meta property="og:title"           content="<%=@idea_posting.name%>" />
 	<meta property="og:title"           content="<%=@idea_posting.name%>" /> 
 	<meta property="ideagarden:pitch"    content="<%=@idea_posting.pitch%>" />
   <%end%> 
