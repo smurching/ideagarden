@@ -33,6 +33,8 @@ gem 'jquery-rails'
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'omniauth-facebook'
+gem "faraday", "~> 0.8.7"
+# gem 'rest-graph'
 
 
 # To use Jbuilder templates for JSON

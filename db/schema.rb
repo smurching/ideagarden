@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130628182904) do
+ActiveRecord::Schema.define(:version => 20130706230505) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20130628182904) do
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "potential",    :default => 0
+    t.string   "opengraph_id"
   end
 
   create_table "idea_postings_users", :id => false, :force => true do |t|
@@ -153,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20130628182904) do
     t.boolean  "facebook",             :default => false
     t.string   "access_token"
     t.string   "facebook_id"
+    t.string   "confirm_code"
   end
 
 end

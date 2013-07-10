@@ -158,6 +158,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   cocaine
   coffee-rails (~> 3.2.1)
+  faraday (~> 0.8.7)
   heroku
   jquery-rails
   omniauth-facebook

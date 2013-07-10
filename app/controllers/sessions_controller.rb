@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
     
     # if user reached this URL by trying to register through facebook
     if params[:state] == "register"
+      #facebook returns a name string of "FirstName LastName" - split into the array [FirstName, LastName]
       name = request.info.name.split
       respond_to do |format|
         format.html {return redirect_to fb_register_path+"?email="+request.info.email+"&firstname="+name[0]+"&lastname="+name[1]+"&facebook=true"}

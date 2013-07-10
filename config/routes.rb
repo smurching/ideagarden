@@ -33,6 +33,7 @@ Ideagarden::Application.routes.draw do
   #facebook posting
   match '/idea_postings/:id/fb_post' => "idea_postings#fb_post", as: "fb_post"
   match '/idea_postings/:id/fb_share' => "idea_postings#share_fb_post", as: "share_fb_post"
+  match '/idea_postings/:id/opengraph_object' => "idea_postings#opengraph_object", as: "object_page"
 
   # potential rating
   match '/:id/upvote' => 'votes#posting_vote', as: 'upvote'

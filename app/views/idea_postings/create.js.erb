@@ -1,10 +1,50 @@
 
+<%
+
+%>
 
 
 
-$.get("https://graph.facebook.com/me/ideagarden-dev:post_?access_token=<%=current_user.access_token%>&method=POST&idea=http%3A%2F%2Fsamples.ogp.me%2F481278298619258");
 
-$.get("/", function(data){
-	$("body").html(data);
+<%if @posting_saved%>
+
+
+	<%if @post_to_facebook%>
+
+	$('#navbar').hide();
+
+
+	FB.api(
+  		'me/ideagarden-dev:post_',
+  		'post',
+  		{	
+			<%if false%>idea: "http://samples.ogp.me/481278298619258"<%end%>
+			idea: "http://localhost:3000/<%=@idea_posting.id%>/opengraph_object"
+			
+  		},
+  		function(response) {
+  			if (!response || response.error) {
+  				if (!response){
+    				alert('Error occured');  			
+  				}
+  				else{
+  					alert(response.message);
+  				} 
+  
+			}
+		});
+
+	<%end%>
 	
-});
+
+
+
+	$.get('<%= idea_posting_path(@idea_posting.id) %>', function(data){
+		$("body").html(data);
+		});
+
+<%else%>
+	
+
+<%end%>
+

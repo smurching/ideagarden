@@ -90,7 +90,7 @@ class IdeaPostingsController < ApplicationController
       end
     end
   else
-    @idea_postings = IdeaPosting.all
+    @idea_postings = IdeaPosting.order("potential DESC")
   end
     
 
@@ -113,6 +113,18 @@ class IdeaPostingsController < ApplicationController
   end
 
 
+  def opengraph_object
+    @idea_posting = IdeaPosting.find(params[:id])
+    if @idea_posting != nil
+      respond_to do |format|
+        format.html
+      end
+    else
+      respond_to do |format|
+        format.html {redirect_to root_path, notice: "Couldn't find this object"}
+      end
+    end
+  end
 
   # GET /idea_postings/1
   # GET /idea_postings/1.json
@@ -157,6 +169,11 @@ class IdeaPostingsController < ApplicationController
     @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]
     @idea_posting = IdeaPosting.new(params[:idea_posting])
     create_tags
+    if params[:fb_tag] == "true"
+      @post_to_facebook = true
+    else
+      @post_to_facebook = false
+    end
     # for tag in @tags
     #  @idea_posting.tags.new({:value => tag.name})
     # end
@@ -164,20 +181,46 @@ class IdeaPostingsController < ApplicationController
 
       respond_to do |format|
         if @idea_posting.save
+          @posting_saved = true          
           current_user.idea_postings << @idea_posting #idea_posting added to current user
           @idea_posting.users << User.find(current_user.id) #current user added to idea_posting's list of owners
-          
           if session[:facebook]
+            conn = Faraday.new(:url => 'https://graph.facebook.com') do |faraday|
+              faraday.request  :url_encoded             # form-encode POST params
+              faraday.response :logger                  # log requests to STDOUT
+              faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+            end
+
+            ## POST ##
+            # conn.post '/app/objects/ideagarden-dev:project_idea', { :access_token => current_user.access_token, :object => {:title => @idea_posting.name, :pitch => @idea_posting.pitch, :url => idea_posting_path(@idea_posting.id).to_s} }  
+            
+            # conn.post do |req|
+            #   req.url '/me/objects/ideagarden-dev:project_idea'
+            #   req.headers['Content-Type'] = 'application/json'
+              # req.body = '{"access_token": "'+current_user.access_token+'", "object" : {"title": "'+@idea_posting.name+'", "pitch": "'+@idea_posting.pitch+'", "url": "'+idea_posting_path(@idea_posting.id)+'"}}'
+              
+              # req.body = '{"object" : {"title": "'+@idea_posting.name+'", "pitch": "'+@idea_posting.pitch+'", "url": "'+idea_posting_path(@idea_posting.id)+'"}, "access_token": "'+current_user.access_token+'"}'
+              
+            #  puts req.body
+            #  @idea_posting.opengraph_id = response.id
+            # end
+            
+                     
+            @idea_posting.save              
             format.html { redirect_to @idea_posting, notice: "Idea posting was successfully created"}
+             # "https://graph.facebook.com/me/ideagarden-dev:post_?access_token="+current_user.access_token+"&method=POST&idea=http%3A%2F%2Fsamples.ogp.me%2F481278298619258" }
             format.js 
           else
             format.html { redirect_to @idea_posting, notice: 'Idea posting was successfully created.' }
             format.json { render json: @idea_posting, status: :created, location: @idea_posting }
+            format.js
           end        
           
         else
+          @posting_saved = false
           format.html { render "new" }
           format.json { render json: @idea_posting.errors, status: :unprocessable_entity }
+          format.js
         end
       end
 
