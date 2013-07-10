@@ -120,10 +120,6 @@ class IdeaPostingsController < ApplicationController
       respond_to do |format|
         format.html
       end
-    else
-      respond_to do |format|
-        format.html {redirect_to root_path, notice: "Couldn't find this object"}
-      end
     end
   end
 
