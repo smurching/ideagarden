@@ -1,22 +1,66 @@
 
+
 <%= div_for idea_posting, :class => "posting_details" do %>
+  
   <h3>
-    Name: <%= link_to idea_posting.name, idea_posting %>
+    <%= link_to idea_posting.name, idea_posting %>
   </h3>
-    <p>Pitch: <%= idea_posting.pitch %></p>
-    <p>Description: <%= simple_format(idea_posting.description) %></p>
+  
+  <!--User Header-->
+  <table cellpadding="5">
+	<tr>
+  		<td id="menu" style="float:left; background-color:#EEEEEE;">
+			<img src="https://profile-a.xx.fbcdn.net/hprofile-ash4/c178.0.604.604/s160x160/252231_1002029915278_1941483569_n.jpg", alt="Profile Picture" width="100" height="100">
+  		</td>
+  		<td id="content" width="90%" style="background-color:#EEEEEE;">
+    		
+    		<div style="font-size:18px;">
+    			<b><%= idea_posting.pitch %></b>
+    		</div>
+
+    		<div style="font-size:16px;"> 
+    		 <% @idea_posting.users.each do |user| %>
+				<%= link_to user.profile.name, user_profiles_path(user.id) %>
+			<% end %>
+			</div>
+			
+ 			<% if idea_posting.state == true %>
+    			<span class="badge badge-success">Under Execution</span>	      	
+   			<% else %>
+  				<span class="badge badge-info">In Development</span>	      	
+ 			<% end %>
+			 	
+  		</td>
+  	</tr>
+  </table>
+  <br/>
+
+  <!--description body-->    
+  <div style="clear:both;">
+    <%= simple_format(idea_posting.description) %>
+  </div>
+  
+  <!--images-->    
+  <div style="clear:both;">
+    <%= simple_format(idea_posting.description) %>
+  </div>  
+    
     <p>Tags: 
 		<% if idea_posting.tags.length >= 2%>
-      		<% (0..idea_posting.tags.length-2).each do |int| %>
-    			<%= idea_posting.tags[int].value %>, 
-    		<% end %>
-    		<%= idea_posting.tags.last.value%>  
+      		<% (0..idea_posting.tags.length-1).each do |int| %>
+    			<span class="label">
+    				<%= idea_posting.tags[int].value %>
+    			</span> 
+    		<% end %>  
     	<%else%>
     		<% idea_posting.tags.each do |tag| %>
+    		<span class="label">
     			<%= tag.value%>
+    		</span>
     		<%end%>
     	<%end%>
 	</p>
+</div>
 
   <% if @user != nil%>
 
@@ -24,17 +68,16 @@
   <div class = "modification_links">  
   	<%= link_to 'Edit', edit_idea_posting_path(idea_posting) %>
   	<%= link_to 'Destroy', idea_posting, method: :delete, data: { confirm: 'Are you sure?' } %>
-<a href="#" 
-  onclick="
-    window.open(
-      'https://www.facebook.com/sharer/sharer.php?'+
-      'u='+encodeURIComponent(location.href), 
-      'facebook-share-dialog', 
-      'width=626,height=436'); 
-    return false;">
-  Share on Facebook
-</a>
-  	
+	<a href="#" 
+  		onclick="
+    		window.open(
+      			'https://www.facebook.com/sharer/sharer.php?'+
+      			'u='+encodeURIComponent(location.href), 
+      			'facebook-share-dialog', 
+      			'width=626,height=436'); 
+        	return false;">
+  	Share on Facebook
+	</a>  	
   	
  </div>  	
   <%end%>
@@ -50,11 +93,4 @@
   
   <br/>
   
-  <p>----------------------------</p>
-
-<h2>Owners</h2>
-<% @idea_posting.users.each do |user| %>
-<p><%= link_to user.profile.name, user_profiles_path(user.id) %></p>
-<% end %>
-
 <% end %>

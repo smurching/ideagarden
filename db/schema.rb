@@ -52,10 +52,11 @@ ActiveRecord::Schema.define(:version => 20130706230505) do
     t.string   "pitch"
     t.text     "description"
     t.datetime "published_at"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.integer  "potential",    :default => 0
     t.string   "opengraph_id"
+    t.boolean  "state",        :default => false
   end
 
   create_table "idea_postings_users", :id => false, :force => true do |t|

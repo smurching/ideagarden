@@ -4,10 +4,15 @@ a{
 	text-decoration:none;
 	color:black;
 }
+
+a:hover{
+	text-decoration:none;
+}
 .idea_posting {
   clear: both;
 }
 
+.title
 
 .feedback{
   overflow: hidden;
@@ -45,6 +50,7 @@ a{
   float: left;
   text-align: center;
   margin-right: 10px;
+  margin-top: -15px;
 }
 
 .vote_button {
@@ -54,8 +60,12 @@ a{
   text-align: center;
   padding: 0px;
   color: #333;
+
+}
+
+input.vote_button{
   width: 30px;
-  height: 30px;
+  height: 30px;	
 }
 
 .upvote_button:hover {
@@ -73,6 +83,7 @@ a{
   color: #333;
 }
 
+
 .potential {
   margin-top:10px; 
   font-size: 20px;
@@ -82,7 +93,7 @@ a{
 /* idea_posting details */
 
 h1 {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .posting {
@@ -102,8 +113,8 @@ h1 {
 }
 
 .thumbnail {
-  height: 100px;
-  width: 100px;
+  height: 92px;
+  width: 92px;
   border-radius: 10px;
   border: 2px solid #BBB;
 }
@@ -111,6 +122,7 @@ h1 {
 .brief {
   position: absolute; /* brief is positioned with respect to 'class=posting' div, which holds posting text content */
   left: 150px;
+  top: -15px;
 
 }
 
@@ -118,10 +130,26 @@ h1 {
   min-height: 0px;
   word-wrap: break-word;
   width: 445px;
+
 }
 
 
 .pitch {
+  font-size: 16px;
+  min-height: 0px;
+  word-wrap: break-word;
+  width: 445px;
+  margin: 0px;
+}
+
+.state > p {
+  min-height: 0px;
+  word-wrap: break-word;
+  width: 445px;
+}
+
+
+.state {
   min-height: 0px;
   word-wrap: break-word;
   width: 445px;
@@ -132,6 +160,7 @@ h1 {
 }
 
 .title, .title > * {
+  font-size: 18px;
   color: #42b2e6;
   text-decoration: none;
 }
@@ -172,7 +201,5 @@ h1 {
 }
 
 
-
-	
 
 

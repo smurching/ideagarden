@@ -1,0 +1,90 @@
+
+<%= div_for idea_posting, :class => "posting_details" do %>
+  
+  <h3>
+    <%= link_to idea_posting.name, idea_posting %>
+  </h3>
+  
+  <!--tabs-->
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="">Home</a>
+    </li>
+    <li><a href="?public_chat=true">Public Chat</a></li>
+    <li><a href="?private_chat=true">Private Chat</a></li>
+  </ul>
+  
+  <!--User Header-->
+  <table cellpadding="5">
+	<tr>
+  		<td id="menu" style="float:left; background-color:#EEEEEE;">
+			<img src="https://profile-a.xx.fbcdn.net/hprofile-ash4/c178.0.604.604/s160x160/252231_1002029915278_1941483569_n.jpg", alt="Profile Picture" width="100" height="100">
+  		</td>
+  		<td id="content" style="background-color:#EEEEEE; font-size:18px; width:90%">
+    		<%= idea_posting.pitch %><br/>
+    		<br/> 
+ 			<% if idea_posting.state == true %>
+    			<span class="badge badge-success">Under Execution</span>	      	
+   			<% else %>
+  				<span class="badge badge-info">In Development</span>	      	
+ 			<% end %> 	
+  		</td>
+  	</tr>
+  </table>
+  <br/>
+
+  <!--description body-->    
+  <div style="clear:both;">
+    <%= simple_format(idea_posting.description) %>
+  </div>
+  
+  <!--images-->    
+  <div style="clear:both;">
+    <%= simple_format(idea_posting.description) %>
+  </div>  
+    
+    <p>Tags: 
+		<% if idea_posting.tags.length >= 2%>
+      		<% (0..idea_posting.tags.length-1).each do |int| %>
+    			<span class="label">
+    				<%= idea_posting.tags[int].value %>
+    			</span> 
+    		<% end %>  
+    	<%else%>
+    		<% idea_posting.tags.each do |tag| %>
+    		<span class="label">
+    			<%= tag.value%>
+    		</span>
+    		<%end%>
+    	<%end%>
+	</p>
+</div>
+
+  <% if @user != nil%>
+
+  <% if idea_posting.users.exists?(@user.id)%>
+  <div class = "modification_links">  
+  	<%= link_to 'Edit', edit_idea_posting_path(idea_posting) %>
+  	<%= link_to 'Destroy', idea_posting, method: :delete, data: { confirm: 'Are you sure?' } %>
+ </div>  	
+  <%end%>
+  
+  <% if logged_in? && @user.idea_postings.exists?(@idea_posting.id) == false %>
+  		<%unless @user.join_requests_mades.exists?(:idea_posting_id => @idea_posting.id) %>
+  		<%= button_to 'Request to Join', new_idea_posting_joinrequest_path(idea_posting.id), :remote => true, :id => "new_joinrequest", :method => :get%>
+  		<%else%>
+  		<h3>Request to join project sent</h3>
+  		<%end%>	
+  <%end%>
+  <%end%>
+  
+  <br/>
+  
+  <p>----------------------------</p>
+
+<h2>Owners</h2>
+<% @idea_posting.users.each do |user| %>
+<p><%= link_to user.profile.name, user_profiles_path(user.id) %></p>
+<% end %>
+
+<% end %>

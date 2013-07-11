@@ -2,8 +2,8 @@ class IdeaPostingsController < ApplicationController
   # GET /idea_postings
   # GET /idea_postings.json
 
-  before_filter :login_filter, :except => [:index, :show, :search, :filter_by_followers, :opengraph_object]
-  before_filter :registration_filter, :except => [:index, :show, :search, :filter_by_followers, :opengraph_object]
+  before_filter :login_filter, :only => [:new, :edit, :create, :update, :destroy]
+  before_filter :registration_filter, :except => [:new, :edit, :create, :update, :destroy]
   
   def index
     unless params[:id] == nil

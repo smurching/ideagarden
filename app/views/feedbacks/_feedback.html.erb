@@ -1,41 +1,56 @@
+<%= div_for(feedback, :class => from_followed_user?(feedback) ? "followed_feedback" : "") do %>
+  	<div class= <%= feedback.topic ? "topic" : "reply"%>>
+  	
+	  	<table cellpadding="5">
+			<tr style="background-color:#EEEEEE;">
+		  		<td class="shrink" style="float:left; background-color:#EEEEEE;">
+					<img src="https://profile-a.xx.fbcdn.net/hprofile-ash4/c178.0.604.604/s160x160/252231_1002029915278_1941483569_n.jpg", alt="Profile Picture" width="50" height="50">
+		  		</td>
+		  		<td class="expand" style="background-color:#EEEEEE;">
+		
+	      				<%= link_to feedback.user.profile.name, user_profiles_path(feedback.user_id), class: "profile_link" %>
+	      			<%= feedback.created_at.to_formatted_s(:normal_format) %>
+				 	<span id = "feedback_body">
+				    	<%= simple_format(feedback.body) %>
+				    </span>
+		    		 
+		    		
+		    		<div class="feedback_content_container" style="background-color:#EEEEEE;clear:both;">
+						<div class = 'feedback_help'>
+	
+					      	<%= link_to image_tag('thumbs_up.png', id: 'thumbs_up'), helpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
+					      	<div class = 'help'>
+					        	<%= feedback.help %>
+					      	</div>
+					      	<%= link_to image_tag('thumbs_down.png', id: 'thumbs_down'), unhelpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
+					    
+						</div>
+
+					    <div class = "feedback_links">
+					    <%if logged_in?%>
+					      <%= link_to 'Reply', new_reply_path(@idea_posting.id, feedback.id), class: "reply_link", remote: true%>
+					      <% if current_user.feedbacks.exists?(feedback) && Time.now-feedback.created_at < 3600%>
+					      <%= link_to 'Edit', edit_idea_posting_feedback_path(@idea_posting.id, feedback.id), class: "edit_link", remote: true%>
+					      	<% if feedback.feedbacks == [] %>
+					  			<%= link_to 'Delete', idea_posting_feedback_path(@idea_posting.id, feedback.id), class: "delete_link", method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %>
+					     	 <%end%>
+					      <% end %>
+					    <%end%>
+					    </div>
 
 
-  	<%= div_for(feedback, :class => from_followed_user?(feedback) ? "followed_feedback" : "") do %>
-  	<div class= <%= feedback.topic ? "topic" : "reply"%>> 
-  	<div class="feedback_content_container">
-    <div class = 'feedback_help'>
-      	<%= button_to '+', helpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
-      	<div class = 'help'>
-        	<%= feedback.help %>
-      	</div>
-      	<%= button_to '-', unhelpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
-    </div>
-    
-    <div class = 'feedback_content'>
-      <%= feedback.created_at.to_formatted_s(:normal_format)%> <br/>
-      <%= link_to feedback.user.profile.name, user_profiles_path(feedback.user_id) %> said: <br/>
- 	<span id = "feedback_body">
-    <%= simple_format(feedback.body) %> </span>
-    </div> 
-    
-    <div class = "feedback_links">
-    <%if logged_in?%>
-      <%= link_to 'Reply', new_reply_path(@idea_posting.id, feedback.id), class: "reply_link", remote: true%>
-      <% if current_user.feedbacks.exists?(feedback) && Time.now-feedback.created_at < 3600%>
-      <%= link_to 'Edit', edit_idea_posting_feedback_path(@idea_posting.id, feedback.id), class: "edit_link", remote: true%>
-      	<% if feedback.feedbacks == [] %>
-  			<%= link_to 'Delete', idea_posting_feedback_path(@idea_posting.id, feedback.id), class: "delete_link", method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %>
-     	 <%end%>
-      <% end %>
-    <%end%>
-    </div>
-
-
-  	</div>
-  	<div class = "child_feedbacks"> <%= render feedback.feedbacks%> </div>
+					</div>
+			 	
+		  		</td>
+		  	</tr>
+		</table>
+		
+		
+		<div class = "child_feedbacks"> <%= render feedback.feedbacks%> </div>
+			
   	</div>
   	
- 	<% end %>
+<% end %>
 
 
 
