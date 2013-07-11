@@ -6,12 +6,12 @@
   <title>Ideagarden</title>
   <% if request.original_url.index("opengraph_object") != nil%>
 
-  	<meta property="og:url"				content="<%=request.base_url+fb_object_path(@idea_posting.id)%>"/>	  
-	<meta property="fb:app_id"          content="<%=ENV["FACEBOOK_APP_ID"]%>" /> 
-	<meta property="og:type"            content="<%=ENV["FACEBOOK_APP_NAMESPACE"]%>:project_idea" /> 	
-	<meta property="og:title"           content="<%=@idea_posting.name%>" />
-	<meta property="og:image"			content= "<%=request.base_url+"/assets/logo.png"%>"/>
-	<meta property="<%=ENV["FACEBOOK_APP_NAMESPACE"]%>:pitch"    content="<%=@idea_posting.pitch%>" />
+  	<meta property="og:url" content="<%=request.base_url+fb_object_path(@idea_posting.id)%>"/>	  
+	<meta property="fb:app_id" content="<%=ENV["FACEBOOK_APP_ID"]%>" /> 
+	<meta property="og:type" content="<%=ENV["FACEBOOK_APP_NAMESPACE"]%>:project_idea" /> 	
+	<meta property="og:title" content="<%=@idea_posting.name%>" />
+	<meta property="og:image" content= "<%=request.base_url+"/assets/logo.png"%>"/>
+	<meta property="<%=ENV["FACEBOOK_APP_NAMESPACE"]%>:pitch" content="<%=@idea_posting.pitch%>" />
 	<%end%>
 
     
