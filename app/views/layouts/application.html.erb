@@ -15,7 +15,7 @@ FACEBOOK_APP_SECRET = <contact me at smurching@gmail.com or over facebook for ac
 
 <head>
   <title>Ideagarden</title>
-  <% if @idea_posting != nil%>
+  <% if @idea_posting != nil && @idea_posting.id != nil%>
 
   	<meta property="og:url" content="<%=request.base_url+idea_posting_path(@idea_posting.id)%>"/>	  
 	<meta property="fb:app_id" content="<%=ENV["FACEBOOK_APP_ID"]%>" /> 
