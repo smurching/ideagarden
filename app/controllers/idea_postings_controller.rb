@@ -2,10 +2,13 @@ class IdeaPostingsController < ApplicationController
   # GET /idea_postings
   # GET /idea_postings.json
 
-  before_filter :login_filter, :except => [:index, :show, :search, :filter_by_followers]
-  before_filter :registration_filter, :except => [:index, :show, :search, :filter_by_followers]
+  before_filter :login_filter, :except => [:index, :show, :search, :filter_by_followers, :opengraph_object]
+  before_filter :registration_filter, :except => [:index, :show, :search, :filter_by_followers, :opengraph_object]
   
   def index
+    unless params[:id] == nil
+      @idea_posting = IdeaPosting.find(params[:id])
+    end
     @idea_postings = IdeaPosting.desc.all
     respond_to do |format|
       format.html # index.html.erb
