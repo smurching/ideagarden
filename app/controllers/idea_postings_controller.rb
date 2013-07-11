@@ -119,15 +119,6 @@ class IdeaPostingsController < ApplicationController
     #renders channel.html  
   end
   
-  def opengraph_object
-    @idea_posting = IdeaPosting.find(params[:id])
-    if @idea_posting != nil
-      respond_to do |format|
-        format.html
-      end
-    end
-  end
-
   # GET /idea_postings/1
   # GET /idea_postings/1.json
   def show

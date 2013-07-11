@@ -19,7 +19,7 @@
   		'post',
   		{	
 			<%if false%>idea: "http://samples.ogp.me/481278298619258"<%end%>
-			project_idea: "<%=request.base_url+fb_object_path(@idea_posting.id)%>"
+			project_idea: "<%=request.base_url+idea_posting_path(@idea_posting.id)%>"
 			
   		},
   		function(response) {

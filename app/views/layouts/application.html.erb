@@ -1,12 +1,23 @@
+<%if false%>
+If you're a developer looking at this code, there are a few environment variables that the facebook portion of this app uses that you'll want to set:
+FACEBOOK_APP_ID = 
+FACEBOOK_APP_NAMESPACE = ideagarden-dev
+FACEBOOK_APP_SECRET = <contact me at smurching@gmail.com or over facebook for access to this>
+
+
+<%end%>
+
+
+
 <!DOCTYPE html>
 <html>
 
 
 <head>
   <title>Ideagarden</title>
-  <% if request.original_url.index("opengraph_object") != nil%>
+  <% if @idea_posting != nil%>
 
-  	<meta property="og:url" content="<%=request.base_url+fb_object_path(@idea_posting.id)%>"/>	  
+  	<meta property="og:url" content="<%=request.base_url+idea_posting_path(@idea_posting.id)%>"/>	  
 	<meta property="fb:app_id" content="<%=ENV["FACEBOOK_APP_ID"]%>" /> 
 	<meta property="og:type" content="<%=ENV["FACEBOOK_APP_NAMESPACE"]%>:project_idea" /> 	
 	<meta property="og:title" content="<%=@idea_posting.name%>" />
