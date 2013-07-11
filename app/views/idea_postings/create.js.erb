@@ -15,11 +15,11 @@
 
 
 	FB.api(
-  		'me/ideagarden-dev:post_',
+  		'me/<%=ENV["FACEBOOK_APP_NAMESPACE"]%>:post_',
   		'post',
   		{	
 			<%if false%>idea: "http://samples.ogp.me/481278298619258"<%end%>
-			idea: "http://ideagarden.herokuapp.com/opengraph_object/<%=@idea_posting.id%>"
+			idea: "<%=request.base_url+fb_object_path(@idea_posting.id)%>"
 			
   		},
   		function(response) {
