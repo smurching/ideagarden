@@ -22,6 +22,7 @@ Ideagarden::Application.routes.draw do
   end
 
   resource :session
+  
   match '/login' => "sessions#new", as: "login"
   match '/logout' => "sessions#destroy", as: "logout"
 

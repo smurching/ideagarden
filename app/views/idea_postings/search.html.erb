@@ -1,27 +1,11 @@
+<div id = "start_of_results">
+	
+<h1 id="index_heading">Idea Postings</h1>	
 
-<h1>Search Posts</h1>
-
-<%= form_tag(search_path, :remote => true, :id => "search_filters") do |f| %>
-
-<% @tags.each do |tag| %>
-
-<%= check_box_tag(tag,tag)%>
-<%= label_tag(tag,tag, :class => "search_filter")%>
-
-<%end%>
-<%= submit_tag("Submit search", :id => "search_submit_tag")%>
-
-
-<%end%>
-<br/>
-<br/>
-
-
-
-<div id="posting_list">
 
 <%= div_for(@idea_postings) do |idea_posting| %>
   <div class = 'voting'>
+  	<div class = 'voting_button'>
     <% if logged_in? %>
       <% if current_user.posting_votes.include? idea_posting.id %>
         <%= button_to '+', unvote_path(idea_posting.id), :class => "vote_button unvote_button", :remote => true %>
@@ -31,6 +15,7 @@
     <% else %>
       <%= button_to '+', upvote_path(idea_posting.id), :class => "vote_button upvote_button", :remote => true %>
     <% end %>
+    </div>
     <div class = 'potential'>
       <%= idea_posting.potential %>
     </div>
@@ -40,11 +25,11 @@
     <div class = 'brief'>
       <h2 class = 'title'><%= link_to idea_posting.name, idea_posting %></h2>
       <p class = 'owners'>by <% idea_posting.users.each do |user| %><%= link_to user.profile.name + ", ", user_profiles_path(user.id) %><% end %></p>
-      <h3 class = 'pitch'>Pitch: <%= idea_posting.pitch %></h3>
-		<h3>Tags: 
+      <h3 class = 'pitch'>Pitch: <%= simple_format(idea_posting.pitch) %></h3>
+      <h3 class = "tags">Tags: 
 		<% if idea_posting.tags.length >= 2%>
       	<% (0..idea_posting.tags.length-2).each do |int| %>
-    	<%= idea_posting.tags[int].value+", " %> 
+    	<%= idea_posting.tags[int].value+", " %>
     	<% end %>
     	<%= idea_posting.tags.last.value%>  
     	<%else%>
@@ -58,3 +43,8 @@
 <% end %>
 
 </div>
+
+<div id = "end_of_results"></div>
+
+
+

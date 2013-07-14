@@ -1,6 +1,10 @@
 html {
 }
 
+h1{
+	font-size: 24px;
+}
+
 a img {
   border: none;
   -ms-interpolation-mode: bicubic;
@@ -25,6 +29,7 @@ body {
   top: 30px;
   padding: 0px;
   box-shadow: 0px 0px 10px #999;
+  left: 0px;
 }
 
 #header > h1 {
@@ -40,14 +45,69 @@ body {
 
 #logo {
   float: left;
-  margin-left: 70px;
+  margin-left: 20px;
   margin-top:10px; 
   width:200px;
 }
 
+
 #logo:hover {
   opacity: 0.7;
 }
+
+
+
+/*
+ * Filters and dummy div to make borders blend together
+ */
+#filters{
+	position: absolute;
+	margin-left: 0px;
+	height: 100%;
+	background-color: #F1F1F1;
+	width: 240px;
+	box-shadow: 0px 0px 10px #999;
+	text-align:center;
+}
+
+#filters > h4{
+	font-weight: bold;
+	margin-bottom: 30px;
+	font-size: 20px;
+}
+
+#filters > ul, li{
+	text-align: center;
+	margin-right:1px;
+	color: #0092D6;
+	font-weight: bold;	
+}
+
+#filters > #title{
+	padding:none;
+	margin-bottom: -16px;
+}
+
+#dummy{
+	position:absolute;
+	height: 10px;
+	width: 240px;
+	background-color: #F1F1F1;
+	z-index: 1;
+	border: none;
+}
+
+.centered_watermark{
+	text-align: center;
+	color: #555;
+}
+
+.watermark{
+	color: #555;
+}
+
+
+
 
 #navLinks {
   float: left;

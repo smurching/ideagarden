@@ -96,5 +96,49 @@ end
      end
  return posting_list   
  end
+ 
+ def followers_list
+   followers_list = []
+   followers_objects = self.followers
+   for object in followers_objects
+     followers_list << User.find(object.user_id)
+   end
+   return followers_list
+ end
+ 
+  def followed_users_list
+   followings_list = []
+   followings_objects = self.followings
+   for object in followings_objects
+     followings_list << User.find(object.user_id)
+   end
+   return followings_list
+ end
+ 
+ 
 
+ def from_follower?(posting)
+  users = posting.users
+  followers = self.followers_list
+  users.each do |user|
+    if followers.include?(user)
+      return true      
+    end
+  end
+  return false
+   
+ end
+ 
+ def from_followed_user?(posting)
+   users = posting.users
+   followed_users = self.followed_users_list
+   users.each do |user|
+     if followed_users.include?(user)
+       return true
+     end
+   end
+   return false   
+ end
+ 
+ 
 end

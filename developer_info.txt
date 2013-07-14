@@ -1,0 +1,5 @@
+If you're a developer looking at this code, there are a few environment variables that the facebook portion of this app uses that you'll want to set:
+FACEBOOK_APP_ID = 480121678734920
+FACEBOOK_APP_NAMESPACE = ideagarden-dev
+FACEBOOK_APP_SECRET = <contact me at smurching@gmail.com or over facebook for access to this>
+

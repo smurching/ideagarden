@@ -3,7 +3,7 @@ class IdeaPostingsController < ApplicationController
   # GET /idea_postings.json
 
   before_filter :login_filter, :only => [:new, :edit, :create, :update, :destroy]
-  before_filter :registration_filter, :except => [:new, :edit, :create, :update, :destroy]
+  before_filter :registration_filter, :only => [:new, :edit, :create, :update, :destroy]
   
   def index
     unless params[:id] == nil
@@ -62,52 +62,43 @@ class IdeaPostingsController < ApplicationController
   end
   
   def search
+    @tags = IdeaPosting.tags
     @idea_postings = []
-    @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]
+    @all_postings = IdeaPosting.all
+    
     query = []
-    params["technology"] != nil ? query << params[:technology] : query
+    tag_hash = IdeaPosting.search_hash
+
     
-    params["science & math"] != nil ? query << params["science & math"] : query
-    
-    params["language"] != nil ? query << params["language"] : query
-    
-    params["art"] != nil ? query << params["art"] : query
-    
-    params["community service"] != nil ? query << params["community service"] : query
-    
-    params["research"] != nil ? query << params["research"] : query
-    
-    params["making things"] != nil ? query << params["making things"] : query
-    
-  if query !=  [] 
-    for posting in IdeaPosting.all
-      query_instance = Array.new(query)
-      for tag in posting.tags
-        if query_instance.index(tag.value) != nil
-          query_instance.delete(tag.value)    
-        end
-        if query_instance == []
-          @idea_postings << posting
-          break
-        end
+    params.each do |key, value|
+      if value == "true" && key != "followed_users" && key!= "followers"
+        query << tag_hash[key]
       end
     end
+    
+    
+  if query !=  [] || params[:followers] != nil || params[:followed_users] != nil
+    for posting in IdeaPosting.all #if IdeaPosting.all, each posting will have all of its users looped through until one is found that's a follower
+      
+      matches_search = true
+      
+      if params[:followers] == "true"
+        matches_search = current_user.from_follower?(posting) ? true : false #method in User.rb that checks whether posting is from follower
+      end
+      
+      if params[:followed_users] == "true"
+        matches_search = current_user.from_followed_user?(posting) ? true : false
+      end
+      
+      if matches_search && posting.matches_query?(query)
+        @idea_postings << posting
+      end
+      
+     end
+     
   else
     @idea_postings = IdeaPosting.order("potential DESC")
   end
-    
-
-    #  for posting in IdeaPosting.all
-    #    for tag in posting.tags.all
-    #      if query.include? tag.value
-    #        @idea_postings << posting
-    #        break 
-    #      end
-    #    end
-    #  end
-    #else
-    #  @idea_postings = IdeaPosting.all
-    #end
     
     respond_to do |format|
       format.html # index.html.erb
@@ -137,7 +128,7 @@ class IdeaPostingsController < ApplicationController
     if current_user != nil
       @idea_posting = current_user.idea_postings.new
       # @idea_posting.tags.new({:value => "cake"})
-      @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]
+      @tags = IdeaPosting.tags
       respond_to do |format|
         format.html # new.html.erb
         format.json { render json: @idea_posting }
@@ -149,7 +140,7 @@ class IdeaPostingsController < ApplicationController
 
   # GET /idea_postings/1/edit
   def edit
-    @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]
+    @tags = IdeaPosting.tags
     @idea_posting = IdeaPosting.find(params[:id])
     if current_user == nil || @idea_posting.users.exists?(current_user.id) == false
       redirect_to root_path
@@ -159,13 +150,25 @@ class IdeaPostingsController < ApplicationController
   # POST /idea_postings
   # POST /idea_postings.json
   def create
-    @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]
+    @tags = IdeaPosting.tags
     @idea_posting = IdeaPosting.new(params[:idea_posting])
-    create_tags
-    if params[:fb_tag] == "true"
+    tag_hash = IdeaPosting.search_hash
+    
+    params.each do |key, value|
+      if value == "true" && ["facebook", "under_execution"].include?(key) == false
+        tag = @idea_posting.tags.new({:value => tag_hash[key]})
+        tag.save
+      end
+    end    
+    
+    if params[:facebook] == "true"
       @post_to_facebook = true
     else
       @post_to_facebook = false
+    end
+    
+    if params[:under_execution] == "true"
+      @idea_posting.state = true
     end
     # for tag in @tags
     #  @idea_posting.tags.new({:value => tag.name})

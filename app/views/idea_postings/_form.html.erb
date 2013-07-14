@@ -35,18 +35,21 @@
   </div>
 
   <div class="field">
+  	<span class = "checkbox_horizontal">
     <%= f.label :state %><br/>
     <%= f.check_box :state %>
     "Under Execution?"<br/>
+    </span>
   </div>	
 
-
-<% @tags.each do |tag| %>
-
-<%= check_box_tag(tag,tag)%>
-<%= label_tag(tag,tag)%>
-
-<%end%>
+	<p>Tags:</p>
+	<ul class="nav nav-pills ">
+  		<li class = "inactive" id = "technology"> <a href="#">Technology</a> </li>
+  		<li class = "inactive" id = "science"><a href="#">Science & Math</a></li>
+  		<li class = "inactive" id = "research"><a href="#">Research</a></li>
+  		<li class = "inactive" id = "research"><a href="#">Language</a></li>  		
+	</ul>
+	
 
 <br/>
 

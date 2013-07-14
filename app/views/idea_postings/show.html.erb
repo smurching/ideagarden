@@ -29,9 +29,10 @@
         </div>
         
         <!--private comments-->
+      	<% if logged_in? %>
+        <% if @idea_posting.users.exists?(current_user.id) || current_user.teacher || current_user.admin %>        
         <div class="tab-pane" id="private_comments">
-        	<% if logged_in? %>
-            	<% if @idea_posting.users.exists?(current_user.id) || current_user.teacher || current_user.admin %>
+  
 					<h2>Private Discussion</h2>
 					<div id="existing_private_feedback">
 						<%= render @idea_posting.private_feedbacks%>
@@ -46,9 +47,10 @@
 					    <%= f.submit 'Provide feedback' %>
 					<% end %>
 					
-				<% end %> 
-			<%end%>
+
         </div>
+		<% end %> 
+		<%end%>        
         
         
         <!--posting details-->

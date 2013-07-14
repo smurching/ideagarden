@@ -47,6 +47,28 @@ class IdeaPosting < ActiveRecord::Base
     votes = potential
     update_attributes(potential: votes-=1)
   end
-    
+  
+  def self.search_hash
+      search_hash = {"technology" => "technology", "science" => "science & math", "art"=>"art", "language" => "language",
+      "community_service" => "community service", "research" => "research", 
+      "making_things" => "making things", "followed_users" => "followed_users", "followers" => "followers"}
+  end
+  
+  def self.tags
+      tags = ["technology", "science & math", "art", "language", "community service", "research", "making things"]
+  end
+  
+  def matches_query?(query)
+        query_instance = Array.new(query)
+        for tag in self.tags
+          if query_instance.index(tag.value) != nil
+            query_instance.delete(tag.value)    
+          end
+          if query_instance == []
+            return true
+          end
+        end
+        return false
+  end
 
 end
