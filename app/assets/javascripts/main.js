@@ -1,11 +1,13 @@
 
 $(function(){
 	
-
+	
 	$(window).resize(function(){
+		var filter_width = $('#filters').outerWidth();
+		if(filter_width != 0){
 		$('#header').css("width", $(document).width());
 		// $('#test').html("<p>"+$('#wrapper').offset().left.toString()+"</p>");
-		var filter_width = $('#filters').outerWidth();
+
 		// $('#test2').html("<p>"+filter_width+"</p>");		
 
 
@@ -18,9 +20,7 @@ $(function(){
 				$('#wrapper').css({"left" : filter_width+40});				
 			}
 			
-			
-		
-		
+		}
 	});
 	
 	$(window).resize();
