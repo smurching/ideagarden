@@ -15,20 +15,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :bio %><br />
+    <%= f.label :bio %>
     <%= f.text_field :bio %>
   </div>
   <div class="field">
-    <%= f.label :photo %><br />
+    <%= f.label :photo %>
     <%= f.file_field :photo %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create Profile", :class => "btn btn-primary"%>
   </div>
 <% end %>
 
@@ -48,21 +48,22 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name, :readonly => true, :style => "background-color: #EBEBE4"%>
   </div>
   <div class="field">
-    <%= f.label :bio %><br />
+    <%= f.label :bio %>
     <%= f.text_field :bio%>
   </div>
   <div class="field">
-    <%= f.label :photo %><br />
-    <%= f.file_field :photo %>
+    <%= f.label :photo %>
+    <%= f.file_field :photo%>
   </div>
 
   <div class="actions">
-    <%= f.submit :value => "Create Profile" %>
+    <%= f.submit "Create Profile", :class => "btn btn-primary" %>
   </div>
 <% end %>
+
 
 <%end%>

@@ -11,60 +11,7 @@ Please confirm your email to complete your registration: <br/>
 
 <h1 id="index_heading">Idea Postings</h1>
 
-<%= form_for(IdeaPosting.new, :id => "new_idea_posting_form", :remote => true) do |f|%>
-
-
-  <div class="field" id = "name_div">
-  	<a id = "form_caret" href="#">▼</a>  	
-    <%= f.text_field :name %><br />
-  </div>
-
-  <div class="field">
-    <%= f.text_field :pitch %><br />
-  </div>
-
-  <div class="field">
-    <%= f.text_area :description %><br />
-  </div>
-	
-	
-	<div class = "form_tags_container">
-  		<h5 class = "form_tags_descriptor" >Project Options</h5> <br/>
-  		<ul class= "nav nav-pills form_tags"  id = "form_options">
-  			<li class = "inactive" id = "under_execution"><a href = "#">Started Project Already?</a></li>
-  			<%if session[:facebook]%>
-  				<li class = "inactive" id = "facebook"><a href = "#">Post to Facebook</a></li>
-  			<%end%>  		
-  		</ul>
-  	</div>
-  	
-  	<div class = "form_tags_container">
-  		<h5 class = "form_tags_descriptor">Categories</h5> <br/>  	
-		<ul class="nav nav-pills form_tags" id = "form_categories">
-  			<li class = "inactive" id = "technology"> <a href="#">Technology</a> </li>
-  			<li class = "inactive" id = "science"><a href="#">Science & Math</a></li>
-  			<li class = "inactive" id = "research"><a href="#">Research</a></li>
-  			<li class = "inactive" id = "language"><a href="#">Language</a></li>  
-  		</ul>
-		<ul class="nav nav-pills form_tags" id = "form_focus">
-  			<li class = "inactive" id = "making_things"> <a href="#">Making Things</a> </li>
-  			<li class = "inactive" id = "art"><a href="#">Art</a></li>
-  			<li class = "inactive" id = "community_service"><a href="#">Community Service</a></li><br/><br/>
-  		<div class="actions" id = "form_post_container">
-    		<%= f.submit "Share your Idea", :class => "btn btn-success" %>
-  		</div> 			
-		</ul>
-	
-	</div>
-	
-
-
-<br/>
-
-
-
-
-<%end%>
+<%= render "form"%>
 
 <br/>
 <div id="index_posting_list">

@@ -36,7 +36,11 @@ end
   #BCRYPT STUFF STARTS HERE
   
   def password # This is what is called whenever @user.password is referenced. Returns a Password object from the data in a stored encrypted hash
+    if password_hash != nil
      @password ||= Password.new(password_hash)
+    else
+      return false
+    end
   end
 
   def password_create(new_password) #params[:password] should be passed into this in a secure fashion

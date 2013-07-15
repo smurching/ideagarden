@@ -55,7 +55,7 @@ a:hover{
 }
 
 
-.field > *{
+#new_idea_posting > .field > *{
 	width: 600px;
 	max-height: 100px;
 	margin-bottom: 0px;
@@ -68,12 +68,8 @@ a:hover{
 	margin-top: -20px;	
 }
 
-#new_idea_posting > .actions > *{
-	margin-left:250px;
-	margin-top: 30px;
-}
 
-.actions > .btn{
+#form_post_container >  .btn{
 	margin-left: 95px;
 }
 
@@ -119,9 +115,11 @@ a:hover{
   margin-bottom: -10px;
 }
 
-#form_caret{
+.form_caret{
   color: black;
   position: relative;
+  height: 12px;
+  width: 12px;
 }
 /* end of styling for main page idea posting form */
 

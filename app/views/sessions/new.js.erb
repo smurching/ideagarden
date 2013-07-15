@@ -1,18 +1,77 @@
 
 $('#login').each(function(){
-	var offset = $(this).offset();
-	$(this).css('font-weight', 'bold');
-	$(this).after('<%= j render('form')%>');
-	$('.new_session').css({'position' : 'absolute', 'left' : offset.left-25, 'top' : offset.top+12, 'background-color' : '#F1F1F1', 'z-index' : '1', 
-	'border' : '1px solid #BBB', 'padding' : '25px', 'border-top' : 'none', 'padding-top' : '0px'});
-	$(this).attr('id', 'login_clicked');
-});
+	if($('#header').find(".new_session").length.toString() == 0){
+		$(this).after('<%= j render('form')%>');
+	}
 
-$('#wrapper').click(function(){ 
-	$('.new_session').remove();
-	$('#login_clicked').attr('id', 'login').css('font-weight', 'normal');
+
+	<%if @form_opened %>	
+		$('.new_session').show();
+		var offset = $(this).offset();
+		
+		$('#caret_up_gray').show(); 			
+		$('#caret_down_gray').hide();		
+		
+		$('#login_submit').attr("class", "btn btn-success");	
+		$('.new_session').css({'left' : offset.left-25, 'top' : offset.top+12});
+		$('#login').css('font-weight', 'bold');
+		
+		$('#login').attr("href", "/login?form_opened=false");
+		
+	<%else%>
+						
+ 		$('#login').css("font-weight", "normal"); 			
+		
+		$('#caret_up_gray').hide(); 			
+		$('#caret_down_gray').show();
+			
+							
+		$('.new_session').hide();
+		
+		$('#login').attr("href", "/login?form_opened=true");	
+	
+	<%end%>
 	
 });
 
 
 
+
+
+
+
+<%if false%>
+	<%if false %>$('.new_session').show();<%end%>
+	if($(#header).find(".new_session") == []){
+		$(this).after('<%= j render('form')%>');
+	}
+	else{
+		$('.new_session').hide();
+	}
+	
+
+
+
+
+
+
+
+
+
+
+
+	else{
+		
+		if($('.new_session').attr("display") == "hidden"){
+			$('.new_session').show();	
+		}
+		
+		else{
+			$('.new_session').hide();				
+		}
+
+	}
+		
+	
+	
+<%end%>

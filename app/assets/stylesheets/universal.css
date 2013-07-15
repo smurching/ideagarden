@@ -11,6 +11,11 @@ a img {
 
 }
 
+/* .btn{
+  background-color: rgb(149,192,61);	
+}
+
+*/
 
 body {
   margin: 0px;
@@ -32,8 +37,11 @@ body {
   left: 0px;
 }
 
+
+
 #header > h1 {
-  margin-left: 100px;
+  float: left;
+  margin-left: 0px;
   margin-top: 5px;
   display: inline;
 }
@@ -44,7 +52,7 @@ body {
 }
 
 #logo {
-  float: left;
+  left: 0px;
   margin-left: 20px;
   margin-top:10px; 
   width:200px;
@@ -113,7 +121,7 @@ body {
   float: left;
   margin-top: 45px;
   display: inline;
-  margin-left: 30px;
+  margin-left: 60px;
 }
 
 #navLinks > a {
@@ -131,6 +139,7 @@ body {
 /* */
 
 #wrapper {
+  position: absolute;
   margin-top: 150px;
   width: 850px;
   margin-right:auto;

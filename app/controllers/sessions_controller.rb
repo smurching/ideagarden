@@ -69,6 +69,11 @@ class SessionsController < ApplicationController
 
   
   def new
+    if params[:form_opened] == "true"
+      @form_opened = true
+    else
+      @form_opened = false
+    end
     respond_to do |format|
       format.html
       format.js

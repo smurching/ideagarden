@@ -72,6 +72,8 @@
  	$('#idea_posting_name').watermark("Got an Idea?", {className: "centered_watermark"});
  	$('#idea_posting_pitch').watermark("Pitch (10 char. minimum)", {className: "centered_watermark"});
  	$('#idea_posting_description').watermark("Description (10 char. minimum)", {className: "centered_watermark"});
+ 	
+ 	// when the idea posting form is clicked, change its watermark from "Got an idea?" to "Title (10 char. minimum)"
  	$('#idea_posting_name').on("click", function(){
  		$(this).watermark("Title (10 char. minimum)");
  	});
@@ -79,31 +81,60 @@
  });
  
  
- $(function(){
+ $(function(){	
+ 	
+ 	// hides up-pointing caret arrow to start with
+ 	$('#caret_up').hide();
+ 	
+ 	// hides form except for "Got an idea?" input element
  	$('#new_idea_posting').find('div').hide();
  	$('#name_div').show();
- 	$('#form_caret').show();
- 	$('#idea_posting_name').one("click", function(){
-			$('#new_idea_posting').find('div').show();		
+ 	
+
+
+ 	$('#idea_posting_name').on("click", function(){
+ 		
+ 			// when first input is clicked, show the rest of the form
+			$('#new_idea_posting').find('div').show();
+			
+ 			// hide the downwards-pointing caret and show the up-pointing one			
+			$('#caret_down').hide();
+			$('#caret_up').show(); 		
+			
  	});
  	
+ 	// offset the caret to an appropriate position. 
+ 	// for some reason the "got an idea?" tag also needs to be offset -17px 
  	var o = $('#name_div').offset();
- 	$('#form_caret').css({"top" :$('#idea_posting_name').outerHeight()/2-$('#form_caret').outerHeight()/2, "left" : $('#idea_posting_name').width()});
+ 	$('.form_caret').css({"top" :$('#idea_posting_name').outerHeight()/2-5-$('.form_caret').outerHeight()/2, "left" : $('#idea_posting_name').width()});
  	$('#name_div').css({"margin-left": "-17px"});
  	
- 	$('#form_caret').val("▲");
  	
- 	// $('#form_caret').on("click", function(){
- 	//	if($('#form_caret').val()=="▼"){
-	//		$('#new_idea_posting').find('div').show();	 			
- 	//	}
- 	//	else{
-	//		$('#new_idea_posting').find('div').hide();
- 	//		$('#name_div').show();
- 	//		$('#form_caret').show();				  			
- 	//	}
+ 	$('.form_caret').on("click", function(){
+ 		if($(this).attr("src")=="/assets/caret_down.png"){
+ 			
+ 			// if the down caret was clicked, hide it and show the up caret
+			$('#caret_down').hide();
+			$('#caret_up').show(); 	
+			
+			// show rest of idea posting form		
+			$('#new_idea_posting').find('div').show();	
+			
+ 		}
+ 		else{
+ 			
+ 			// if the up caret was clicked, hide it and show the down caret
+			$('#caret_up').hide(); 			
+			$('#caret_down').show();
+			
+			// hide the rest of the idea posting form and reset the watermark to "Got an idea?"					
+			$('#new_idea_posting').find('div').hide();
+ 			$('#idea_posting_name').watermark("Got an Idea?");			
+ 			$('#name_div').show();
+	
+ 		}
  		
- 	//});
+ 	});
  	
  });
  

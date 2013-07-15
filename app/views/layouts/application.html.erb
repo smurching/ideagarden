@@ -26,6 +26,7 @@
 </head>
 
 <body>
+
 	
 <div id="fb-root"></div>
 <script>
@@ -78,12 +79,15 @@
 	  	 <% unless current_user.confirmed == true %>
 	  	 	<%= link_to 'Resend Confirmation Email', resend_user_confirmation_path%> |
 	  	 <%end%>
-	  	 <%= link_to "Logout", logout_path, :remote => true%> |
+	  	 <%= link_to "Logout", logout_path, :remote => false%>
 	  <%end%> 
 
         
       <% if logged_in? == false %>
-        <%= link_to "Login", login_path, :id => "login", :remote => true %> |   
+        <%= link_to "Login", login_path+"?form_opened=true", :id => "login", :remote => true, :class => "login_link" %>
+  		<%= link_to image_tag("caret_down_gray.png", :id => "caret_down_gray", :class => "form_caret", :height => "12px", :width => "12px"), login_path+"?form_opened=true", :remote => true%>  	
+  		<%= link_to image_tag("caret_up_gray.png", :id => "caret_up_gray", :class => "form_caret", :height => "12px", :width => "12px"), login_path+"?form_opened=false", :remote => true%>  	  	       
+        |   
         
         <%if false%>
         	<%= link_to "Login through Facebook", 
@@ -140,6 +144,8 @@
 
   
   <div id='wrapper'>
+  		<div id = "test"></div>
+	<div id = "test2"></div>
 
     <%= content_tag(:p, notice, :class => 'notice') if notice.present? %>
     <%= content_tag(:p, alert, :class => 'alert') if alert.present? %>
