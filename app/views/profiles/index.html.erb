@@ -1,37 +1,95 @@
-<h1><%= @profile.name %>'s Profile</h1>
-<% if current_user.followings.find_by_followed_user_id(@user.id) == nil %>
-<%= link_to "Follow "+@profile.name, follow_user_path(@user.id) %>
-<%else %>
-<%= link_to "Unfollow "+@profile.name, unfollow_user_path(@user.id) %>
-<% end %>
+<!--title-->
+<div class="header"> 
+<h1><%= @profile.name %></h1>
+<div class="header_right"></div>
+</div>
 <br/>
-<h2> Bio </h2> 
-<p> <%= @profile.bio %> </p>
-</br> 
 
-<h2> <%= @profile.name %>'s Idea Postings: </h2>
-</br>
-<%= div_for(@user.idea_postings.all) do |idea_posting| %>
-  <h3>
-    Name: <%= link_to idea_posting.name, idea_posting %>
-  </h3>
-	<p>Pitch: <%= idea_posting.pitch %></p>
-    <p>Description: <%= simple_format(idea_posting.description)  %></p>
-    <p>Tags: 
+<!--upper content-->
+<div class="profile_body_container">
+	
+	<!--profile picture and follow/edit-->
+	<div class="profile_body_left" style="float:left;">
+		<img src="https://profile-a.xx.fbcdn.net/hprofile-ash4/c178.0.604.604/s160x160/252231_1002029915278_1941483569_n.jpg" class="profile_pic"/>
+		<br/>
+		<center>
+			<% if current_user==@user %>
+				<span class="label label-info">
+					Edit My Profile
+				</span>
+			<% else %>
+				<% if current_user.followings.find_by_followed_user_id(@user.id) == nil %>
+					<span class="label label-success">
+						<%= link_to "Follow "+@profile.name, follow_user_path(@user.id), :class=>"follow_edit_link" %>
+					</span>
+				<%else %>
+					<span class="label label-important">
+						<%= link_to "Unfollow "+@profile.name, unfollow_user_path(@user.id), :class=>"follow_edit_link" %>
+					</span>
+				<% end %>
+			<% end %>
+		</span><center>
+	</div>
+	
+	<!--bio-->
+	<div class="profile_body_right">
+		<div class="bio">
+			<font size="4px"><b> <%= @profile.name %>'s Bio </b></font> 
+			<p> <%= @profile.bio %> </p>
+		</div>
+	</div>
+	
+</div>
+<br/>
+
+<!--lower content-->
+<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+	<li class="active"><a href="#idea_postings" data-toggle="tab">Idea Postings</a></li>
+    <li><a href="#responses" data-toggle="tab">Responses</a></li>
+</ul>
+<div id="my-tab-content" class="tab-content">
     	
-		<% if idea_posting.tags.length >= 2%>
-      	<% (0..idea_posting.tags.length-2).each do |int| %>
-    	<%= idea_posting.tags[int].value %>, 
-    	<% end %>
-    	<%= idea_posting.tags.last.value%>  
-    	<%else%>
-    	<% idea_posting.tags.each do |tag| %>
-    	<%= tag.value%>
-    	<%end%>
-    	<%end%>
-    </p> 
-    <%end%>
-<br />
-<br />
+	<!--idea postings-->
+	<div class="tab-pane active" id="idea_postings">
+		<%= div_for(@user.idea_postings.all) do |idea_posting| %>
+  			<h3>
+    			<%= link_to idea_posting.name, idea_posting %>
+  			</h3>
+			<p>Pitch: <%= idea_posting.pitch %></p>
+    		<p>Description: <%= simple_format(idea_posting.description)  %></p>
+    		<p>Tags: 
+  				<% (0..idea_posting.tags.length-1).each do |int| %>
+					<span class="label">
+						<%= idea_posting.tags[int].value %>
+					</span> 
+				<% end %>
+    		</p> 
+    		<hr>
+    	<%end%> 		
+	</div>
+        
+	<!--responses-->
+	<div class="tab-pane" id="responses">
+		<%= div_for(@user.postings_commented_on) do |idea_posting| %>
+  			<h3>
+    			<%= link_to idea_posting.name, idea_posting %>
+  			</h3>
+			<p>Pitch: <%= idea_posting.pitch %></p>
+    		<p>Description: <%= simple_format(idea_posting.description)  %></p>
+    		<p>Tags: 
+  				<% (0..idea_posting.tags.length-1).each do |int| %>
+					<span class="label">
+						<%= idea_posting.tags[int].value %>
+					</span> 
+				<% end %>
+    		</p> 
+    		<hr>
+    	<%end%>		
+	</div>
+	
+</div>
 
+<br />
+<br />
 <%= link_to 'Back', root_path %>
+<br />

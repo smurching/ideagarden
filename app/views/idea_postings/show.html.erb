@@ -4,7 +4,11 @@
     <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
         <li class="active"><a href="#idea_details" data-toggle="tab">Idea Details</a></li>
         <li><a href="#public_comments" data-toggle="tab">Public Comments</a></li>
+     <% if logged_in? %>
+     <% if @idea_posting.users.exists?(current_user.id) || current_user.teacher || current_user.admin %>    
         <li><a href="#private_comments" data-toggle="tab">Private Comments</a></li>
+     <%end%>
+     <%end%>
     </ul>
 
     <div id="my-tab-content" class="tab-content">
