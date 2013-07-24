@@ -1,11 +1,4 @@
-<div id = "start_of_results">
-	
-<h1 id="index_heading">Idea Postings</h1>
-
-	
-<%= render "form" %>
-
-<%= div_for(@idea_postings) do |idea_posting| %>
+<%= div_for(idea_postings) do |idea_posting| %>
   <div class = 'voting'>
   	<div class = 'voting_button'>
     <% if logged_in? %>
@@ -23,7 +16,11 @@
     </div>
   </div>
   <div class = 'posting'>
-    <div class = 'thumbnail'></div>
+    <div class = 'thumbnail'>
+    	<%if idea_posting.photo_file_size != nil%> 
+    		<%= image_tag idea_posting.photo.url%> 
+    	<%end%>
+    </div>
     <div class = 'brief'>
       <h2 class = 'title'><%= link_to idea_posting.name, idea_posting %></h2>
       <p class = 'owners'>by <% idea_posting.users.each do |user| %><%= link_to user.profile.name + ", ", user_profiles_path(user.id) %><% end %></p>
@@ -42,19 +39,4 @@
       </h3>
     </div>
   </div>
-<% end %>
-
-</div>
-
-
-<%=javascript_include_tag "idea_posting_form"%>
-<script>
-$(function(){
-	$('#caret_up_gray, #caret_down_gray').css({"top" : "0px"});
-});
-</script>
-
-<div id = "end_of_results"></div>
-
-
-
+<%end%>

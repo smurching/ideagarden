@@ -22,15 +22,73 @@
     <%= f.label :bio %>
     <%= f.text_field :bio %>
   </div>
+  
+  
   <div class="field">
-    <%= f.label :photo %>
-    <%= f.file_field :photo %>
+  <div class="form_tags_container" id = "profile_photo_div" style="width:613px">
+  	<h5 class = "form_tags_descriptor">Photo (Optional)</h5> <br/>  	  	
+	<div class="fileupload fileupload-new" data-provides="fileupload" id = "file_upload">
+  		<div class="input-append">
+    		<div class="uneditable-input span3" style="width:400px">
+    			<i class="icon-file fileupload-exists"></i> 
+    			<span class="fileupload-preview"></span>
+    		</div>
+    		<span class="btn btn-file"><span class="fileupload-new">Select file</span>
+    		<span class="fileupload-exists">Change</span><%= f.file_field :photo%>
+    		</span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+  		</div>
+	</div>
   </div>
+  </div>
+  
+  <script>
+  $(function(){
+ 	$('#form_post_container > input').off("click").on("click", function(event){
+ 		var text = $('span.fileupload-preview').text();
+ 		if(text.match(/jpe?g|png/) == null && text.length != 0){
+ 			event.preventDefault();	
+ 			$('a.fileupload-exists').click();
+ 			if($('#img_error').length==0){
+ 				$('#file_upload').before("<p class = 'form_error' id = 'img_error'>Make sure your picture is a png, jpg, or jpeg file. Click to Dismiss.<br/></p>");
+ 				$('#profile_photo_div').errorHighlight();
+ 				
+ 			}
+			else{
+				$('#img_error').show();		
+			} 			
+ 		}
+	  	
+	  	if($('#profile_bio').val().length<10){
+			event.preventDefault();
+			$('#profile_bio').errorMessage("Make sure your bio is at least 10 characters long");
+ 		}	 				
+		
+	 		
+ 		$('.form_error').css("width", "612").click(function(){$(this).hide()});
+		$('a.dismiss_all').click(function(){
+			$('.form_error').hide();
+		});  	 		
+  });
+  
+  
+  });
+  </script>
 
   <div class="actions">
     <%= f.submit "Create Profile", :class => "btn btn-primary"%>
   </div>
 <% end %>
+
+
+
+
+
+
+
+
+
+
+
 
 <%else%>
 
@@ -55,12 +113,59 @@
     <%= f.label :bio %>
     <%= f.text_field :bio%>
   </div>
+  
   <div class="field">
-    <%= f.label :photo %>
-    <%= f.file_field :photo%>
+  <div class="form_tags_container" id = "profile_photo_div" style="width:613px">
+  	<h5 class = "form_tags_descriptor">Photo (Optional)</h5> <br/>  	  	
+	<div class="fileupload fileupload-new" data-provides="fileupload" id = "file_upload">
+  		<div class="input-append">
+    		<div class="uneditable-input span3" style="width:400px">
+    			<i class="icon-file fileupload-exists"></i> 
+    			<span class="fileupload-preview"></span>
+    		</div>
+    		<span class="btn btn-file"><span class="fileupload-new">Select file</span>
+    		<span class="fileupload-exists">Change</span><%= f.file_field :photo%>
+    		</span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+  		</div>
+	</div>
   </div>
+  </div>
+  
+  <script>
+  $(function(){
 
-  <div class="actions">
+ 	$('#form_post_container > input').off("click").on("click", function(event){
+ 		var text = $('span.fileupload-preview').text();
+ 		if(text.match(/jpe?g|png/) == null && text.length != 0){
+ 			event.preventDefault();	
+ 			$('a.fileupload-exists').click();
+ 			if($('#img_error').length==0){
+ 				$('#file_upload').before("<p class = 'form_error' id = 'img_error'>Make sure your picture is a png, jpg, or jpeg file. Click to Dismiss.<br/></p>");
+ 				$('#profile_photo_div').errorHighlight();
+ 				
+ 			}
+			else{
+				$('#img_error').show();		
+			} 			
+ 		}
+	  	
+	  	if($('#profile_bio').val().length<10){
+			event.preventDefault();
+			$('#profile_bio').errorMessage("Make sure your bio is at least 10 characters long");
+ 		}	 				
+		
+	 		
+ 		$('.form_error').css("width", "612").click(function(){$(this).hide()});
+		$('a.dismiss_all').click(function(){
+			$('.form_error').hide();
+		});  	 		
+  });
+  
+  
+  });
+  </script>
+
+  <div class="actions", id = "form_post_container">
     <%= f.submit "Create Profile", :class => "btn btn-primary" %>
   </div>
 <% end %>

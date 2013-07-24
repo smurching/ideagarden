@@ -39,95 +39,6 @@ a:hover{
 }
 
 
-/* styling for main page idea posting form */
-#new_idea_posting{
-
-	margin-top: 40px;
-	padding-top: 40px;
-	padding-bottom: 20px;
-	padding-left: 40px;
-	padding-right: 20px;
-	width: 640px;
-}
-
-#idea_posting_name, #idea_posting_pitch, #idea_posting_description{
-	margin-bottom: -9.5px;
-	margin-left:0px;
-}
-
-
-#new_idea_posting > .field > *{
-	width: 600px;
-	max-height: 100px;
-	margin-bottom: 0px;
-}
-
-
-#new_idea_posting > .actions {
-	height: 100px;
-	padding: 0px;
-	margin-top: -20px;	
-}
-
-
-#form_post_container >  .btn{
-	margin-left: 95px;
-}
-
-
-
-.form_tags{
-  font-size: 12px;
-  text-align: center;
-}
-
-
-.form_tags > li > a{
-  color: black;	
-}
-
-.form_tags_container{
-  border: 1px solid #ccc;
-  width: 613px;
-}
-
-.form_tags_container > *{
-  text-align: center;  
-}
-
-#form_options{
-	margin-left: 155px;
-}
-
-#form_categories{
-	margin-left: 120px;
-	
-}
-
-#form_focus{
-	margin-left: 150px;
-	margin-top: -20px;
-}
-
-
-.form_tags_descriptor{
-  padding: 0px;
-  font-size: 16px;
-  margin-bottom: -10px;
-}
-
-.form_caret{
-  color: black;
-  position: relative;
-  height: 12px;
-  width: 12px;
-}
-
-#caret_up, #caret_up_gray{
-	display: none;
-}
-/* end of styling for main page idea posting form */
-
 
 
 .feedback_content_container{
@@ -212,10 +123,22 @@ h1 {
 }
 
 .thumbnail {
-  height: 92px;
-  width: 92px;
+  height: 100px;
+  width: 100px;
   border-radius: 10px;
   border: 2px solid #BBB;
+  padding: 0px;
+}
+
+.thumbnail > img{
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;	
+}
+
+.idea_posting_picture{
+  height: 100px;
+  width: 100px;
 }
 
 .brief {

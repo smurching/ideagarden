@@ -1,6 +1,6 @@
 class IdeaPosting < ActiveRecord::Base
 
-  attr_accessible :name, :pitch, :description, :user_id, :potential, :state
+  attr_accessible :name, :pitch, :description, :user_id, :potential, :state, :photo
   # validates :tags, :format => {:in => %w(technology, art, music, biology, chemistry, physics, math, science, english, literature,foreign language)}
   validates :pitch, :length => {:within => 10..110}
   validates :name, :length => {:within => 10..50}  
@@ -9,6 +9,8 @@ class IdeaPosting < ActiveRecord::Base
   has_many :feedbacks
   has_many :joinrequests
   has_many :tags
+  has_attached_file :photo, styles: { small: "130x130>", thumb: "45x45>" }  
+  
   accepts_nested_attributes_for :tags
   
   

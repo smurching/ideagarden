@@ -39,9 +39,15 @@ h1 {
 }
 .profile_body_left {
     float:left; /* add this */
+    
 }
 .profile_body_right {
     float: left; /* add this */
+}
+
+.profile_body_left > img{
+	height: 100px;
+	width: 100px;
 }
 
 

@@ -1,4 +1,6 @@
-<%= form_for(IdeaPosting.new, :id => "new_idea_posting_form", :remote => true) do |f|%>
+<%if current_user != nil%>
+
+<%= form_for(@idea_posting == nil ? IdeaPosting.new : @idea_posting, :id => "new_idea_posting_form", :remote => true) do |f|%>
 
 
   <div class="field" id = "name_div">
@@ -14,6 +16,21 @@
   <div class="field">
     <%= f.text_area :description %><br />
   </div>
+  
+  <div class="form_tags_container" id = "photo_div">
+  	<h5 class = "form_tags_descriptor">Project Photo</h5> <br/>  	  	
+	<div class="fileupload fileupload-new" data-provides="fileupload" id = "file_upload">
+  		<div class="input-append">
+    		<div class="uneditable-input span3" style="width:400px">
+    			<i class="icon-file fileupload-exists"></i> 
+    			<span class="fileupload-preview"></span>
+    		</div>
+    		<span class="btn btn-file"><span class="fileupload-new">Select file</span>
+    		<span class="fileupload-exists">Change</span><%= f.file_field :photo%>
+    		</span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+  		</div>
+	</div>
+  </div>
 	
 	
 	<div class = "form_tags_container">
@@ -22,8 +39,10 @@
   			<%if session[:facebook]%>
   				<li class = "inactive" id = "under_execution"><a href = "#">Started Project Already?</a></li>
   				<li class = "inactive" id = "facebook"><a href = "#">Post to Facebook</a></li>
+  				<li class = "inactive" id = "photo"><a href = "#">Add Photo</a></li>			
   			<%else%>
-  				<li class = "inactive" id = "under_execution" style="margin-left:70px"><a href = "#">Started Project Already?</a></li>  			
+  				<li class = "inactive" id = "under_execution" style="margin-left:70px"><a href = "#">Started Project Already?</a></li>  	
+  				<li class = "inactive" id = "photo"><a href = "#">Add Photo</a></li>	
   			<%end%>  		
   		</ul>
   	</div>
@@ -48,8 +67,28 @@
 	</div>
 <br/>
 
+<%if @idea_posting != nil%>
+
+	<script>
+	$(function(){
+		$('.edit_idea_posting').attr("id", "new_idea_posting");		
+	});
+	</script>
+	<%= javascript_include_tag "idea_posting_form"%>
+	<script>
+	$(function(){
+		$('#idea_posting_name').click().off("click").css({"margin-left" : "17px"});
+		$('#caret_up').hide();
+		$('#caret_down').hide();			
+	});		
+	</script>	
+
+<%end%>
 
 
 
+<%end%>
 
+<%else%>
+<br/><br/><br/><br/>
 <%end%>

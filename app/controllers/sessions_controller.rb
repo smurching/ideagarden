@@ -81,8 +81,14 @@ class SessionsController < ApplicationController
   end
   
   def new_login_or_register #
-    respond_to do |format|
-      format.js 
+    if current_user == nil
+      respond_to do |format|
+        format.js 
+      end
+    else
+      respond_to do |format|
+        format.js {render :nothing => true}
+      end
     end
   end
   

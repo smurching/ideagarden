@@ -155,7 +155,7 @@ class IdeaPostingsController < ApplicationController
     tag_hash = IdeaPosting.search_hash
     
     params.each do |key, value|
-      if value == "true" && ["facebook", "under_execution"].include?(key) == false
+      if value == "true" && ["facebook", "under_execution", "photo"].include?(key) == false
         tag = @idea_posting.tags.new({:value => tag_hash[key]})
         tag.save
       end
@@ -224,18 +224,43 @@ class IdeaPostingsController < ApplicationController
 
   # PUT /idea_postings/1
   # PUT /idea_postings/1.json
-  def update
-    @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]    
+  def update 
     @idea_posting = IdeaPosting.find(params[:id])
+    @tags = IdeaPosting.tags
+    tag_hash = IdeaPosting.search_hash
+    
+
+    
       if @idea_posting.users.exists?(current_user.id) #does user own the idea posting? if yes, update the posting
+        
         @idea_posting.tags.each do |tag|
           tag.destroy
         end
-        create_tags
+    
+        params.each do |key, value|
+          if value == "true" && ["facebook", "under_execution", "photo"].include?(key) == false
+            tag = @idea_posting.tags.new({:value => tag_hash[key]})
+            tag.save
+          end
+        end    
+    
+        if params[:facebook] == "true"
+          @post_to_facebook = true
+        else
+          @post_to_facebook = false
+        end
+    
+        if params[:under_execution] == "true"
+          @idea_posting.state = true
+        end
+         
+        
+        
         respond_to do |format|
           if @idea_posting.update_attributes(params[:idea_posting])
             format.html { redirect_to @idea_posting, notice: 'Idea posting was successfully updated.' }
             format.json { head :no_content }
+            format.js {redirect_to @idea_posting}
           else
             format.html { render action: "edit" }
             format.json { render json: @idea_posting.errors, status: :unprocessable_entity }

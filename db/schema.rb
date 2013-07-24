@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130706230505) do
+ActiveRecord::Schema.define(:version => 20130721224602) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
@@ -52,11 +52,15 @@ ActiveRecord::Schema.define(:version => 20130706230505) do
     t.string   "pitch"
     t.text     "description"
     t.datetime "published_at"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.integer  "potential",    :default => 0
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.integer  "potential",          :default => 0
     t.string   "opengraph_id"
-    t.boolean  "state",        :default => false
+    t.boolean  "state",              :default => false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "idea_postings_users", :id => false, :force => true do |t|
