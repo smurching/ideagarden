@@ -45,7 +45,7 @@ class SessionsController < ApplicationController
       @logged_in = true
       session[:user_id] = user.id
       respond_to do |format|
-        format.html {redirect_to root_path, :notice => "Logged in successfully"}
+        format.html {redirect_to root_path}
         format.js      
       end
       
@@ -62,7 +62,7 @@ class SessionsController < ApplicationController
   def destroy
     reset_session
     respond_to do |format|
-      format.html {redirect_to root_path, :notice => "You successfully logged out"}
+      format.html {redirect_to root_path}
       format.js 
     end
   end

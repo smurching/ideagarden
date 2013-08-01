@@ -180,37 +180,10 @@ class IdeaPostingsController < ApplicationController
           @posting_saved = true          
           current_user.idea_postings << @idea_posting #idea_posting added to current user
           @idea_posting.users << User.find(current_user.id) #current user added to idea_posting's list of owners
-          if session[:facebook]
-            conn = Faraday.new(:url => 'https://graph.facebook.com') do |faraday|
-              faraday.request  :url_encoded             # form-encode POST params
-              faraday.response :logger                  # log requests to STDOUT
-              faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
-            end
-
-            ## POST ##
-            # conn.post '/app/objects/ideagarden-dev:project_idea', { :access_token => current_user.access_token, :object => {:title => @idea_posting.name, :pitch => @idea_posting.pitch, :url => idea_posting_path(@idea_posting.id).to_s} }  
-            
-            # conn.post do |req|
-            #   req.url '/me/objects/ideagarden-dev:project_idea'
-            #   req.headers['Content-Type'] = 'application/json'
-              # req.body = '{"access_token": "'+current_user.access_token+'", "object" : {"title": "'+@idea_posting.name+'", "pitch": "'+@idea_posting.pitch+'", "url": "'+idea_posting_path(@idea_posting.id)+'"}}'
-              
-              # req.body = '{"object" : {"title": "'+@idea_posting.name+'", "pitch": "'+@idea_posting.pitch+'", "url": "'+idea_posting_path(@idea_posting.id)+'"}, "access_token": "'+current_user.access_token+'"}'
-              
-            #  puts req.body
-            #  @idea_posting.opengraph_id = response.id
-            # end
-            
-                     
-            @idea_posting.save              
-            format.html { redirect_to @idea_posting, notice: "Idea posting was successfully created"}
-             # "https://graph.facebook.com/me/ideagarden-dev:post_?access_token="+current_user.access_token+"&method=POST&idea=http%3A%2F%2Fsamples.ogp.me%2F481278298619258" }
-            format.js 
-          else
-            format.html { redirect_to @idea_posting, notice: 'Idea posting was successfully created.' }
-            format.json { render json: @idea_posting, status: :created, location: @idea_posting }
-            format.js
-          end        
+          
+          format.html { redirect_to @idea_posting, notice: 'Idea posting was successfully created.' }
+          format.json { render json: @idea_posting, status: :created, location: @idea_posting }
+          format.js        
           
         else
           @posting_saved = false

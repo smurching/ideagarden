@@ -51,6 +51,7 @@ class UsersController < ApplicationController
      @user = User.new 
      @user.email = params[:email]    
      @user.facebook = true
+     @user.confirmed = true
      @user.profile = Profile.new
      @user.profile.name =  params[:firstname]+" "+params[:lastname]
      @user.profile.save(validate: false)     

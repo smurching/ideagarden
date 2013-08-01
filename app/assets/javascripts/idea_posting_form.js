@@ -128,8 +128,7 @@
  	// offset the caret to an appropriate position. 
  	// for some reason the "got an idea?" tag also needs to be offset -17px 
  	var o = $('#name_div').offset();
- 	$('.form_caret').css({"top" :$('#idea_posting_name').outerHeight()/2-5-$('.form_caret').outerHeight()/2, "left" : $('#idea_posting_name').width()});
- 	$('#name_div').css({"margin-left": "-17px"});
+ 	$('.form_caret').css({"top" : $('#idea_posting_name').outerHeight()/2-$('.form_caret').outerHeight()/2, "left" : $('#idea_posting_name').width()});
  	
  	
  	$('#caret_down').on("click", function(){
