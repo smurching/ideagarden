@@ -1,10 +1,13 @@
 class IdeaPosting < ActiveRecord::Base
 
-  attr_accessible :name, :pitch, :description, :user_id, :potential, :state, :photo
   # validates :tags, :format => {:in => %w(technology, art, music, biology, chemistry, physics, math, science, english, literature,foreign language)}
+  attr_accessible :name, :pitch, :description, :user_id, :potential, :state, :photo
   validates :pitch, :length => {:within => 10..110}
   validates :name, :length => {:within => 10..50}  
   validates :description, :length => {:minimum => 10}  
+  validates_attachment_content_type :photo, :content_type => /\Aimage\z/    
+  
+  
   has_and_belongs_to_many :users, :uniq => true
   has_many :feedbacks
   has_many :joinrequests

@@ -92,7 +92,7 @@ body {
 	font-size: 20px;
 }
 
-#filters > ul, li{
+#filters > ul, #filters > li{
 	text-align: center;
 	margin-right:1px;
 	color: #0092D6;
@@ -162,16 +162,20 @@ p.topmost_error_message{
   margin-left: 60px;
 }
 
-#navLinks > a {
+#navLinks > a, #login_container > a {
   text-decoration: none;
   color:#412D1C;
   font-size: 16px;
   
 }
 
-#navLinks > a:hover {
+#navLinks > a:hover, #login_container > a:hover {
   background-color: rgba(0,0,0,0);
   color: #90bf3c;
+}
+
+#login_container{
+	display:inline;
 }
 
 /* */

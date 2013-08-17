@@ -23,32 +23,36 @@ Ideagarden::Application.routes.draw do
 
   resource :session
   
-  match '/login' => "sessions#new", as: "login"
-  match '/logout' => "sessions#destroy", as: "logout"
+  match '/profiles' => "profiles#create", as: "user_profiles", :via => :post
+  match '/profiles_create' => "profiles#create", as: "profiles", :via => :post
+  
+  
+  match '/login' => "sessions#new", as: "login", :via => :get
+  match '/logout' => "sessions#destroy", as: "logout", :via => :get
 
   
   #facebook login/registration
-  match '/fb_login' => "sessions#create", as: "fb_login"
-  match '/fb_register' => "users#create", as: "fb_register"
+  match '/fb_login' => "sessions#create", as: "fb_login", :via => :post
+  match '/fb_register' => "users#create", as: "fb_register", :via => :post
   match '/users/:user_id/profiles' => "profiles#create", as: "fb_profile_create", :via => :put
-  match '/channel.html' => "idea_postings#channel", as: "channel_path"
+  match '/channel.html' => "idea_postings#channel", as: "channel_path", :via => :get
   
   #facebook posting
-  match '/idea_postings/:id/fb_post' => "idea_postings#fb_post", as: "fb_post"
-  match '/idea_postings/:id/fb_share' => "idea_postings#share_fb_post", as: "share_fb_post"
+  match '/idea_postings/:id/fb_post' => "idea_postings#fb_post", as: "fb_post", :via => :post
+  match '/idea_postings/:id/fb_share' => "idea_postings#share_fb_post", as: "share_fb_post", :via => :get
 
   # potential rating
-  match '/:id/upvote' => 'votes#posting_vote', as: 'upvote'
-  match '/:id/unvote' => 'votes#posting_unvote', as: 'unvote'
+  match '/:id/upvote' => 'votes#posting_vote', as: 'upvote', :via => :get
+  match '/:id/unvote' => 'votes#posting_unvote', as: 'unvote', :via => :get
 
   # help rating
-  match '/idea_postings/:id/:feedback_id/helpful' => 'helps#helpful', as: 'helpful'
-  match '/idea_postings/:id/:feedback_id/unhelpful' => 'helps#unhelpful', as: 'unhelpful'
+  match '/idea_postings/:id/:feedback_id/helpful' => 'helps#helpful', as: 'helpful', :via => :get
+  match '/idea_postings/:id/:feedback_id/unhelpful' => 'helps#unhelpful', as: 'unhelpful', :via => :get
   
 
   # approve and reject joinrequests
-  match '/idea_postings/:id/joinrequests/:joinrequest_id/approve' => 'joinrequests#approve', as: 'approve_joinrequest'#, :via => :post
-  match '/idea_postings/:id/joinrequests/:joinrequest_id/reject' => 'joinrequests#reject', as: 'reject_joinrequest'#, :via => :post
+  match '/idea_postings/:id/joinrequests/:joinrequest_id/approve' => 'joinrequests#approve', as: 'approve_joinrequest', :via => :post
+  match '/idea_postings/:id/joinrequests/:joinrequest_id/reject' => 'joinrequests#reject', as: 'reject_joinrequest', :via => :post
   
   #this reply action creates child feedback - feedback that is posted in response to other feedback
   match '/idea_posting/:id/reply/:feedback_id' => 'feedbacks#new_reply', as: 'new_reply', :via => :get #creates actual reply, the action to load the reply template is just feedbacks#new
@@ -60,40 +64,40 @@ Ideagarden::Application.routes.draw do
   match '/joinrequests' => 'joinrequests#create', as: 'joinrequests', :via => :post
   
   # allows for confirming registration
-  match '/confirm/:confirmation_code' => 'users#confirm', as: 'user_confirmation'
-  match '/resend_confirmation' => 'users#resend_confirmation', as: 'resend_user_confirmation'
+  match '/confirm/:confirmation_code' => 'users#confirm', as: 'user_confirmation', :via => :get
+  match '/resend_confirmation' => 'users#resend_confirmation', as: 'resend_user_confirmation', :via => :get
   
   # allows for resetting passwords
   
-  match '/reset_password' => 'users#new_password_reset_request', as: 'new_pw_reset'
-  match '/reset_password/send' => 'users#send_password_reset_request', as: 'send_pw_reset'
+  match '/reset_password' => 'users#new_password_reset_request', as: 'new_pw_reset', :via => :get
+  match '/reset_password/send' => 'users#send_password_reset_request', as: 'send_pw_reset', :via => :post
 
   match '/passwords/:reset_code' => 'users#load_password_reset_page', as: 'load_pw_reset', :via => :get
   match '/passwords/:reset_code' => 'users#reset_password', as: 'reset_password', :via => :put
   
   #TEMPORARY, DELETE THIS:
-  match '/show_reset_requests' => 'users#show_pw_reset_requests', as: 'show_pw_reset'
+  match '/show_reset_requests' => 'users#show_pw_reset_requests', as: 'show_pw_reset', :via => :get
 
-  match '/users/:id/follow' => 'users#follow', as: 'follow_user'
-  match '/users/:id/unfollow' => 'users#unfollow', as: 'unfollow_user'
-  match '/following' => 'users#show_following', as: 'show_following'
-  match '/followers' => 'users#show_followers', as: 'show_followers'
+  match '/users/:id/follow' => 'users#follow', as: 'follow_user', :via => :post
+  match '/users/:id/unfollow' => 'users#unfollow', as: 'unfollow_user', :via => :post
+  match '/following' => 'users#show_following', as: 'show_following', :via => :get
+  match '/followers' => 'users#show_followers', as: 'show_followers', :via => :get
   
   # search/filter actions
-  match '/search' => 'idea_postings#search', as: 'search'
-  match '/filter_by_followers' => 'idea_postings#filter_by_followers', as: 'filter_by_followers'
+  match '/search' => 'idea_postings#search', as: 'search', :via => :get
+  # match '/filter_by_followers' => 'idea_postings#filter_by_followers', as: 'filter_by_followers', :via => :post
   
-  match '/sessions/new_login_or_register' => 'sessions#new_login_or_register', as: 'new_login_or_register'
+  match '/sessions/new_login_or_register' => 'sessions#new_login_or_register', as: 'new_login_or_register', :via => :get
 
-  match '/sessions/new_login_or_register' => 'sessions#create_login_or_register', as: 'create_login_or_register'  
-  match '/existing_user' => 'users#existing_user', as: 'existing_user_path'
+  match '/sessions/new_login_or_register' => 'sessions#create_login_or_register', as: 'create_login_or_register', :via => :post  
+  match '/existing_user' => 'users#existing_user', as: 'existing_user_path', :via => :get
   
-  match '/idea_postings/:idea_posting_id/feedbacks/:id/update' => "feedbacks#update", as: 'update_idea_posting_feedback'
-  match '/private_messages/filter' => "private_messages#filter", as: 'filter_private_messages'
+  match '/idea_postings/:idea_posting_id/feedbacks/:id/update' => "feedbacks#update", as: 'update_idea_posting_feedback', :via => :put
+  match '/private_messages/filter' => "private_messages#filter", as: 'filter_private_messages', :via => :get
   
   #login with facebook
-  match 'auth/:provider/callback' => 'sessions#create', as: "facebook_login"
-  match 'auth/failure' => 'idea_postings#index', as: "facebook_login_fail"
+  match 'auth/:provider/callback' => 'sessions#create', as: "facebook_login", :via => :get
+  match 'auth/failure' => 'idea_postings#index', as: "facebook_login_fail", :via => :get
 
   
   # The priority is based upon order of creation:

@@ -1,5 +1,5 @@
 
-$('#login').each(function(){
+$('#login_container').each(function(){
 	if($('#header').find(".new_session").length.toString() == 0){
 		$(this).after('<%= j render('form')%>');
 	}
@@ -7,16 +7,22 @@ $('#login').each(function(){
 
 	<%if @form_opened %>	
 		$('.new_session').show();
-		var offset = $(this).offset();
 		
+		var offset = $(this).offset();
+		var caret_offset = $('#caret_down_gray').offset()
+				
 		$('#caret_up_gray').show(); 			
-		$('#caret_down_gray').hide();		
+		$('#caret_down_gray').hide();	
+		
+
 		
 		$('#login_submit').attr("class", "btn btn-success");	
-		$('.new_session').css({'left' : offset.left-25, 'top' : offset.top+12});
+		$('.new_session').css({'left' : offset.left-25, 'top' : offset.top+9});
 		$('#login').css('font-weight', 'bold');
 		
 		$('#login').attr("href", "/login?form_opened=false");
+
+		
 		
 	<%else%>
 						
@@ -31,23 +37,10 @@ $('#login').each(function(){
 		$('#login').attr("href", "/login?form_opened=true");	
 	
 	<%end%>
+		
 	
 });
 
-
-
-
-
-
-
-<%if false%>
-	<%if false %>$('.new_session').show();<%end%>
-	if($(#header).find(".new_session") == []){
-		$(this).after('<%= j render('form')%>');
-	}
-	else{
-		$('.new_session').hide();
-	}
 	
 
 
@@ -56,22 +49,3 @@ $('#login').each(function(){
 
 
 
-
-
-
-
-	else{
-		
-		if($('.new_session').attr("display") == "hidden"){
-			$('.new_session').show();	
-		}
-		
-		else{
-			$('.new_session').hide();				
-		}
-
-	}
-		
-	
-	
-<%end%>

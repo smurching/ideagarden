@@ -1,7 +1,7 @@
-<% unless @user.facebook%>
+<% if @user.facebook == false %>
 
 
-<%= form_for([@user, @user.build_profile], :remote => true) do |f| %>
+<%= form_for(@profile, :remote => false, :url => users_path, :html => {multipart: true}) do |f| %>
   <% if @profile.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
@@ -75,7 +75,7 @@
   </script>
 
   <div class="actions">
-    <%= f.submit "Create Profile", :class => "btn btn-primary"%>
+    <%= f.submit "Register", :class => "btn btn-primary" %>
   </div>
 <% end %>
 
@@ -92,7 +92,7 @@
 
 <%else%>
 
-<%= form_for @profile, :url => {action: "create"} do |f| %>
+<%= form_for @profile, :url => users_path do |f| %>
   <% if @profile.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
@@ -165,9 +165,10 @@
   });
   </script>
 
-  <div class="actions", id = "form_post_container">
-    <%= f.submit "Create Profile", :class => "btn btn-primary" %>
+  <div class="actions">
+    <%= f.submit "Register", :class => "btn btn-primary" %>
   </div>
+
 <% end %>
 
 

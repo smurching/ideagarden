@@ -16,6 +16,9 @@ end
   validates :email, :uniqueness => true
   validates :password_hash, :confirmation => true
   validates :email, :format => {:with => /\A[a-zA-Z0-9]+@[a-zA-Z]+[.][a-zA-Z.]+\z/, :message => 'is not valid. Please input a valid email address'}  
+
+  
+  
   attr_accessible :email, :email_confirmation, :password_hash_confirmation, :posting_votes
   #unaccessible attributes: reset_code, confirmation_code
   attr_accessor :accessible

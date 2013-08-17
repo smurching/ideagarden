@@ -81,12 +81,12 @@
 
 .form_caret{
   color: black;
-  position: relative;
   height: 12px;
   width: 12px;
 }
 
 #caret_up, #caret_up_gray{
 	display: none;
+	position: absolute;
 }
 /* end of styling for main page idea posting form */

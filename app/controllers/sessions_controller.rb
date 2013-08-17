@@ -42,6 +42,7 @@ class SessionsController < ApplicationController
     
     # if a user with provided login information was found, create a session
     if user != false
+      puts("-----------------logged in successfully-------------------")
       @logged_in = true
       session[:user_id] = user.id
       respond_to do |format|

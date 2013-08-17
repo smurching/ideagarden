@@ -43,7 +43,7 @@
 		if($('#idea_posting_name').val().length<10){
 			event.preventDefault();
 			if($('#title_error').length==0){
-				$('#idea_posting_name').before("<p class = 'form_error topmost_error_message' id = 'title_error'>Make sure your title is at least 10 characters long. Click to Dismiss. <a class = 'dismiss_all' href='#'>Dismiss all</a></p>");
+				$('#idea_posting_name').before("<p class = 'form_error' id = 'title_error'>Make sure your title is at least 10 characters long. Click to Dismiss. <a class = 'dismiss_all' href='#'>Dismiss all</a></p>");
  				$('#idea_posting_name').errorHighlight();				
 			}
 			else{
@@ -107,31 +107,34 @@
  	
 
 
- 	$('#idea_posting_name').on("click", function(){
- 		
-
- 		
- 			// when first input is clicked, show the rest of the form
-			$('#new_idea_posting').find('div').show();
-			
- 			// hide the downwards-pointing caret and show the up-pointing one			
-			$('#caret_down').hide();
-			$('#caret_up').show(); 		
-			
-			// hide the photo div
-			if($('#photo').attr("class") != "active"){
-				$('#photo_div').hide();
-			}
-
- 	});
- 	
  	// offset the caret to an appropriate position. 
- 	// for some reason the "got an idea?" tag also needs to be offset -17px 
+
  	var o = $('#name_div').offset();
- 	$('.form_caret').css({"top" : $('#idea_posting_name').outerHeight()/2-$('.form_caret').outerHeight()/2, "left" : $('#idea_posting_name').width()});
+ 	var div_width = $('#name_div').width();
+
  	
+ 	// $('.form_caret').css({"top" : $('#idea_posting_name').outerHeight()/2+10, "left" : $('#idea_posting_name').width()-3});
  	
- 	$('#caret_down').on("click", function(){
+ 	// If the name div exists (if the user is logged in), position the idea_posting form carets,
+ 	// referring to them via .form_caret
+ 	
+ 	if(typeof(o) != "undefined"){
+		var o = $('#idea_posting_name').offset();
+ 		var div_width = $('#idea_posting_name').width(); 		
+ 		$('.form_caret').offset({"left": o.left+div_width-5, "top" : o.top+7}); 	
+ 	}
+ 	else{
+ 		$(document).ready(function(){
+		
+ 		});
+ 	}
+
+
+ 	
+ 	$('#caret_down, #idea_posting_name').on("click", function(){
+ 		
+
+ 			
  		// if the down caret was clicked, hide it and show the up caret
 		$('#caret_down').hide();
 		$('#caret_up').show(); 	
@@ -141,13 +144,21 @@
  		$('#idea_posting_name').watermark("Title (10 char. minimum)");				
 		
 		// hide the photo div
-		$('#photo_div').hide();	 		
+		if($('#photo').attr("class") != "active"){
+			$('#photo_div').hide();
+		}
+		
+		var o = $('#idea_posting_name').offset();
+ 		var div_width = $('#idea_posting_name').width(); 		
+ 		$('.form_caret').offset({"left": o.left+div_width-5, "top" : o.top+7}); 	
  		
  	});
  	
  	
  	$('#caret_up').on("click", function(){
  		
+
+ 				
 		// if the up caret was clicked, hide it and show the down caret
 		$('#caret_up').hide(); 			
 		$('#caret_down').show();
@@ -156,9 +167,47 @@
 		$('#new_idea_posting').find('div').hide();
  		$('#idea_posting_name').watermark("Got an Idea?");			
  		$('#name_div').show(); 		
+ 		
+		var o = $('#idea_posting_name').offset();
+ 		var div_width = $('#idea_posting_name').width(); 		
+ 		$('.form_caret').offset({"left": o.left+div_width-5, "top" : o.top+7});  		
+	
  	});
  	 	
+ 	 	
+ 	$('#filters').click(function(){
+ 		wrapper_o = $('#wrapper').offset();
+ 		
+ 		var num_of_loops = 0;
+ 		var filters_positioning = window.setInterval(function(){
+			//console.log("in filters click");
+ 			var form_hidden = $('#pitch_div').attr("style");
+ 			
+ 			if(form_hidden.match(/none/) != null){
+ 				
+ 				num_of_loops +=1;
+ 				console.log(num_of_loops);
+ 				var o = $('#idea_posting_name').offset();
+ 				var div_width = $('#idea_posting_name').width(); 		
+ 				$('.form_caret').offset({"left": o.left+div_width-5, "top" : o.top+7});
+ 				
+ 				if(num_of_loops > 10){
+ 					clearInterval(filters_positioning); 					
+ 				}		
+ 			}
+ 			
+ 		}, 50);
+		
+		$(document).ready(function(){
+ 			$('#wrapper').offset({"left" : wrapper_o.left, "top" : wrapper_o.top});			
+		});
+
+ 		
+ 	}); 	
+ 	
+ 	
  });
+ 
  
  
  

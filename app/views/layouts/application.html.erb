@@ -86,9 +86,11 @@
 
         
       <% if logged_in? == false %>
+      	<div id = "login_container">                    
         <%= link_to "Login", login_path+"?form_opened=true", :id => "login", :remote => true, :class => "login_link" %>
   		<%= link_to image_tag("caret_down_gray.png", :id => "caret_down_gray", :class => "form_caret", :height => "12px", :width => "12px"), login_path+"?form_opened=true", :remote => true%>  	
-  		<%= link_to image_tag("caret_up_gray.png", :id => "caret_up_gray", :class => "form_caret", :height => "12px", :width => "12px"), login_path+"?form_opened=false", :remote => true%>  	  	       
+  		<%= link_to image_tag("caret_up_gray.png", :id => "caret_up_gray", :class => "form_caret", :height => "12px", :width => "12px"), login_path+"?form_opened=false", :remote => true%>
+  		</div>  	  	       
         |   
         
         <%if false%>
@@ -102,7 +104,7 @@
     	<%= link_to "Register through Facebook", "/auth/facebook?&state=register"%> |     	
     
          
-        <%= link_to 'Register', new_user_path, :id => "register", :remote => true%> |
+        <%= link_to 'Register', new_user_path, :id => "register", :remote => false%> |
         <%= link_to 'Forgot password?', new_pw_reset_path%>
 
       <% end %>

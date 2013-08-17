@@ -1,4 +1,5 @@
-<%= form_for @user, :remote => true do |f| %>
+<div>
+<%= form_for(@user, :remote => false, :html => {multipart: true}) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -12,7 +13,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :email %>
+    <%= f.label :email %> 
     <%= f.text_field :email %>
   </div>
 
@@ -24,8 +25,17 @@
   	<%= f.label "Confirm Password"%> 
   	<%= f.password_field :password_hash_confirmation %>
   </div>
+  
+<%= render "profiles/form"%>  
 
-  <div class="actions">
-    <%= f.submit "Register", :class => "btn btn-primary" %>
-  </div>
 <% end %>
+
+</div>
+
+
+
+
+
+
+
+

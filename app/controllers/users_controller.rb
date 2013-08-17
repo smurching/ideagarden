@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-
+    @profile = Profile.new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -34,47 +34,85 @@ class UsersController < ApplicationController
 
 
   def create #email to confirm user is sent after profile is created - it is therefore in the profiles#create  
-  @profile = Profile.new
+    @user  = User.new
+    @profile = Profile.new(params[:profile])    
+  
   
     # if user signed up through html registration form
     if params[:user] != nil
       if params[:user][:password_hash].length < 6
         return redirect_to new_user_path, notice: 'Password must be at least six characters long'
       end
-      @user = User.new #password_hash won't be assigned if it's protected from mass-assignment - it currently is not.
+
+      #password_hash won't be assigned if it's protected from mass-assignment - it currently is not.
       @user.accessible = [:password_hash]
       @user.attributes = params[:user]      
       @user.password_hash = @user.password_create(@user.password_hash)
+      @user.confirmation_code = Array.new(20).map{rand(10)}.join
+      
 
    #if user signed up through facebook   
    elsif params[:facebook] == "true"
-     @user = User.new 
      @user.email = params[:email]    
      @user.facebook = true
      @user.confirmed = true
-     @user.profile = Profile.new
-     @user.profile.name =  params[:firstname]+" "+params[:lastname]
-     @user.profile.save(validate: false)     
+     @profile.name =  params[:firstname]+" "+params[:lastname]     
+     
+
+     
      
    #if user signed up through javascript popup (e.g. when user tries to vote without logging in)
    else
-     @user = User.new
      @user.accessible = [:password_hash]
      @user.email = params[:email]
+     @user.confirmation_code = Array.new(20).map{rand(10)}.join     
      @user.password_hash = @user.password_create(params[:password_hash])
    end
-   
+
+        
+    @user.save(:validate => false)
+    @profile.user_id = @user.id
+    
+
+    
+    
+    
     respond_to do |format|
-      if @user.save
-        if @user.facebook
-          @user.profile.user_id = @user.id
-          @user.profile.save(validate: false)
-        end         
-        @user_created = true
-        format.html { redirect_to new_user_profile_path(@user.id), notice: 'Registration successful! Please take a moment to fill out a profile' }
+      if @user.save && @profile.save
+        
+        ### Setting up the success dialog
+        if @user.facebook == false
+          case
+          when @user.email["gmail.com"] != nil
+            @email_url = "http://www.gmail.com"
+          when @user.email["yahoo.com"] != nil
+            @email_url = "http://www.mail.yahoo.com"
+          when @user.email["hotmail.com"] != nil
+            @email_url = "http://www.hotmail.com"
+          when @user.email["live.com"] != nil
+            @email_url = "http://www.live.com"
+          when @user.email["http://comcast.net"] != nil
+            @email_url = "https://www.login.comcast.net/login"
+          end
+          
+          @registration_string = @email_url != nil ? "Please confirm your registration at "+@email_url : "Please check your email for a confirmation link."
+                        
+          UserMailer.welcome_email(@user).deliver
+
+       
+        else
+          @registration_string = ""
+          @user.confirmed = true                    
+        end
+        
+        ### Success dialog has been set up
+
+        @user_created = true        
+        format.html { redirect_to root_path, notice: 'Profile was successfully created. '+@registration_string }          
         format.json { render json: @user, status: :created, location: @user }
         format.js {render 'profiles/new'}
       else
+        @user.destroy
         @user_created = false
         format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }

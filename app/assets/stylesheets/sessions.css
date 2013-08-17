@@ -20,3 +20,10 @@
 	width: 200px;
 }
 
+#login_failed{
+	width: 100px;
+}
+
+#caret_up_gray, #caret_down_gray{
+	position: relative;
+}
