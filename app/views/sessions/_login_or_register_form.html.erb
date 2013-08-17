@@ -1,15 +1,15 @@
 <%= form_tag create_login_or_register_path, :class => "login_or_register_form", :remote => true do %>
-  <h5 id = "login_or_register_header">Please login or signup for Ideagarden to access this feature</h5> </br>
-  <div class="field">
+  <h4 id = "login_or_register_header">Please login or signup for Ideagarden to access this feature</h4> </br>
+  <div class="field_small">
     <%= label_tag :email %>
     <%= text_field_tag :email %>
   </div>
-  <div class="field">
+  <div class="field_small">
     <%= label_tag "Password" %>
     <%= password_field_tag :password_hash %>
   </div>
   
-  <div class = "field" id = "confirm_password">
+  <div class = "field_small" id = "confirm_password">
   	<%= label_tag "Confirm Password" %> 
   	<%= password_field_tag :password_hash_confirmation %>
   </div>

@@ -42,8 +42,8 @@ Ideagarden::Application.routes.draw do
   match '/idea_postings/:id/fb_share' => "idea_postings#share_fb_post", as: "share_fb_post", :via => :get
 
   # potential rating
-  match '/:id/upvote' => 'votes#posting_vote', as: 'upvote', :via => :get
-  match '/:id/unvote' => 'votes#posting_unvote', as: 'unvote', :via => :get
+  match '/:id/upvote' => 'votes#posting_vote', as: 'upvote', :via => :post
+  match '/:id/unvote' => 'votes#posting_unvote', as: 'unvote', :via => :post
 
   # help rating
   match '/idea_postings/:id/:feedback_id/helpful' => 'helps#helpful', as: 'helpful', :via => :get

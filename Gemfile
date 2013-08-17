@@ -11,6 +11,7 @@ gem 'pg', '~> 0.16.0'
 
 gem 'heroku'
 gem 'paperclip'
+gem 'aws-sdk'
 gem 'cocaine'
 # gem 'protected_attributes'
 

@@ -186,7 +186,7 @@
  			if(form_hidden.match(/none/) != null){
  				
  				num_of_loops +=1;
- 				console.log(num_of_loops);
+ 				// console.log(num_of_loops);
  				var o = $('#idea_posting_name').offset();
  				var div_width = $('#idea_posting_name').width(); 		
  				$('.form_caret').offset({"left": o.left+div_width-5, "top" : o.top+7});

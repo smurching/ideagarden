@@ -2,7 +2,7 @@ $('.notice').remove();
 $('#login_failed').remove();
 $('#password_hash').before('<p id = "login_failed"><%= j "Invalid username/password combination" %></p>');
 
- 
+
 
 <%if @logged_in %>
 
@@ -25,6 +25,17 @@ $('#password_hash').before('<p id = "login_failed"><%= j "Invalid username/passw
    			$('#navLinks').append(' | <%= link_to 'Resend Confirmation Email', resend_user_confirmation_path %>');
 		 <%end%>
 	<%end%>
+	
+
+ 	$.get("/", function(data){
+
+ 		var start = data.search('<body>');
+ 		var end = data.search('</body>');
+ 		$('body').html(data.slice(start, end));
+
+ 		$('body').append('<%= j javascript_include_tag "idea_posting_form"%> <%= j javascript_include_tag "idea_postings"%>');
+
+ 	});	
 
 <%else%>
 		var email_position = $('#email').position();
