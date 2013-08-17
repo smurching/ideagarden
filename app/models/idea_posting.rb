@@ -5,7 +5,6 @@ class IdeaPosting < ActiveRecord::Base
   validates :pitch, :length => {:within => 10..110}
   validates :name, :length => {:within => 10..50}  
   validates :description, :length => {:minimum => 10}  
-  validates_attachment_content_type :photo, :content_type => /\Aimage\z/    
   
   
   has_and_belongs_to_many :users, :uniq => true
