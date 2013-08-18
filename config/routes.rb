@@ -22,10 +22,7 @@ Ideagarden::Application.routes.draw do
   end
 
   resource :session
-  
-  match '/profiles' => "profiles#create", as: "user_profiles", :via => :post
-  match '/profiles_create' => "profiles#create", as: "profiles", :via => :post
-  
+   
   
   match '/login' => "sessions#new", as: "login", :via => :get
   match '/logout' => "sessions#destroy", as: "logout", :via => :get

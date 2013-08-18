@@ -75,7 +75,7 @@ class IdeaPosting < ActiveRecord::Base
         return false
   end
   
-  def photo_url(style=:original)
+ def photo_url(style=:original)
     original = photo.url
     styles_hash = {:thumb => "thumb", :medium => "medium", :original => "original"}
     
@@ -85,11 +85,15 @@ class IdeaPosting < ActiveRecord::Base
     # modify so that file is sized properly
     final = modified.split("original").insert(1, styles_hash[style]).join   
     
+    if Rails.env == "development"
+      return original
+    end
+    
     if photo_content_type["image"] != nil
       return final
     else
       return modified
     end
-  end   
+  end  
 
 end
