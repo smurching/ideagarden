@@ -1,3 +1,5 @@
+<script>
+ 
  $(function(){
  	if($('#wrapper').find("div.uneditable-input").length!=0){
  	$('.btn-file').css("width", "60").children().css({"height" : "20", "width" : "60"});
@@ -182,9 +184,6 @@
  		var filters_positioning = window.setInterval(function(){
 			//console.log("in filters click");
  			var form_hidden = $('#pitch_div').attr("style");
- 			if(typeof(form_hidden)=="undefined"){
- 				clearInterval(filters_positioning);
- 			}
  			
  			if(form_hidden.match(/none/) != null){
  				
@@ -240,4 +239,6 @@
 
  	
  });
+ 
+ </script>
   

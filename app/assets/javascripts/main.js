@@ -40,6 +40,7 @@ $.fn.errorMessage = function(message, dismiss_all){
 	
 	
 	var id = $(this).attr("id");
+	var element = $(this);
 	var error = document.getElementById(id+"_error");
  	if(error == null){ 		
  		
@@ -50,8 +51,11 @@ $.fn.errorMessage = function(message, dismiss_all){
  		var offset = $(this).offset();
  		var border = parseInt($(this).css("borderWidth"));
 		var error = document.getElementById(id+"_error"); 		
- 		$(error).offset({top: offset.top+border, left: offset.left+border});
- 			
+ 		$(error).offset({top: offset.top+border, left: offset.left+border}).click(function(){
+ 			$(error).hide();
+			element.focus();
+ 		});
+	
  	}
 	else{
 		$(error).show();		

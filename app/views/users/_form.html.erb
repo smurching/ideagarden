@@ -25,10 +25,37 @@
   	<%= f.label "Confirm Password"%> 
   	<%= f.password_field :password_hash_confirmation %>
   </div>
+    
   
 <%= render "profiles/form"%>  
 
 <% end %>
+
+  <script>
+  
+$(function(){
+  $('#registration_post_container > input').click(function(){
+  		if($('#user_email').val().match(/[a-zA-Z0-9]+@[a-zA-Z]+[.][a-zA-Z.]+/) == null){
+			event.preventDefault();
+			$('#user_email').errorMessage("Please enter a valid email address");
+ 		}	 				
+		
+	  	if($('#user_password_hash').val().length < 6){
+			event.preventDefault();
+			$('#user_password_hash').errorMessage("Make sure your password is at least 6 characters long");
+ 		}	
+ 		
+	  	if($('#user_password_hash_confirmation').val() != $('#user_password_hash').val() ){
+			event.preventDefault();
+			$('#user_password_hash_confirmation').errorMessage("Password does not match confirmation");
+ 		}	 		
+  });	
+	
+});  
+
+
+ 		
+  </script> 	
 
 </div>
 

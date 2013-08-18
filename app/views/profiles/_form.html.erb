@@ -43,7 +43,7 @@
   
   <script>
   $(function(){
- 	$('#form_post_container > input').off("click").on("click", function(event){
+ 	$('#registration_post_container > input').off("click").on("click", function(event){
  		var text = $('span.fileupload-preview').text();
  		if(text.match(/jpe?g|png/) == null && text.length != 0){
  			event.preventDefault();	
@@ -63,6 +63,11 @@
 			$('#profile_bio').errorMessage("Make sure your bio is at least 10 characters long");
  		}	 				
 		
+	  	if($('#profile_name').val().length==0){
+			event.preventDefault();
+			$('#profile_name').errorMessage("Please enter your name");
+ 		}	 				
+				
 	 		
  		$('.form_error').css("width", "612").click(function(){$(this).hide()});
 		$('a.dismiss_all').click(function(){
@@ -74,7 +79,7 @@
   });
   </script>
 
-  <div class="actions">
+  <div class="actions" id = "registration_post_container">
     <%= f.submit "Register", :class => "btn btn-primary" %>
   </div>
 <% end %>

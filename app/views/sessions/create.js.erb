@@ -33,7 +33,7 @@ $('#password_hash').before('<p id = "login_failed"><%= j "Invalid username/passw
  		var end = data.search('</body>');
  		$('body').html(data.slice(start, end));
 
- 		$('body').append('<%= j javascript_include_tag "idea_posting_form"%> <%= j javascript_include_tag "idea_postings"%>');
+ 		$('body').append('<%= j render "scripts/idea_postings_form_js"%> <%= j render "scripts/idea_postings_js"%>');
 
  	});	
 
