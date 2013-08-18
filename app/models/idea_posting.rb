@@ -74,5 +74,22 @@ class IdeaPosting < ActiveRecord::Base
         end
         return false
   end
+  
+  def photo_url(style=:original)
+    original = photo.url
+    styles_hash = {:thumb => "thumb", :medium => "medium", :original => "original"}
+    
+    # modify so that domain name of file src attribute is correct
+    modified = original.split("s3").insert(1, "s3-us-west-2").join
+    
+    # modify so that file is sized properly
+    final = modified.split("original").insert(1, styles_hash[style]).join   
+    
+    if content_file_content_type["image"] != nil
+      return final
+    else
+      return modified
+    end
+  end   
 
 end

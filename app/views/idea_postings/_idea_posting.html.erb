@@ -13,7 +13,7 @@
   			<%if idea_posting.photo_file_size == nil %>
 				<%= image_tag "light_bulb.png", :class => "idea_posting_picture"%>
 			<%else%>
-				<%= image_tag idea_posting.photo.url, :class => "idea_posting_picture" %>
+				<%= image_tag idea_posting.photo_url, :class => "idea_posting_picture" %>
 			<%end%>
 			
   		</td>
