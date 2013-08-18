@@ -156,7 +156,7 @@ end
     # modify so that file is sized properly
     final = modified.split("original").insert(1, styles_hash[style]).join   
     
-    if content_file_content_type["image"] != nil
+    if photo_content_type["image"] != nil
       return final
     else
       return modified
