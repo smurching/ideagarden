@@ -51,9 +51,11 @@ $.fn.errorMessage = function(message, dismiss_all){
  		var offset = $(this).offset();
  		var border = parseInt($(this).css("borderWidth"));
 		var error = document.getElementById(id+"_error"); 		
- 		$(error).offset({top: offset.top+border, left: offset.left+border}).click(function(){
+ 		$(error).offset({top: offset.top+border, left: offset.left+border});
+ 		
+ 		$(this).click(function(){
  			$(error).hide();
-			element.focus();
+			$(this).focus();
  		});
 	
  	}
