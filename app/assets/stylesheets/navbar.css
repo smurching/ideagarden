@@ -1,0 +1,135 @@
+/*
+ * Navigation Bar
+ */
+
+#nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    float: left;
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    background-color: #3498DB;
+}
+
+#search_bar {
+    padding: 10px 15px 10px 15px;
+}
+
+.input-xl {
+    width: 700px;
+}
+
+.nav-item, .nav-icon, .dropdown {
+    float: left;
+    list-style:none;
+}
+
+.nav-item a, .dropdown a {
+    display: block;
+    padding: 20px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: Helvetica, Arial, Geneva, sans-serif;
+    font-size:16px;
+    text-align:center;
+    color: #000000;
+}
+
+.dropdown a {
+    padding: 20px 20px 20px 30px;
+    text-align:center;
+}
+
+.dropdown a:hover {
+    color: #97C147;
+}
+
+.nav-item a:hover, .nav-item a:focus {
+    color:#000000;
+}
+
+.nav-icon {
+    padding: 15px 20px 15px 150px;
+}
+
+
+
+/*
+ * Dropdown Menu
+ */
+
+.white-caret {
+    border-top-color: black;
+    border-bottom-color: black;
+}
+
+.dropdown a:hover .white-caret,  .dropdown a:focus .white-caret{
+    border-top-color: #97C147;
+    border-bottom-color: #97C147;
+}
+
+
+.sub-menu {
+    background:#F1F1F1;
+    list-style:none;
+    position:absolute; 
+    z-index:100; 
+    box-shadow:0px 0px 0px 0px;
+    border-radius:0 0 5px 5px;
+    
+    padding:0; 
+    margin:0;
+    box-shadow: 0px 0px 10px #999
+}
+
+.sub-menu li a {
+    font-size:16px;
+    border:none;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: Helvetica, Arial, Geneva, sans-serif;
+    text-align:center;
+    padding: 10px 0px 10px 0px;
+}
+
+.sub-menu li a:hover {
+    background: #97C147;
+    color: #000000;
+}
+
+.sub-menu-last {
+    border-radius:0 0 5px 5px;
+}
+
+.menu-item a{
+    font-size:16px;
+    border:none;
+    text-decoration: none;
+    font-weight: bold;
+    color: #000000;
+    font-family: Helvetica, Arial, Geneva, sans-serif;
+    text-align: center;
+}
+
+#search-bar {
+    width: 350px;
+    height: 100%;
+    margin: 0px;
+}
+
+#search-dropdown {
+    width: 150px;
+    height: 100%;
+    margin: 0px;
+}
+
+.search-text {
+    margin: 0px;
+}
+
+#title {
+    margin: 0px;
+}

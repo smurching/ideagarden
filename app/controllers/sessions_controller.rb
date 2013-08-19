@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       @logged_in = false
       respond_to do |format|
         format.html {render 'new', :notice => "Invalid username/password combination"}
-        format.js  
+        format.js
       end
     end
   end

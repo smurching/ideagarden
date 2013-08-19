@@ -1,3 +1,5 @@
+require 'flickraw'
+
 class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
@@ -26,6 +28,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+    @user = User.find(params[:user_id])
     @profile = Profile.find(params[:id])
   end
 
@@ -65,9 +68,11 @@ class ProfilesController < ApplicationController
   # PUT /profiles/1
   # PUT /profiles/1.json
   def update
+    @user = User.new
     @profile = Profile.find(params[:id])
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
+        image = Profile.save(params[:photo])
         format.html { redirect_to root_path, notice: 'Profile was successfully updated.' }
         format.json { head :no_content }
       else
@@ -87,4 +92,5 @@ class ProfilesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
 end

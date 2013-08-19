@@ -15,7 +15,7 @@
 		<center>
 			<% if current_user==@user %>
 				<span class="label label-info">
-					Edit My Profile
+					<%= link_to 'Edit My Profile', edit_user_profile_path(@user.id, @profile.id) %> 
 				</span>
 			<% else %>
 				<% if current_user.followings.find_by_followed_user_id(@user.id) == nil %>

@@ -12,7 +12,7 @@ gem 'pg'
 gem 'heroku'
 gem 'paperclip'
 gem 'cocaine'
-
+gem 'flickraw'
 
 
 # Gems used only for assets and not required

@@ -61,58 +61,13 @@ class IdeaPostingsController < ApplicationController
   end
   
   def search
-    @idea_postings = []
-    @tags = ["technology", "science & math", "language", "art", "community service", "research", "making things"]
-    query = []
-    params["technology"] != nil ? query << params[:technology] : query
-    
-    params["science & math"] != nil ? query << params["science & math"] : query
-    
-    params["language"] != nil ? query << params["language"] : query
-    
-    params["art"] != nil ? query << params["art"] : query
-    
-    params["community service"] != nil ? query << params["community service"] : query
-    
-    params["research"] != nil ? query << params["research"] : query
-    
-    params["making things"] != nil ? query << params["making things"] : query
-    
-  if query !=  [] 
-    for posting in IdeaPosting.all
-      query_instance = Array.new(query)
-      for tag in posting.tags
-        if query_instance.index(tag.value) != nil
-          query_instance.delete(tag.value)    
-        end
-        if query_instance == []
-          @idea_postings << posting
-          break
-        end
-      end
-    end
-  else
-    @idea_postings = IdeaPosting.all
+  	@idea_postings = IdeaPosting.find_by_name(params["title"])
+  	if !@idea_postings
+  		@idea_postings=[]
+  	end
   end
     
 
-    #  for posting in IdeaPosting.all
-    #    for tag in posting.tags.all
-    #      if query.include? tag.value
-    #        @idea_postings << posting
-    #        break 
-    #      end
-    #    end
-    #  end
-    #else
-    #  @idea_postings = IdeaPosting.all
-    #end
-    
-    respond_to do |format|
-      format.html # index.html.erb
-      format.js # {render 'search' }
-    end
-  end
 
 
 
