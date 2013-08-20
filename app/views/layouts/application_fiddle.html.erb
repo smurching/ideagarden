@@ -63,18 +63,11 @@
   		<td><h1><%= link_to image_tag('logo.png', id: 'logo'), root_path %></h1></td>
     	
     	<% if logged_in? == false %>
-    	
-
-        <td class="menu-item"><%= link_to "Login", login_path, :id => "login", :remote => true %>
- 		<%= link_to image_tag("caret_down_gray.png", :id => "caret_down_gray", :class => "form_caret", :height => "12px", :width => "12px"), login_path+"?form_opened=true", :remote => true%>  	
-  		<%= link_to image_tag("caret_up_gray.png", :id => "caret_up_gray", :class => "form_caret", :height => "12px", :width => "12px"), login_path+"?form_opened=false", :remote => true%>        	
-        	
-        	
-        </td>    
-        <td class="menu-item"><%= link_to 'Register', new_user_path, :id => "register", :remote => false%></td>
+ 		<div id = "login_container">
+        <td class="menu-item"><%= link_to "Login", login_path, :id => "login", :remote => true %></td>    
+        <td class="menu-item"><%= link_to 'Register', new_user_path, :id => "register", :remote => true%></td>
         <td class="menu-item"><%= link_to 'Forgot password?', new_pw_reset_path%></td>
-
-        
+        </div>
       <% else %>	
 		    <td>
 		    	<li class="dropdown">
@@ -114,7 +107,7 @@
 				<%= image_tag('search-icon.png')%>
 			</td>
 			<td>
-				<%= form_tag("/search_by_name", method: "post", name: "search_form", class: "control-label search-text") do %>
+				<%= form_tag("/search", method: "post", name: "search_form", class: "control-label search-text") do %>
 					<input type="text" id="title" name="title" placeholder="Title" class="form-field">
 					<select id="search-dropdown">
             <option>Technology</option>
@@ -225,7 +218,7 @@ window.onload = $(function() {
 <script>
 	$('#search-bar').bind('keyup', function(e) {
     if ( e.keyCode === 13 ) { //enter key
-    	redirect_to :controller => 'idea_postings', :action => 'search_by_name', :query =>$('#search-bar').val(), :something => 'else'
+    	redirect_to :controller => 'idea_postings', :action => 'search', :query =>$('#search-bar').val(), :something => 'else'
     }
 	});
 </script>

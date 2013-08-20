@@ -1,5 +1,5 @@
 
-$('#login_container').each(function(){
+$('#login').each(function(){
 	if($('#header').find(".new_session").length.toString() == 0){
 		$(this).after('<%= j render('form')%>');
 	}
@@ -17,8 +17,8 @@ $('#login_container').each(function(){
 
 		
 		$('#login_submit').attr("class", "btn btn-success");	
-		$('.new_session').css({'left' : offset.left-25, 'top' : offset.top+9});
-		$('#login').css('font-weight', 'bold');
+		$('.new_session').css({'left' : offset.left-25, 'top' : offset.top+22});
+		// $('#login').css('font-weight', 'bold');
 		
 		$('#login').attr("href", "/login?form_opened=false");
 
@@ -26,7 +26,7 @@ $('#login_container').each(function(){
 		
 	<%else%>
 						
- 		$('#login').css("font-weight", "normal"); 			
+ 		// $('#login').css("font-weight", "normal"); 			
 		
 		$('#caret_up_gray').hide(); 			
 		$('#caret_down_gray').show();

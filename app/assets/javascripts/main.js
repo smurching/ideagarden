@@ -53,9 +53,9 @@ $.fn.errorMessage = function(message, dismiss_all){
 		var error = document.getElementById(id+"_error"); 		
  		$(error).offset({top: offset.top+border, left: offset.left+border});
  		
- 		$(this).click(function(){
+ 		$(error).click(function(){
  			$(error).hide();
-			$(this).focus();
+			$(element).focus();
  		});
 	
  	}

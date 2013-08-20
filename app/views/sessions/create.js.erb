@@ -34,8 +34,15 @@ $('#password_hash').before('<p id = "login_failed"><%= j "Invalid username/passw
  		$('body').html(data.slice(start, end));
 
  		$('body').append('<%= j render "scripts/idea_postings_form_js"%> <%= j render "scripts/idea_postings_js"%>');
+ 		
+		$("#dropdown").click(function(){
+  			$('#dropdown').dropdown();
+		}); 		
 
- 	});	
+ 	});
+ 	
+ 	 
+
 
 <%else%>
 		var email_position = $('#email').position();

@@ -194,6 +194,10 @@ a {
   color: #42b2e6;	
 }
 
+.label > a{
+	color: white;
+}
+
 #login_filter{
   height: 100%;
   width: 100%;

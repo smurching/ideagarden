@@ -62,6 +62,18 @@ class IdeaPostingsController < ApplicationController
       
   end
   
+  def search_by_name
+    @idea_postings = IdeaPosting.find_by_name(params["title"])
+    if !@idea_postings
+      @idea_postings=[]
+    end
+    
+    respond_to do |format|
+      format.html {render "search"}
+    end
+  end  
+  
+  
   def search
     @tags = IdeaPosting.tags
     @idea_postings = []
