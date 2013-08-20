@@ -26,7 +26,7 @@ Ideagarden::Application.routes.draw do
   
   match '/login' => "sessions#new", as: "login", :via => :get
   match '/logout' => "sessions#destroy", as: "logout", :via => :get
-
+  match '/search_by_name' => "idea_postings#search_by_name", as: "search_by_name"
   
   #facebook login/registration
   match '/fb_login' => "sessions#create", as: "fb_login", :via => :post

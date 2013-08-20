@@ -1,3 +1,4 @@
+
 html {
 }
 
@@ -147,10 +148,7 @@ p.form_error{
 
 }
 
-p.topmost_error_message{
-	margin-left: 17px;
-	margin-top: -28px;
-}
+
 
 #img_error{
 	height: 33px;
@@ -196,6 +194,10 @@ a {
   color: #42b2e6;	
 }
 
+.label > a{
+	color: white;
+}
+
 #login_filter{
   height: 100%;
   width: 100%;
@@ -213,6 +215,12 @@ html {height:100%;}
   width: 100%;
   position:fixed;
 }
+
+
+
+
+
+
 
 
 

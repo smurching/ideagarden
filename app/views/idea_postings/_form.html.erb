@@ -69,19 +69,28 @@
 
 <%if @idea_posting != nil%>
 
+
+	
+
 	<script>
 	$(function(){
 		$('.edit_idea_posting').attr("id", "new_idea_posting");		
 	});
+
 	</script>
-	<%= javascript_include_tag "idea_posting_form"%>
+	
+	<%= render "scripts/idea_postings_form_js" %>		
+	
 	<script>
+	
 	$(function(){
-		$('#idea_posting_name').click().off("click").css({"margin-left" : "17px"});
-		$('#caret_up').hide();
-		$('#caret_down').hide();			
+
+		$('#caret_up').remove();
+		$('#caret_down').remove();
+		$('#idea_posting_name').click()
+		$('#idea_posting_name').off("click");			
 	});		
-	</script>	
+	</script>		
 
 <%end%>
 

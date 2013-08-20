@@ -34,6 +34,7 @@ GEM
       json (~> 1.4)
       nokogiri (< 1.6.0)
       uuidtools (~> 2.1)
+    bcrypt-ruby (3.1.1)
     bcrypt-ruby (3.1.1-x86-mingw32)
     builder (3.0.4)
     climate_control (0.0.3)
@@ -53,6 +54,7 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
+    flickraw (0.9.6)
     hashie (2.0.5)
     heroku (2.40.0)
       heroku-api (~> 0.3.7)
@@ -81,6 +83,7 @@ GEM
     multi_json (1.7.8)
     multipart-post (1.2.0)
     netrc (0.7.7)
+    nokogiri (1.5.10)
     nokogiri (1.5.10-x86-mingw32)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -160,6 +163,7 @@ DEPENDENCIES
   bcrypt-ruby
   cocaine
   coffee-rails
+  flickraw
   heroku
   jquery-rails
   omniauth-facebook

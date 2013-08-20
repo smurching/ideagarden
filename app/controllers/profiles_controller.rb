@@ -1,6 +1,8 @@
+
 class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
+require 'flickraw'
 
   before_filter :login_filter, :except => [:new, :create]
   def index
@@ -115,3 +117,4 @@ class ProfilesController < ApplicationController
     end
   end
 end
+

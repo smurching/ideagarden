@@ -1,3 +1,4 @@
+
 source 'https://rubygems.org'
 
 
@@ -12,6 +13,7 @@ gem 'pg', '~> 0.16.0'
 gem 'heroku'
 gem 'paperclip'
 gem 'aws-sdk'
+gem 'flickraw'
 gem 'cocaine'
 # gem 'protected_attributes'
 
@@ -49,3 +51,4 @@ gem 'omniauth-facebook'
 
 # To use debugger
 # gem 'debugger'
+
