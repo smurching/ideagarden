@@ -1,4 +1,4 @@
-
+<%if false%>
 
 
 <!DOCTYPE html>
@@ -162,3 +162,127 @@
 </body>
 </html>
 
+<%end%>
+
+
+
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <title>Ideagarden</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  
+</head>
+
+<body>
+  <table id='header'>
+  	<tr>
+  		<td><h1><%= link_to image_tag('logo.png', id: 'logo'), root_path %></h1></td>
+    	
+    	<% if logged_in? == false %>
+        <td class="menu-item"><%= link_to "Login", login_path, :id => "login", :remote => true %></td>    
+        <td class="menu-item"><%= link_to 'Register', new_user_path, :id => "register", :remote => true%></td>
+        <td class="menu-item"><%= link_to 'Forgot password?', new_pw_reset_path%></td>
+      <% else %>	
+		    <td>
+		    	<li class="dropdown">
+		    		<a id="dropdown" class="dropdown-toggle" data-toggle="dropdown">
+		    			<%= image_tag('people-icon.png')%>
+		    			<% if logged_in? && registration_complete? %>
+		        		<%= current_user.profile.name %>
+		        	<% else %>
+		        		<%= "Profile" %>
+		        	<% end %>
+		        	<b class="caret white-caret"></b>
+		      	</a>
+		    		<ul class="dropdown-menu sub-menu">
+		      		<% if logged_in? && registration_complete? %>
+		      			<li><%= link_to 'Profile', user_profiles_path(current_user.id)%></li>
+		      			<li><%= link_to 'Inbox', private_messages_path %></li>
+		      			<li><%= link_to "Requests ("+number_of_requests.to_s+")", list_joinrequests_path, :id => "pending_requests"%></li>	
+		      			<li><%= link_to "Following", show_following_path %></li>
+		      			<li><%= link_to "Followers", show_followers_path %></li>
+		      			<li><%= link_to "Logout", logout_path %></li>
+		      		<% end %>
+		      		<% if logged_in? && registration_complete? == false %>
+	  	 					<% if current_user.profile == nil %>
+	  	 						<li><%= link_to 'Complete Profile', new_user_profile_path(current_user.id) %></li>
+	  	 					<%end%>
+					  	 	<% unless current_user.confirmed == true %>
+					  	 		<li><%= link_to 'Resend Confirmation Email', resend_user_confirmation_path%></li>
+					  	 	<%end%>
+					  	 	<li><%= link_to "Logout", logout_path, :remote => true%></li>
+	  					<%end%>
+		    		</ul>
+		  		</li>
+		  	</td>
+		  <% end %>
+					
+			<td class="menu-item">
+				<%= image_tag('search-icon.png')%>
+			</td>
+			<td>
+				<%= form_tag("/search", method: "post", name: "search_form", class: "control-label search-text") do %>
+					<input type="text" id="title" name="title" placeholder="Title" class="form-field">
+					<select id="search-dropdown">
+            <option>Technology</option>
+            <option>Science and Math</option>
+            <option>Language</option>
+            <option>Art</option>
+            <option>Community Service</option>
+            <option>Research</option>
+            <option>Making Things</option>
+          </select>
+		    <% end %>
+	    </td>
+	          
+	          
+				
+			<td class="menu-item">
+	    	<%= image_tag('newpost-icon.png')%>
+	    	<%= link_to 'New Idea Posting', new_idea_posting_path %>
+	    </td>
+				
+     		
+    </tr>  
+	   
+
+        
+      
+  </table>
+
+  <div id='wrapper'>
+
+    <%= content_tag(:p, notice, :class => 'notice') if notice.present? %>
+    <%= content_tag(:p, alert, :class => 'alert') if alert.present? %>
+
+    <%= yield %>
+
+  </div>
+
+</body>
+</html>
+
+<script>
+$(function() { 
+$("#dropdown").click(function(){
+  $('#dropdown').dropdown();
+});
+});
+
+window.onload = $(function() { 
+  $('#dropdown').dropdown();
+});
+</script>
+
+<script>
+	$('#search-bar').bind('keyup', function(e) {
+    if ( e.keyCode === 13 ) { //enter key
+    	redirect_to :controller => 'idea_postings', :action => 'search', :query =>$('#search-bar').val(), :something => 'else'
+    }
+	});
+</script>

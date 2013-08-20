@@ -1,3 +1,4 @@
+
 class IdeaPostingsController < ApplicationController
   # GET /idea_postings
   # GET /idea_postings.json
@@ -255,3 +256,8 @@ class IdeaPostingsController < ApplicationController
     end
   end
 end
+
+
+
+
+
