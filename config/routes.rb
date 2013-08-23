@@ -29,8 +29,8 @@ Ideagarden::Application.routes.draw do
   match '/search_by_name' => "idea_postings#search_by_name", as: "search_by_name"
   
   #facebook login/registration
-  match '/fb_login' => "sessions#create", as: "fb_login", :via => :post
-  match '/fb_register' => "users#create", as: "fb_register", :via => :post
+  match '/fb_login' => "sessions#create", as: "fb_login" 
+  match '/fb_register' => "users#create", as: "fb_register"
   match '/users/:user_id/profiles' => "profiles#create", as: "fb_profile_create", :via => :put
   match '/channel.html' => "idea_postings#channel", as: "channel_path", :via => :get
   

@@ -70,7 +70,9 @@
   		<%= link_to image_tag("caret_up_gray.png", :id => "caret_up_gray", :class => "form_caret", :height => "12px", :width => "12px"), login_path+"?form_opened=false", :remote => true%>        	
         	
         	
-        </td>    
+        </td>
+        <td class="menu-item"><%= link_to "Login through Facebook", "/auth/facebook?&state=login"%></td> 
+    	<td class="menu-item"><%= link_to "Register through Facebook", "/auth/facebook?&state=register"%> </td>    
         <td class="menu-item"><%= link_to 'Register', new_user_path, :id => "register", :remote => false%></td>
         <td class="menu-item"><%= link_to 'Forgot password?', new_pw_reset_path%></td>
 
