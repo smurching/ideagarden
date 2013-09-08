@@ -32,12 +32,12 @@
       <h3 class = "tags">Tags: 
 		<% if idea_posting.tags.length >= 2%>
       	<% (0..idea_posting.tags.length-2).each do |int| %>
-    	<%= idea_posting.tags[int].value+", " %>
+    	<%= idea_posting.tags[int]+", " %>
     	<% end %>
-    	<%= idea_posting.tags.last.value%>  
+    	<%= idea_posting.tags.last%>  
     	<%else%>
     	<% idea_posting.tags.each do |tag| %>
-    	<%= tag.value%>
+    	<%= tag%>
     	<%end%>
     	<%end%>
       </h3>
