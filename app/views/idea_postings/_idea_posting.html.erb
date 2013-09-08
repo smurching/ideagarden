@@ -54,13 +54,13 @@
 		<% if idea_posting.tags.length >= 2%>
       		<% (0..idea_posting.tags.length-1).each do |int| %>
     			<span class="label">
-    				<%= idea_posting.tags[int].value %>
+    				<%= idea_posting.tags[int] %>
     			</span> 
     		<% end %>  
     	<%else%>
     		<% idea_posting.tags.each do |tag| %>
     		<span class="label">
-    			<%= tag.value%>
+    			<%= tag %>
     		</span>
     		<%end%>
     	<%end%>

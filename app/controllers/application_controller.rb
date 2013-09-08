@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
       return unless session[:user_id]
       @current_user ||= User.find_by_id(session[:user_id]) 
     end
+    
 
     # Make current_user available in templates as a helper
     helper_method :current_user

@@ -10,10 +10,9 @@ class IdeaPosting < ActiveRecord::Base
   has_and_belongs_to_many :users, :uniq => true
   has_many :feedbacks
   has_many :joinrequests
-  has_many :tags
+  has_one :tags_list
   has_attached_file :photo, styles: { small: "130x130>", thumb: "45x45>" }  
   
-  accepts_nested_attributes_for :tags
   
   
   scope :desc, order("idea_postings.potential DESC")
@@ -52,14 +51,18 @@ class IdeaPosting < ActiveRecord::Base
     update_attributes(potential: votes-=1)
   end
   
+  #params contains keys, corresponding values are used to search tags table
   def self.search_hash
-      search_hash = {"technology" => "technology", "science" => "science & math", "art"=>"art", "language" => "language",
-      "community_service" => "community service", "research" => "research", 
-      "making_things" => "making things", "followed_users" => "followed_users", "followers" => "followers"}
+      search_hash = {"technology" => "technology", "science_and_math" => "science_and_math", "art"=>"art", "language" => "language",
+      "community_service" => "community_service", "research" => "research", 
+      "making_things" => "making_things", "followed_users" => "followed_users", "followers" => "followers"}            
   end
   
+  
+  
+  
   def self.tags
-      tags = ["technology", "science & math", "art", "language", "community service", "research", "making things"]
+    tags = ["technology", "science & math", "art", "language", "community service", "research", "making things"]
   end
   
   def matches_query?(query)
@@ -75,7 +78,7 @@ class IdeaPosting < ActiveRecord::Base
         return false
   end
   
- def photo_url(style=:original)
+  def photo_url(style=:original)
     original = photo.url
     styles_hash = {:thumb => "thumb", :medium => "medium", :original => "original"}
     
@@ -95,5 +98,69 @@ class IdeaPosting < ActiveRecord::Base
       return modified
     end
   end  
+  
+  
+  def self.search(params = {}, current_user = nil)        
+    
+    query_string = ""
+    
+    if params == {} || params == nil
+      return self.order("potential DESC")
+    end
+    
+    if params.delete("followed_users")
+      followed_users = true
+    end
+    
+    if params.delete("followers")
+      followers = true
+    end  
+    
+    first = params.first
+    params.delete(first[0])
+    
+    if self.search_hash.has_value?(first[0])
+      query_string += "#{first[0]} = TRUE"
+    end
+        
+    
+    
+    params.each do |key, value|
+      if self.search_hash.has_value?(key)        
+        query_string += " AND #{key} = TRUE"                               
+      end
+    end
+    
+    tags_lists = TagsList.where(query_string)
+    postings = TagsList.idea_postings(tags_lists)
+    
+    output = []
+    
+    postings.each do |posting|
+      matches_search = true
+      
+      if followers
+        matches_search = current_user.from_follower?(posting) ? true : false #method in User.rb that checks whether posting is from follower
+      end
+      
+      if followed_users
+        matches_search = current_user.from_followed_user?(posting) ? true : false
+      end
+      
+       if matches_search
+         output << posting
+       end
+    end
+  
+    return output
+  end
+  
+  def tags
+    if tags_list
+      return tags_list.tags
+    else
+      return []
+    end      
+  end
 
 end

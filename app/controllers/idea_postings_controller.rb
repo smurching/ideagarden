@@ -10,10 +10,20 @@ class IdeaPostingsController < ApplicationController
       @idea_posting = IdeaPosting.find(params[:id])
     end
     @idea_postings = IdeaPosting.desc.all
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @idea_postings }
-      format.js
+    
+    if logged_in?
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @idea_postings }
+        format.js          
+      end
+    else
+      @user = User.new
+      @profile = Profile.new      
+      respond_to do |format|
+        format.html # {render 'main'}
+        format.js
+      end
     end
   end
   
@@ -62,43 +72,7 @@ class IdeaPostingsController < ApplicationController
   end
   
   def search
-    @tags = IdeaPosting.tags
-    @idea_postings = []
-    @all_postings = IdeaPosting.all
-    
-    query = []
-    tag_hash = IdeaPosting.search_hash
-
-    
-    params.each do |key, value|
-      if value == "true" && key != "followed_users" && key!= "followers"
-        query << tag_hash[key]
-      end
-    end
-    
-    
-  if query !=  [] || params[:followers] != nil || params[:followed_users] != nil
-    for posting in IdeaPosting.all #if IdeaPosting.all, each posting will have all of its users looped through until one is found that's a follower
-      
-      matches_search = true
-      
-      if params[:followers] == "true"
-        matches_search = current_user.from_follower?(posting) ? true : false #method in User.rb that checks whether posting is from follower
-      end
-      
-      if params[:followed_users] == "true"
-        matches_search = current_user.from_followed_user?(posting) ? true : false
-      end
-      
-      if matches_search && posting.matches_query?(query)
-        @idea_postings << posting
-      end
-      
-     end
-     
-  else
-    @idea_postings = IdeaPosting.order("potential DESC")
-  end
+    @idea_postings = IdeaPosting.search(params, current_user)
     
     respond_to do |format|
       format.html # index.html.erb
@@ -152,14 +126,8 @@ class IdeaPostingsController < ApplicationController
   def create
     @tags = IdeaPosting.tags
     @idea_posting = IdeaPosting.new(params[:idea_posting])
-    tag_hash = IdeaPosting.search_hash
-    
-    params.each do |key, value|
-      if value == "true" && ["facebook", "under_execution", "photo"].include?(key) == false
-        tag = @idea_posting.tags.new({:value => tag_hash[key]})
-        tag.save
-      end
-    end    
+
+     
     
     if params[:facebook] == "true"
       @post_to_facebook = true
@@ -177,6 +145,11 @@ class IdeaPostingsController < ApplicationController
 
       respond_to do |format|
         if @idea_posting.save
+          
+          tags_list = TagsList.new(:idea_posting_id => @idea_posting.id)
+          tags_list.set_attributes(params)    
+          tags_list.save      
+          
           @posting_saved = true          
           current_user.idea_postings << @idea_posting #idea_posting added to current user
           @idea_posting.users << User.find(current_user.id) #current user added to idea_posting's list of owners
