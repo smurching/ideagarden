@@ -131,8 +131,16 @@ class IdeaPosting < ActiveRecord::Base
       end
     end
     
-    tags_lists = TagsList.where(query_string)
-    postings = TagsList.idea_postings(tags_lists)
+    
+    # postings = IdeaPosting.joins(:tags_list).where(query_string)
+    
+    postings = IdeaPosting.joins("INNER JOIN tags_lists ON tags_lists.id = idea_postings.id AND "+query_string)
+    
+    # I'm pretty sure SQL Selects are faster than ruby loops so the
+    # code block below is commented out in favor of the uncommented one above
+    
+    # tags_lists = TagsList.where(query_string)
+    # postings = TagsList.idea_postings(tags_lists)
     
     output = []
     

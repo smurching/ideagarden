@@ -12,8 +12,11 @@ gem 'pg', '~> 0.16.0'
 
 gem 'heroku'
 gem 'paperclip'
+
+# Use flickraw to access Flickr API and aws-sdk to access AWS
+# gem 'flickraw'
 gem 'aws-sdk'
-gem 'flickraw'
+
 gem 'cocaine'
 # gem 'protected_attributes'
 

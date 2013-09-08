@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(:version => 20130904083844) do
 
+  create_table "confirmcodes", :force => true do |t|
+    t.string   "code"
+    t.string   "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "feedbacks", :force => true do |t|
     t.integer  "idea_posting_id"
     t.integer  "user_id"
@@ -48,8 +55,8 @@ ActiveRecord::Schema.define(:version => 20130904083844) do
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
     t.integer  "potential",          :default => 0
-    t.boolean  "state",              :default => false
     t.string   "opengraph_id"
+    t.boolean  "state",              :default => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
@@ -105,6 +112,13 @@ ActiveRecord::Schema.define(:version => 20130904083844) do
     t.datetime "updated_at",         :null => false
   end
 
+  create_table "reset_codes", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "senders", :force => true do |t|
     t.integer  "user_id"
     t.integer  "private_message_id"
@@ -116,8 +130,8 @@ ActiveRecord::Schema.define(:version => 20130904083844) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -148,8 +162,6 @@ ActiveRecord::Schema.define(:version => 20130904083844) do
     t.string   "confirmation_code"
     t.string   "posting_votes"
     t.boolean  "confirmed",            :default => false
-    t.integer  "sender_id"
-    t.integer  "recipient_id"
     t.boolean  "facebook",             :default => false
     t.string   "access_token"
     t.string   "facebook_id"

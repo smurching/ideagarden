@@ -104,26 +104,41 @@ end
  end
  
  def followers_list
-   followers_list = []
-   followers_objects = self.followers
-   for object in followers_objects
-     followers_list << User.find(object.user_id)
-   end
-   return followers_list
+   #followers_list = []
+   #followers_objects = self.followers
+   #for object in followers_objects
+   #  followers_list << User.find(object.follower_user_id)
+   #end
+   #return followers_list
+   
+   # Joins users and followers tables ON user.id = followers.user_id
+   # (wherever a user's id matches a follower object's user_id attribute).
+   # Then, selects from results where user.id is equal to the
+   # user instance's id
+   
+   User.joins(:followers).where("users.id = ?", self.id)
  end
  
   def followed_users_list
-   followings_list = []
-   followings_objects = self.followings
-   for object in followings_objects
-     followings_list << User.find(object.user_id)
-   end
-   return followings_list
+   #followings_list = []
+   #followings_objects = self.followings
+   #for object in followings_objects
+   #  followings_list << User.find(object.user_id)
+   #end
+   #return followings_list
+   
+   # Joins users and followers tables ON user.id = followings.user_id
+   # (wherever a user's id matches a following object's user_id attribute).
+   # Then, selects from results where user.id is equal to the
+   # user instance's id
+      
+   User.joins(:followings).where("users.id = ?", self.id)
  end
  
  
 
- def from_follower?(posting)
+ def from_follower?(posting)   
+   
   users = posting.users
   followers = self.followers_list
   users.each do |user|

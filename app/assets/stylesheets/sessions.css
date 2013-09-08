@@ -27,3 +27,10 @@
 #caret_up_gray, #caret_down_gray{
 	position: relative;
 }
+
+#facebook_login{
+	color: white;
+	font-weight: normal;
+	font-size: 14px;
+}
+

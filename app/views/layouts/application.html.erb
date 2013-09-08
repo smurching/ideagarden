@@ -70,8 +70,11 @@
         	
         	
         </td>
-        <td class="menu-item"><%= link_to "Login through Facebook", "/auth/facebook?&state=login"%></td> 
-    	<td class="menu-item"><%= link_to "Register through Facebook", "/auth/facebook?&state=register"%> </td>    
+        <%if false%>
+        <td class="menu-item"><%= link_to "Login through Facebook", "/auth/facebook?&state=login"%></td>
+    	<td class="menu-item"><%= link_to "Register through Facebook", "/auth/facebook?&state=register"%> </td>
+        <%end%>     	
+    	    
         <td class="menu-item"><%= link_to 'Register', new_user_path, :id => "register", :remote => false%></td>
         <td class="menu-item"><%= link_to 'Forgot password?', new_pw_reset_path%></td>
 

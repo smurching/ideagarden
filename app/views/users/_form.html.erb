@@ -1,4 +1,9 @@
 <div>
+	
+<h4>Thanks for signing up for Ideagarden!</h4>
+<h5> <a href = "/auth/facebook&state=register">Register through Facebook</a></h5>
+
+
 <%= form_for(@user, :remote => false, :html => {multipart: true}) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">

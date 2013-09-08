@@ -70,7 +70,7 @@ class SessionsController < ApplicationController
 
   
   def new
-    if params[:form_opened] == "true"
+    if params[:form_opened] == "true" || params[:form_opened] == nil
       @form_opened = true
     else
       @form_opened = false

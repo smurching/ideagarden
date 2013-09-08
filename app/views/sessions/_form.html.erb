@@ -8,7 +8,14 @@
     <%= label_tag "Password" %>
     <%= password_field_tag :password_hash %>
   </div>
+  
   <div class="actions">
     <%= submit_tag 'Login', :id => "login_submit", :class => "btn btn-success" %>
   </div>
+  
+  <br/><br/></br/>
+  <div class = "actions">
+  	<%= link_to "Login via Facebook", "/auth/facebook?&state=login", :id => "facebook_login", :class => "btn btn-primary"%>
+  </div>
+  
 <% end %>
