@@ -1,6 +1,13 @@
 $(function(){
+
+var k = 0;	
+var interval_1 = window.setInterval(function(){
+	console.log(k);
+	k+=1;
+	if(k > 100){
+		clearInterval(interval_1);
+	}
 	
-		
 	var visible_post = $('.featured_post_photo').filter(":visible")[0];	
 	var height = $(visible_post).height();
 	
@@ -19,6 +26,9 @@ $(function(){
 	else{
 		$(visible_post).width(box_width);
 	}
+	
+}, 10);		
+
 
 });
 
@@ -90,8 +100,15 @@ $(function(){
 		}, 1);	
 		
 
-
 		
+		var k = 0;	
+		var interval_1 = window.setInterval(function(){
+		console.log(k);
+		k+=1;
+		if(k > 100){
+			clearInterval(interval_1);
+		}
+	
 		var visible_post = $('.featured_post_photo').filter(":visible")[0];	
 		var height = $(visible_post).height();
 	
@@ -103,14 +120,15 @@ $(function(){
 		var box_height = $('#featured_posts').height();
 		var box_aspect_ratio = box_height/box_width;
 	
-	
 		if (aspect_ratio > box_aspect_ratio ){
 			$(visible_post).height(box_height);
 		}
 		else{
 			$(visible_post).width(box_width);
 		}
-			
+	
+		}, 10);	
+		
 	});
 	
 	
@@ -176,6 +194,14 @@ $(function(){
 
 
 		
+		var k = 0;	
+		var interval_1 = window.setInterval(function(){
+		console.log(k);
+		k+=1;
+		if(k > 100){
+			clearInterval(interval_1);
+		}
+	
 		var visible_post = $('.featured_post_photo').filter(":visible")[0];	
 		var height = $(visible_post).height();
 	
@@ -187,13 +213,14 @@ $(function(){
 		var box_height = $('#featured_posts').height();
 		var box_aspect_ratio = box_height/box_width;
 	
-	
 		if (aspect_ratio > box_aspect_ratio ){
 			$(visible_post).height(box_height);
 		}
 		else{
 			$(visible_post).width(box_width);
 		}
+	
+		}, 10);	
 			
 	});
 

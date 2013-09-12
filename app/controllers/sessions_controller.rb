@@ -74,7 +74,13 @@ class SessionsController < ApplicationController
   end
 
   
-  def new
+  def new    
+    if logged_in?
+      respond_to do |format|
+        format.html {redirect_to root_path}
+      end
+    end
+        
     if params[:form_opened] == "true" || params[:form_opened] == nil
       @form_opened = true
     else

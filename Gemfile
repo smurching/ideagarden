@@ -18,6 +18,10 @@ gem 'paperclip'
 gem 'aws-sdk'
 
 gem 'cocaine'
+
+# Task scheduling
+gem 'whenever'
+
 # gem 'protected_attributes'
 
 

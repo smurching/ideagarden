@@ -11,6 +11,11 @@ class VotesController < ApplicationController
       current_user.posting_votes << idea_posting_id.to_i
       current_user.save
       @upvoted = true
+      
+      new_vote = RecentVotes.new({:is_upvote => true, :idea_posting_id => idea_posting_id})
+      new_vote.save
+      
+      
       respond_to do |format|
         format.html {redirect_to root_path, notice: "You upvoted '#{idea_posting.name}'"}
         format.js {render 'idea_postings/index'}  
@@ -28,6 +33,10 @@ class VotesController < ApplicationController
       current_user.posting_votes.delete(idea_posting_id.to_i)
       current_user.save
       @unvoted = true    
+      
+      # new_vote = RecentVotes.new({:is_upvote => false, :idea_posting_id => idea_posting_id})
+      # new_vote.save
+      
       respond_to do |format|
         format.html {redirect_to root_path, notice: "You unvoted '#{idea_posting.name}'"}
         format.js {render'idea_postings/index'}

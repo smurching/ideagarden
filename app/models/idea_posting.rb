@@ -99,6 +99,68 @@ class IdeaPosting < ActiveRecord::Base
     end
   end  
   
+  def potential_ranking
+    posting_list = IdeaPosting.order("potential DESC")
+    num_of_postings = posting_list.length
+    percentile = 100*(num_of_postings-posting_list.index(self))/num_of_postings
+    point_value = percentile/10
+  end
+  
+  def rising_ranking
+    
+    vote_recipients = RecentVotes.select(:idea_posting_id).uniq.map!{ |object| object.idea_posting_id}
+    
+    if vote_recipients.include?(self.id)
+      votes_array = []
+      
+      vote_recipients.each do |id|
+        upvotes = RecentVotes.where("idea_posting_id = ? AND is_upvote = TRUE", id).length
+        downvotes = RecentVotes.where("idea_posting_id = ? AND is_upvote = FALSE", id).length
+
+        if (rating_change = downvotes-upvotes) > 0
+          votes_array << [id, rating_change]
+        end
+                
+      end    
+      
+      sorted_ids_list = votes_array.sort_by!{|element| element[1]}.map{|element| element[0]}
+    
+      num_of_postings = sorted_ids_list.length
+      percentile = 100*(num_of_postings-sorted_ids_list.index(self.id))/num_of_postings
+      point_value = percentile/10
+    
+    else
+      return 0          
+    end
+  end
+  
+  def compute_featured_rating
+    (rising_ranking + potential_ranking)/(self.featured_count+1)
+  end
+  
+  def save_featured_rating
+    self.featured_rating = self.compute_featured_rating
+    self.save
+  end
+  
+  def self.update_featured_posts(quantity = 3)
+    IdeaPosting.all.each do |posting|
+      if posting.featured
+        posting.featured = false
+        posting.featured_count += 1
+      end
+      posting.save_featured_rating
+    end
+    list = IdeaPosting.order("featured_rating DESC").slice!(0, quantity)
+    list.each do |elem|
+      elem.featured = true
+      elem.save
+    end    
+  end
+  
+  def self.featured_posts
+    IdeaPosting.where("featured = TRUE")
+  end
   
   def self.search(params = {}, current_user = nil)        
     

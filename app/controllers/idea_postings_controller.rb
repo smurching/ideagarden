@@ -9,8 +9,10 @@ class IdeaPostingsController < ApplicationController
   def index
     if params[:id] != nil
       @idea_posting = IdeaPosting.find(params[:id])    
-    else
+    elsif logged_in?
       @idea_postings = IdeaPosting.desc.all
+    else
+      @idea_postings = IdeaPosting.featured_posts
     end
     
     if logged_in?
@@ -23,7 +25,7 @@ class IdeaPostingsController < ApplicationController
       @user = User.new
       @profile = Profile.new      
       respond_to do |format|
-        format.html  {redirect_to login_path}
+        format.html  {render :layout => "plain_layout", :template => "sessions/_form"}
         format.js
       end
     end

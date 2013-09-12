@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130904083844) do
+ActiveRecord::Schema.define(:version => 20130913011713) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
@@ -61,6 +61,9 @@ ActiveRecord::Schema.define(:version => 20130904083844) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.float    "featured_rating",    :default => 0.0
+    t.integer  "featured_count",     :default => 0
+    t.boolean  "featured",           :default => false
   end
 
   create_table "idea_postings_users", :id => false, :force => true do |t|
@@ -102,6 +105,13 @@ ActiveRecord::Schema.define(:version => 20130904083844) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+  end
+
+  create_table "recent_votes", :force => true do |t|
+    t.integer  "idea_posting_id"
+    t.boolean  "is_upvote"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "recipients", :force => true do |t|
