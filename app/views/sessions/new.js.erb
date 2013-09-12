@@ -1,4 +1,10 @@
 
+$('#main_form').html("<%= j render 'sessions/form'%>");
+$('.form_error').hide();
+
+
+
+<%if false%>
 $('#login').each(function(){
 	if($('#header').find(".new_session").length.toString() == 0){
 		$(this).after('<%= j render('form')%>');
@@ -43,7 +49,7 @@ $('#login').each(function(){
 
 	
 
-
+<%end%>
 
 
 

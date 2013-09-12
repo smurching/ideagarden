@@ -25,18 +25,15 @@
       <h2 class = 'title'><%= link_to idea_posting.name, idea_posting %></h2>
       <p class = 'owners'>by <% idea_posting.users.each do |user| %><%= link_to user.profile.name + ", ", user_profiles_path(user.id) %><% end %></p>
       <h3 class = 'pitch'>Pitch: <%= simple_format(idea_posting.pitch) %></h3>
-      <h3 class = "tags">Tags: 
-		<% if idea_posting.tags.length >= 2%>
-      	<% (0..idea_posting.tags.length-2).each do |int| %>
-    	<%= idea_posting.tags[int]+", " %>
-    	<% end %>
-    	<%= idea_posting.tags.last%>  
-    	<%else%>
-    	<% idea_posting.tags.each do |tag| %>
-    	<%= tag%>
-    	<%end%>
-    	<%end%>
-      </h3>
+	  <div class = "tags">
+    		<% idea_posting.tags.each do |tag| %>
+    			<h4 class = "inline_tag">
+    			<span class="label label-success">
+    				<%= tag%>
+    			</span>
+    			</h4>
+    		<%end%>		
+	  </div>
     </div>
   </div>
 <%end%>

@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     @user = User.new
     @profile = Profile.new
     respond_to do |format|
-      format.html # new.html.erb
+      format.html {render :layout => "plain_layout"} # new.html.erb
       format.json { render json: @user }
       format.js
     end
@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     
     
     respond_to do |format|
-      if @user.save && @profile.save
+      if @user.save && (@profile.save || params[:profile] == nil)
         
         ### Setting up the success dialog
         if @user.facebook == false
@@ -114,7 +114,7 @@ class UsersController < ApplicationController
       else
         @user.destroy
         @user_created = false
-        format.html { render action: "new" }
+        format.html { render layout: "plain_layout", action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
         format.js {render 'profiles/new'}
       end

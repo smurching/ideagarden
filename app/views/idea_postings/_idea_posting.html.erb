@@ -24,7 +24,7 @@
     		</div>
 
     		<div style="font-size:16px;"> 
-    		 <% @idea_posting.users.each do |user| %>
+    		 <% idea_posting.users.each do |user| %>
 				<%= link_to user.profile.name, user_profiles_path(user.id) %>
 			<% end %>
 			</div>
@@ -51,19 +51,13 @@
   </div>  
     
     <p>Tags: 
-		<% if idea_posting.tags.length >= 2%>
-      		<% (0..idea_posting.tags.length-1).each do |int| %>
-    			<span class="label">
-    				<%= idea_posting.tags[int] %>
-    			</span> 
-    		<% end %>  
-    	<%else%>
-    		<% idea_posting.tags.each do |tag| %>
+
+    	<% idea_posting.tags.each do |tag| %>
     		<span class="label">
     			<%= tag %>
     		</span>
-    		<%end%>
     	<%end%>
+
 	</p>
 </div>
 

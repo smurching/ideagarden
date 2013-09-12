@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     
     
     def registration_complete?
-      if current_user != nil && current_user.profile != nil && current_user.confirmed
+      if current_user != nil && current_user.confirmed
         return true
       else
         return false
@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
     helper_method :registration_complete?
     
     def registration_filter
-      if current_user.profile == nil
+      if current_user.profile == nil && false
         @registration_incomplete = true 
         respond_to do |format| 
           format.html {redirect_to root_path, :notice => 'Please complete registration by completing your profile to access this feature'}

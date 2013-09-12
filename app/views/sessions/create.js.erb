@@ -1,6 +1,6 @@
 $('.notice').remove();
 $('#login_failed').remove();
-$('#password_hash').before('<p id = "login_failed"><%= j "Invalid username/password combination" %></p>');
+$('#password_hash').errorMessage("Invalid username/password combination");
 
 
 
@@ -44,9 +44,6 @@ $('#password_hash').before('<p id = "login_failed"><%= j "Invalid username/passw
  	 
 
 
-<%else%>
-		var email_position = $('#email').position();
-		$('#login_failed').show();
-		$('#login_failed').css({'top' : email_position.top-18, 'left' : email_position.left+230, 'position' : 'absolute'});
-		$('.new_session').css({'width':'320px'});						
+
+					
 <%end%>

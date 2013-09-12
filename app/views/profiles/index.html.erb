@@ -60,13 +60,12 @@
     			<%= link_to idea_posting.name, idea_posting %>
   			</h3>
 			<p>Pitch: <%= idea_posting.pitch %></p>
-    		<p>Description: <%= simple_format(idea_posting.description)  %></p>
-    		<p>Tags: 
-  				<% (0..idea_posting.tags.length-1).each do |int| %>
-					<span class="label">
-						<%= idea_posting.tags[int].value %>
-					</span> 
-				<% end %>
+    		<p class="profile-tags">Tags: 
+    		<% idea_posting.tags.each do |tag| %>
+    			<span class="label label-success">
+    				<%= tag %>
+    			</span>
+    		<%end%>
     		</p> 
     		<hr>
     	<%end%> 		
@@ -78,14 +77,13 @@
   			<h3>
     			<%= link_to idea_posting.name, idea_posting %>
   			</h3>
-			<p>Pitch: <%= idea_posting.pitch %></p>
-    		<p>Description: <%= simple_format(idea_posting.description)  %></p>
+			<p class="pitch">Pitch: <%= idea_posting.pitch %></p>
     		<p>Tags: 
-  				<% (0..idea_posting.tags.length-1).each do |int| %>
-					<span class="label">
-						<%= idea_posting.tags[int].value %>
-					</span> 
-				<% end %>
+    		<% idea_posting.tags.each do |tag| %>
+    			<span class="label label-success">
+    				<%= tag %>
+    			</span>
+    		<%end%>
     		</p> 
     		<hr>
     	<%end%>		
@@ -97,3 +95,23 @@
 <br />
 <%= link_to 'Back', root_path %>
 <br />
+
+
+<script>
+
+$(function(){
+	
+	$('.nav-tabs > li').click(function(){
+		var id = $(this).children("a").attr("href").slice(1);
+		
+		$('.nav-tabs > li').attr("class", "");
+		$('.tab-pane').hide();
+		
+		$(this).attr("class", "active");
+		$('.tab-pane[id="'+id+'"]').show();
+		
+				
+	});
+
+});
+</script>

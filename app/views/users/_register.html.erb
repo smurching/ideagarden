@@ -1,30 +1,42 @@
 
-
-<div id="main_container">
 	
-	<h3> <%=image_tag('logo.png', id: 'main_logo')%></h3>
-	<h4>
-		<strong id = "start" class = "strong_green">Launch</strong> and <strong class = "strong_blue">get involved</strong> in <span id = "project_category">extracurricular</span> projects!
-	</h4>
-	
-	<div id = "featured_posts" class = "thumbnail">
-	<div id="featured_post_text_filler"></div>	
-			
-			<% @idea_postings.each_with_index do |posting, index| %>
-				<%= render :partial => "featured_posting", :locals => {:idea_posting => posting, :posting_class => index.to_s+ ((index==0) ? " visible" : " hidden")  } %>				
-			<%end%>
-		
-		<%= image_tag('caret_right.png', id: "featured_right_caret", class: "featured_right_caret")%>
-		<%= image_tag('caret_left.png', id: "featured_left_caret", class: "featured_left_caret")%>
-	
-	
-	</div>
-	<br/>
-
-<div id = "main_form">	
 <%= render :partial => "sessions/form", :locals => {:session_class => "register_login"}%>
+
+<div class = "btn-group">
+	<%= link_to "Register", new_user_path, :class => "btn btn-inverse"%>
 </div>
 
+<%if false%>
+<%= form_for(@user, :remote => false, :html => {multipart: true, id: "register_form"}) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.password_field :password_hash %>
+  </div>
+  <div class="field" id = "confirm_password">
+  	<%= f.password_field :password_hash_confirmation %>
+  </div>
+  
+
+  <%= render "profiles/form"%>  
+
+<% end %>
+
+<%end%>
 
   <script id = "form_validations">
   
@@ -66,8 +78,3 @@
 
 
 
-	
-	
-
-
-<div>

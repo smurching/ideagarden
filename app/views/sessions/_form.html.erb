@@ -1,21 +1,26 @@
-<%= form_tag session_path, :class => "new_session", :remote => true do %>
+<%= form_tag session_path, :class =>  "", :id => "main_login_form", :remote => true do %>
   
-  <div class="field">
-    <%= label_tag :email %>
+  <div class="field centered">
     <%= text_field_tag :email %>
   </div>
-  <div class="field">
-    <%= label_tag "Password" %>
+  
+  <div class="field centered">
     <%= password_field_tag :password_hash %>
   </div>
   
-  <div class="actions">
-    <%= submit_tag 'Login', :id => "login_submit", :class => "btn btn-success" %>
+  <div class="actions centered">
+  	<span class="btn-group" id = "main_login_container">
+    <%= submit_tag 'Login', :id => "login_submit", :class => "btn btn-success" %> 
+    <%= link_to "Login via Facebook", "/auth/facebook?&state=login", :id => "facebook_login", :class => "btn btn-primary"%>
+  	</span>
   </div>
   
-  <br/><br/></br/>
-  <div class = "actions">
-  	<%= link_to "Login via Facebook", "/auth/facebook?&state=login", :id => "facebook_login", :class => "btn btn-primary"%>
-  </div>
-  
+	<%= link_to "Register", new_user_path, :remote => true, :class => "btn btn-inverse"%>  
 <% end %>
+
+  <script id = "form_watermarks">
+		$.watermark.options.className = 'centered_watermark'; 	
+		$.watermark.options.useNative = false;  
+		$('#email').watermark("Email", {className: "centered_watermark"});  
+		$('#password_hash').watermark("Password", {className: "centered_watermark"});
+  </script>

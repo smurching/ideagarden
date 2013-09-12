@@ -50,6 +50,14 @@ h1 {
 	width: 100px;
 }
 
+.description{
+	display: inline;
+}
+
+.profile-tags > .label{
+	font-size: 14px;
+	margin-left: 3px;
+}
 
 .follow_edit_link { color: white; }
 a.follow_edit_link:hover, a.follow_edit_link:active, a.follow_edit_link:visited { color: white; }

@@ -1,6 +1,6 @@
  $(function(){
- 	if($('#wrapper').find("div.uneditable-input").length!=0){
- 	$('.btn-file').css("width", "60").children().css({"height" : "20", "width" : "60"});
+ 	if($('body').find("div.uneditable-input").length!=0){
+ 	$('.btn-file').children().css({"height" : "20", "width" : "60"});
  	$('.btn-file > input').css({"width" : $('span.btn-file').outerWidth()}).offset({left : $('span.btn-file').offset().left});	
  	}
 
@@ -71,7 +71,7 @@
 
 		}
 		
-		$('.form_error').css("width", "612").click(function(){$(this).hide()});
+		$('.form_error').css("width", "580").click(function(){$(this).hide()});
 		$('a.dismiss_all').click(function(){
 			$('.form_error').hide();
 		});				
@@ -82,7 +82,7 @@
  
  
  $(function(){
-	$.watermark.options.className = 'watermark'; 	
+	$.watermark.options.className = 'centered_watermark'; 	
 	$.watermark.options.useNative = false;
  	$('#idea_posting_name').watermark("Got an Idea?", {className: "centered_watermark"});
  	$('#idea_posting_pitch').watermark("Pitch (10 char. minimum)", {className: "centered_watermark"});
@@ -121,7 +121,7 @@
  	if(typeof(o) != "undefined"){
 		var o = $('#idea_posting_name').offset();
  		var div_width = $('#idea_posting_name').width(); 		
- 		$('.form_caret').offset({"left": o.left+div_width-5, "top" : o.top+7}); 	
+ 		$('.form_caret').offset({"left": o.left+div_width-13, "top" : o.top+7}); 	
  	}
  	else{
  		$(document).ready(function(){
@@ -150,7 +150,7 @@
 		
 		var o = $('#idea_posting_name').offset();
  		var div_width = $('#idea_posting_name').width(); 		
- 		$('.form_caret').offset({"left": o.left+div_width-5, "top" : o.top+7}); 	
+ 		$('.form_caret').offset({"left": o.left+div_width-13, "top" : o.top+7}); 	
  		
  	});
  	
@@ -170,7 +170,7 @@
  		
 		var o = $('#idea_posting_name').offset();
  		var div_width = $('#idea_posting_name').width(); 		
- 		$('.form_caret').offset({"left": o.left+div_width-5, "top" : o.top+7});  		
+ 		$('.form_caret').offset({"left": o.left+div_width-13, "top" : o.top+7});  		
 	
  	});
  	 	
@@ -192,7 +192,7 @@
  				// console.log(num_of_loops);
  				var o = $('#idea_posting_name').offset();
  				var div_width = $('#idea_posting_name').width(); 		
- 				$('.form_caret').offset({"left": o.left+div_width-5, "top" : o.top+7});
+ 				$('.form_caret').offset({"left": o.left+div_width-13, "top" : o.top+7});
  				
  				if(num_of_loops > 10){
  					clearInterval(filters_positioning); 					

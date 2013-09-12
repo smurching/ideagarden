@@ -58,9 +58,12 @@
  
  $(function(){
  	var offset = $('#header').offset();
- 	var top = $('#header').outerHeight()+offset.top;
- 	$('#filters').css({"top": top+2, "height" : $(document).height()});
- 	$('#dummy').css({"top": top-5, "left" : $('#filters').offset().left});
+ 	
+ 	if(typeof(offset)!="undefined"){ 		
+ 		var top = $('#header').outerHeight()+offset.top;
+ 		$('#filters').css({"top": top+2, "height" : $(document).height()});
+ 		$('#dummy').css({"top": top-5, "left" : $('#filters').offset().left}); 	
+ 	}
  	
  });
  

@@ -1,12 +1,67 @@
+$('#main_form').html("<%= j render "users/form"%>");
+$('.form_error').hide();
 
+$('#user_password_hash_field').mouseup(function(){
+	console.log("clicked");
+	$('#user_email').bind('keyup', function(){ 
+		$.get('/existing_user', {email: $('#user_email').val()}, function(data){
+
+		var response_value = $(data).text();
+		$('#user_exists').remove();
+		if (response_value=="false"){
+			$('#confirm_password, #profile_photo_div, #profile_name, #profile_bio').show();
+			$('.new_user').attr('action', 'users');
+		    $('#register_form > .actions > input').attr('value', "Register");
+		    $('#login_link').show();
+		   			
+		}
+		
+		else{
+		    $('#register_form').before('<p id = "user_exists"><%= j "A user with this email exists. Enter your password to login, or choose a different email"%> <br/> ');
+		    var email_position = $('#user_email').position();
+		    
+		    
+		
+			$('#confirm_password, #profile_photo_div, #profile_name, #profile_bio').hide();
+		    $('.new_user').attr('action', 'session');
+		    $('#register_form > .actions > input').attr('value', "Login");
+			$('#login_link').hide();
+
+		}
+	
+	}, "html"
+	);	
+	
+	});
+	
+	$('#user_email').keyup();
+	
+});
+
+$('#profile_photo_div').removeAttr("style");
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%if false%>
 $('#wrapper').html('<%= j render('form')%>');
 $('.new_user').before('<h2><%="Step 1/3"%> </h2><h3> <%= "Enter your email and password" %></h3>');
 $('.new_user > .actions > input').attr("class", "btn btn-primary");
 
 
 
-
+console.log("merp");
 $('#user_password_hash').click(function(){
+	console.log("asdf");
 	$('#user_email').bind('keyup', function(){ 
 		$.get('/existing_user', {email: $('#user_email').val()}, function(data){
 
@@ -19,7 +74,7 @@ $('#user_password_hash').click(function(){
 		}
 		
 		else{
-		    $('#user_password_hash').before('<p id = "user_exists"><%= j "A user with this email exists. Enter your password to login, or choose a different email"%> <br/> <%= link_to 'Forgot password?', new_pw_reset_path%> </p>');
+		    $('#user_password_hash').before('<p id = "user_exists"><%= j "A user with this email exists. Enter your password to login, or choose a different email"%>');
 		    var email_position = $('#user_email').position();
 		    
 		    
@@ -42,7 +97,7 @@ $('#user_password_hash').click(function(){
 });
 
 
-
+<%end%>
 
 
 

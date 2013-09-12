@@ -1,4 +1,31 @@
 
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <title>Ideagarden</title>
+  <% if @idea_posting != nil && @idea_posting.id != nil%>
+
+  	<meta property="og:url" content="<%=request.base_url+idea_posting_path(@idea_posting.id)%>"/>	  
+	<meta property="fb:app_id" content="<%=ENV["FACEBOOK_APP_ID"]%>" /> 
+	<meta property="og:type" content="<%=ENV["FACEBOOK_APP_NAMESPACE"]%>:project_idea" /> 	
+	<meta property="og:title" content="<%=@idea_posting.name%>" />
+	<meta property="og:image" content= "<%=request.base_url+"/assets/logo.png"%>"/>
+	<meta property="<%=ENV["FACEBOOK_APP_NAMESPACE"]%>:pitch" content="<%=@idea_posting.pitch%>" />
+	<%end%>
+
+    
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+  
+</head>
+
+<body>
+	
+
 
 <div id="main_container">
 	
@@ -10,8 +37,8 @@
 	<div id = "featured_posts" class = "thumbnail">
 	<div id="featured_post_text_filler"></div>	
 			
-			<% @idea_postings.each_with_index do |posting, index| %>
-				<%= render :partial => "featured_posting", :locals => {:idea_posting => posting, :posting_class => index.to_s+ ((index==0) ? " visible" : " hidden")  } %>				
+			<% IdeaPosting.all.each_with_index do |posting, index| %>
+				<%= render :partial => "idea_postings/featured_posting", :locals => {:idea_posting => posting, :posting_class => index.to_s+ ((index==0) ? " visible" : " hidden")  } %>				
 			<%end%>
 		
 		<%= image_tag('caret_right.png', id: "featured_right_caret", class: "featured_right_caret")%>
@@ -22,7 +49,7 @@
 	<br/>
 
 <div id = "main_form">	
-<%= render :partial => "sessions/form", :locals => {:session_class => "register_login"}%>
+<%= yield%>
 </div>
 
 
@@ -71,3 +98,6 @@
 
 
 <div>
+
+	
+</body>

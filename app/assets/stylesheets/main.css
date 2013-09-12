@@ -1,12 +1,121 @@
 #main_container{
 	width: 100%;
 	text-align: center;
+	height: 100%;
 }
+
+
+#register_form > *, #register_submit{
+	margin-left: auto;
+	margin-right: auto;
+}
+
 
 
 #featured_posts{
 	width: 500px;
 	height: 300px;
-	background-color: gray;
-	vertical-align: center;
+	// background-color: gray;
+	vertical-align: middle;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	overflow: hidden;
 }
+
+
+.strong_green{
+	color: #46A546;
+	
+}
+
+.strong_blue{
+	color: #006DCC;
+}
+
+#main_logo{
+	width: 400px;
+}
+
+.featured_post_photo{
+	// height: 250px;
+	margin-left: 0px;
+	
+}
+
+.hidden{
+	display: none;
+}
+
+.visible{
+	display: inline;
+}
+
+.field > span > #user_password_hash{
+	width: 600px;
+}
+
+.field> span > #user_password_hash_confirmation{
+	width: 600px;
+}
+
+#email, #password_hash{
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+img.featured_right_caret, img.featured_left_caret{
+	border-radius: 0px;
+	height: 30px;
+	width: 30px;
+	position: absolute;
+}
+
+.featured_left_caret{
+	top: 125px;
+    left: 10px;
+}
+
+.featured_right_caret{
+    top: 125px;
+    left: 460px;
+}
+
+#featured_post_text, #featured_post_text_filler{
+	position: absolute;
+    width:498px;
+    top: 100px;
+    background-color: rgba(200, 200, 200, 0.65);    
+}
+
+#featured_post_text_filler{
+	z-index: 0;
+	height: 118px;
+	display: none;
+}
+
+
+a#facebook_login{
+	font-weight: bold;
+}
+
+
+.uneditable-input{
+	border: 1px solid rgb(204, 204, 204);
+	margin-left: 30px;
+	height: 30px;
+	
+}
+
+.fileupload-preview{
+	vertical-align: middle;
+}
+
+.inline_tag{
+	display: inline;
+	margin-left: 3.5px;
+}
+
+
+

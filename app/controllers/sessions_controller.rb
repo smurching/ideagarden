@@ -28,7 +28,12 @@ class SessionsController < ApplicationController
     # if facebook information doesn't match an existing user,
     # try to log in using information from a login form
     if user == nil      
-      user = User.login(params[:email], params[:password_hash])
+      if params[:user] == nil
+        user = User.login(params[:email], params[:password_hash])
+      else
+        user = User.login(params[:user][:email], params[:user][:password_hash])
+      end
+     
       session[:facebook] = false
       
     # if facebook information resulted in successful login
@@ -76,7 +81,7 @@ class SessionsController < ApplicationController
       @form_opened = false
     end
     respond_to do |format|
-      format.html
+      format.html {render :layout => "plain_layout"}
       format.js
     end
   end

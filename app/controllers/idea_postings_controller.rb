@@ -7,10 +7,11 @@ class IdeaPostingsController < ApplicationController
   before_filter :registration_filter, :only => [:new, :edit, :create, :update, :destroy]
   
   def index
-    unless params[:id] == nil
-      @idea_posting = IdeaPosting.find(params[:id])
+    if params[:id] != nil
+      @idea_posting = IdeaPosting.find(params[:id])    
+    else
+      @idea_postings = IdeaPosting.desc.all
     end
-    @idea_postings = IdeaPosting.desc.all
     
     if logged_in?
       respond_to do |format|
@@ -22,7 +23,7 @@ class IdeaPostingsController < ApplicationController
       @user = User.new
       @profile = Profile.new      
       respond_to do |format|
-        format.html # {render 'main'}
+        format.html  {redirect_to login_path}
         format.js
       end
     end

@@ -1,0 +1,20 @@
+<%= div_for idea_posting, :class => posting_class do |posting| %>
+
+	<%= image_tag posting.photo_url, :class => "featured_post_photo" %>
+	
+	<div id ="featured_post_text">
+		<h3 id = "featured_post_name"><strong><%= posting.name %></strong></h3>
+		<h4 class="no_fluff"> <strong> by <%= posting.users[0].profile.name %></strong></h4>
+	
+		<p id = "featured_post_tags">
+    		<% idea_posting.tags.each do |tag| %>
+    			<h4 class = "inline_tag">
+    			<span class="label-success label">
+    				<%= tag%>
+    			</span>
+    			</h4>
+    		<%end%>		
+		</p>
+	</div>	
+
+<%end%>

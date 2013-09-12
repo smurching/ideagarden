@@ -1,10 +1,4 @@
-<div>
-	
-<h4>Thanks for signing up for Ideagarden!</h4>
-<h5> <a href = "/auth/facebook&state=register">Register through Facebook</a></h5>
-
-
-<%= form_for(@user, :remote => false, :html => {multipart: true}) do |f| %>
+<%= form_for(@user, :remote => false, :html => {multipart: true, id: "register_form"}) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -17,50 +11,61 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :email %> 
+  <div class="field centered">
     <%= f.text_field :email %>
   </div>
 
-  <div class="field">
-    <%= f.label "Password"%> 
+  <div class="field centered" id = "user_password_hash_field">
     <%= f.password_field :password_hash %>
   </div>
-  <div class="field" id = "confirm_password">
-  	<%= f.label "Confirm Password"%> 
+  <div class="field centered" id = "confirm_password">
   	<%= f.password_field :password_hash_confirmation %>
   </div>
-    
   
-<%= render "profiles/form"%>  
 
+  <%= render "profiles/form"%> 
+
+  <%= link_to "Login", login_path, :remote => true, :class => "btn btn-inverse", :id => "login_link"%>
 <% end %>
 
-  <script>
+  <script id = "form_validations">
   
-$(function(){
-  $('#registration_post_container > input').click(function(){
-  		if($('#user_email').val().match(/[a-zA-Z0-9]+@[a-zA-Z]+[.][a-zA-Z.]+/) == null){
-			event.preventDefault();
-			$('#user_email').errorMessage("Please enter a valid email address");
- 		}	 				
+	$(function(){
+  		$('#registration_post_container > input').click(function(){
+  			if($(this).val()=="Login"){
+  				return;
+  			}
+  			
+  			if($('#user_email').val().match(/[a-zA-Z0-9]+@[a-zA-Z]+[.][a-zA-Z.]+/) == null){
+				event.preventDefault();
+				$('#user_email').errorMessage("Please enter a valid email address");
+ 			}	 				
 		
-	  	if($('#user_password_hash').val().length < 6){
-			event.preventDefault();
-			$('#user_password_hash').errorMessage("Make sure your password is at least 6 characters long");
- 		}	
+	  		if($('#user_password_hash').val().length < 6){
+				event.preventDefault();
+				$('#user_password_hash').errorMessage("Make sure your password is at least 6 characters long");
+ 			}	
  		
-	  	if($('#user_password_hash_confirmation').val() != $('#user_password_hash').val() ){
-			event.preventDefault();
-			$('#user_password_hash_confirmation').errorMessage("Password does not match confirmation");
- 		}	 		
-  });	
-	
-});  
+	  		if($('#user_password_hash_confirmation').val() != $('#user_password_hash').val() ){
+				event.preventDefault();
+				$('#user_password_hash_confirmation').errorMessage("Password does not match confirmation");
+ 			}	 		
+  		});	
+		
+	});  
 
 
  		
   </script> 	
+  
+  
+  <script id = "form_watermarks">
+		$.watermark.options.className = 'centered_watermark'; 	
+		$.watermark.options.useNative = false;  
+		$('#user_email').watermark("Email", {className: "centered_watermark"});  
+		$('#user_password_hash').watermark("Password", {className: "centered_watermark"});
+		$('#user_password_hash_confirmation').watermark("Confirm Password", {className: "centered_watermark"} );
+  </script>
 
 </div>
 

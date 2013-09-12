@@ -116,12 +116,15 @@ class IdeaPosting < ActiveRecord::Base
       followers = true
     end  
     
-    first = params.first
-    params.delete(first[0])
+    # Commented out because the formatting for the first
+    # selector is the same as the rest
     
-    if self.search_hash.has_value?(first[0])
-      query_string += "#{first[0]} = TRUE"
-    end
+    #first = params.first
+    #params.delete(first[0])
+    
+    #if self.search_hash.has_value?(first[0])
+    #  query_string += "#{first[0]} = TRUE"
+    #end
         
     
     
@@ -134,7 +137,7 @@ class IdeaPosting < ActiveRecord::Base
     
     # postings = IdeaPosting.joins(:tags_list).where(query_string)
     
-    postings = IdeaPosting.joins("INNER JOIN tags_lists ON tags_lists.id = idea_postings.id AND "+query_string)
+    postings = IdeaPosting.joins("INNER JOIN tags_lists ON tags_lists.id = idea_postings.id"+query_string)
     
     # I'm pretty sure SQL Selects are faster than ruby loops so the
     # code block below is commented out in favor of the uncommented one above

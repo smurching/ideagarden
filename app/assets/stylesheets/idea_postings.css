@@ -1,8 +1,9 @@
 /* general div */
 
+
 a{
 	text-decoration:none;
-	color:black;
+	// color:black;
 }
 
 a:hover{
@@ -152,16 +153,18 @@ h1 {
   min-height: 0px;
   word-wrap: break-word;
   width: 445px;
+  display: inline;
 
 }
 
 
 .pitch {
-  font-size: 16px;
+  font-size: 14px;
   min-height: 0px;
   word-wrap: break-word;
   width: 445px;
-  margin: 0px;
+  margin-top: 10px;
+  font-weight: bold;
 }
 
 .state > p {
@@ -206,6 +209,8 @@ h1 {
 
 .tags {
   font-size: 14px;	
+  font-weight: bold;
+  margin-left: -3px;
 }
 
 /* Styles for idea_postings/show */

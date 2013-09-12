@@ -34,7 +34,11 @@
 
 
 #form_post_container >  .btn{
-	margin-left: 95px;
+	margin-left: 236px;
+}
+
+#form_post_container{
+	height: 34px;
 }
 
 
@@ -47,11 +51,12 @@
 
 .form_tags > li > a{
   color: black;	
+  margin-bottom: 2px;  
 }
 
 .form_tags_container{
   border: 1px solid #ccc;
-  width: 613px;
+  width: 600px;
 }
 
 .form_tags_container > *{
@@ -77,6 +82,7 @@
   padding: 0px;
   font-size: 16px;
   margin-bottom: -10px;
+  font-weight: bold;
 }
 
 .form_caret{

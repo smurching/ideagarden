@@ -65,5 +65,24 @@
     </div>
 </div>
 
+<script>
+
+$(function(){
+	
+	$('.nav-tabs > li').click(function(){
+		var id = $(this).children("a").attr("href").slice(1);
+		
+		$('.nav-tabs > li').attr("class", "");
+		$('.tab-pane').hide();
+		
+		$(this).attr("class", "active");
+		$('.tab-pane[id="'+id+'"]').show();
+		
+				
+	});
+
+});
+</script>
+
 
 
