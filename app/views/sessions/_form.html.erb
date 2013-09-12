@@ -15,7 +15,8 @@
   	</span>
   </div>
   
-	<%= link_to "Register", new_user_path, :remote => true, :class => "btn btn-inverse"%>  
+	<%= link_to "Register", new_user_path, :remote => true, :class => "btn btn-inverse"%> 
+	<%= link_to "Register through Facebook", "/auth/facebook?&state=register", :id => "facebook_register", :class => "btn btn-inverse"%>
 <% end %>
 
   <script id = "form_watermarks">

@@ -59,7 +59,7 @@ class SessionsController < ApplicationController
     else
       @logged_in = false
       respond_to do |format|
-        format.html {render 'new', :notice => "Invalid username/password combination"}
+        format.html {render :layout => "plain_layout", :action => 'new', :notice => "You need to login and connect with Facebook to enable Facebook login"}
         format.js  
       end
     end
