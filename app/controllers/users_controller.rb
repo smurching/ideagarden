@@ -39,7 +39,8 @@ class UsersController < ApplicationController
   end
 
 
-  def create #email to confirm user is sent after profile is created - it is therefore in the profiles#create  
+  def create #email to confirm user is sent after profile is created - it is therefore in the profiles#create
+    @from_profiles_new = true  
     @user  = User.new
     @profile = Profile.new(params[:profile])    
   
@@ -69,7 +70,7 @@ class UsersController < ApplicationController
      @profile.save
      
      respond_to do |format|
-       format.html {return render :partial => "profiles/form", :layout => "plain_layout"}
+       format.html {return render :template => "profiles/_form", :layout => "plain_layout"}
      end
      
      
