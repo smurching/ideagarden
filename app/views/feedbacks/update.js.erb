@@ -1,36 +1,45 @@
 
-$('.feedback_error').hide();
+$('.feedback_error_<%=@feedback.id%>').remove();
 <%if @updated %>
-$('#feedback_<%=@feedback.id%> >>>> .reply_link').unbind('click', false).css('color', 'black');
-$('#feedback_<%=@feedback.id%> >>>> .edit_link').unbind('click', false).css('color', 'black');
-$('#feedback_<%=@feedback.id%> >>> .reply_form').remove(); /* the reply form div selected in this line was inserted into the div_for(feedback) div in new_reply.js.erb */
-$('#feedback_<%=@feedback.id%> >>>> #feedback_body').html('<%=j @feedback.body %>');
+$('#feedback_<%=@feedback.id%>').find('.reply_link_<%=@feedback.id%>').unbind('click', false).css('color', 'black');
+$('#feedback_<%=@feedback.id%>').find('.edit_link_<%=@feedback.id%>').unbind('click', false).css('color', 'black');
+$('#feedback_<%=@feedback.id%>').find('.reply_form_<%=@feedback.id%>').remove(); /* the reply form div selected in this line was inserted into the div_for(feedback) div in new_reply.js.erb */
 
+
+$('#feedback_<%=@feedback.id%>').find('#feedback_body_<%=@feedback.id%>').html('j <p><%=@feedback.body%></p>');
+
+console.log("asdf");
+
+
+<%if false%>
 $('#feedback_<%=@feedback.id%>').each(function(){
 	
 	/* REDUCING THE SIZE OF THE DIV THAT IS BEING REPLIED TO */
 	var feedback_height=$(this).height();
-	$(this).height(feedback_height-386); /* take away the height needed for the form (386px) */
+	var child_height =$('#feedback_<%=@child.id%>').height();
+	$(this).height(feedback_height-386+child_height); /* take away the height needed for the form (386px), add in enough height to insert the child div */
 	
 	
 	/* REDUCING THE HEIGHT OF THE HIGHEST TIER FEEDBACK DIV (FEEDBACK DIV FOR TOPIC) */
 	var topic_div = $(this).parents('.topic');
 	var root_feedback_div = topic_div.parent('.feedback');
 	var root_feedback_div_height = root_feedback_div.height();
-	root_feedback_div.height(root_feedback_div_height-386);
+	root_feedback_div.height(root_feedback_div_height+child_height-386);
 	
 	
 	/* REDUCING THE SIZE OF ALL THE PARENT REPLY DIVS FOR THE FEEDBACK BEING POSTED */
 		$('#feedback_<%=@feedback.id%>').parents('.reply').each(function(){
 		var parent_feedback = $(this).parent('.feedback');
 		var parent_feedback_height = parent_feedback.height();
-		parent_feedback.height(parent_feedback_height-386);
+		parent_feedback.height(parent_feedback_height-386+child_height);
 	});
 	
 });
+<%end%>
+
 
 <%else%>
-$('.edit_feedback').before('<br/><p class="feedback_error"><%= j "Message must be between 10 and 1000 characters" %></p>');
+$('#feedback_<%=@feedback.id%>').find('.new_feedback_<%=@feedback.id%>').show().before('<p class="feedback_error_<%=@feedback.id%>"><br/><%= j "Message must be between 10 and 1000 characters" %></p>');
 <%end%>
 
 

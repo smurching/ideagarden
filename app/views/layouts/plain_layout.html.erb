@@ -37,7 +37,7 @@
 	<div id = "featured_posts" class = "thumbnail">
 	<div id="featured_post_text_filler"></div>	
 			
-			<% @idea_postings.each_with_index do |posting, index| %>
+			<% IdeaPosting.featured_posts.each_with_index do |posting, index| %>
 				<%= render :partial => "idea_postings/featured_posting", :locals => {:idea_posting => posting, :posting_class => index.to_s+ ((index==0) ? " visible" : " hidden")  } %>				
 			<%end%>
 		

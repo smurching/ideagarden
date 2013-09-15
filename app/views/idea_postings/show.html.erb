@@ -3,10 +3,10 @@
 <div id="content">
     <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
         <li class="active"><a href="#idea_details" data-toggle="tab">Idea Details</a></li>
-        <li><a href="#public_comments" data-toggle="tab">Public Comments</a></li>
+        <li><a href="#public_comments" data-toggle="tab">Comments</a></li>
      <% if logged_in? %>
      <% if @idea_posting.users.exists?(current_user.id) || current_user.teacher || current_user.admin %>    
-        <li><a href="#private_comments" data-toggle="tab">Private Comments</a></li>
+        <li><a href="#private_comments" data-toggle="tab">Private Discussion</a></li>
      <%end%>
      <%end%>
     </ul>
@@ -15,19 +15,14 @@
     	
     	<!--public comments-->
         <div class="tab-pane" id="public_comments">
-			<h2>Feedback</h2>
+			<h2 id = "discussion_header">Discussion</h2>
 
-			<div class="feedback" id ="existing_feedback"><%= render @idea_posting.public_feedbacks %></div> 
-			<br/>
-			<p>----------------------------</p>
+			<div class="feedback" id ="existing_feedback">
+				<%= render :partial => "topics_list", :locals => {:feedbacks => @idea_posting.public_feedbacks} %>
+			</div> 
 
-			<% if logged_in? %>
-				<h2>Add feedback</h2>
-				<%= form_for([@idea_posting, @idea_posting.feedbacks.new], :remote => true, :id => "public_feedback_form") do |f| %>
-				    <%= f.text_area :body, :id => "feedback_body", :style => "width:95%;" %><br /><br />
-				    <%= f.hidden_field :topic, :value => true%>
-				    <%= f.submit 'Provide feedback' %>
-				<% end %>
+			<% if logged_in? %>	
+				<%= render "feedbacks/topic_form_public"%>
 			<% end %>
 	
         </div>
@@ -37,19 +32,16 @@
         <% if @idea_posting.users.exists?(current_user.id) || current_user.teacher || current_user.admin %>        
         <div class="tab-pane" id="private_comments">
   
-					<h2>Private Discussion</h2>
-					<div id="existing_private_feedback">
-						<%= render @idea_posting.private_feedbacks%>
-					</div>
-					<p>----------------------------</p>
-		
-					<h2>Add private feedback</h2>
-					<%= form_for([@idea_posting, @idea_posting.feedbacks.new], :remote => true, :id => "private_feedback_form") do |f| %>
-					    <%= f.text_area :body, :id => "private_feedback_body", :style => "width:95%;" %><br />
-					    <%= f.hidden_field(:private, :value => true)%>
-					    <%= f.hidden_field :topic, :value => true%>    
-					    <%= f.submit 'Provide feedback' %>
-					<% end %>
+			<h2 id = "discussion_header">Discussion</h2>
+			<div class="feedback" id ="existing_private_feedback">
+				<%= render :partial => "topics_list", :locals => {:feedbacks => @idea_posting.private_feedbacks} %>
+			</div> 
+
+			<% if logged_in? %>	
+				<%= render "feedbacks/topic_form_private"%>
+			<% end %>
+	
+        </div>
 					
 
         </div>
@@ -65,7 +57,7 @@
     </div>
 </div>
 
-<script>
+<script id = "tab_management">
 
 $(function(){
 	
@@ -78,11 +70,22 @@ $(function(){
 		$(this).attr("class", "active");
 		$('.tab-pane[id="'+id+'"]').show();
 		
+		/*
+		*if(id == "public_comments"){
+		*	$('.tab-pane[id="'+id+'"] > #existing_feedback').html('<%= j render :partial => "topics_list", :locals => {:feedbacks => @idea_posting.public_feedbacks} %>');	
+		*	console.log("asdf");		
+		*}
+		*else if (id == "private_comments"){
+		*	$('.tab-pane[id="'+id+'"] > #existing_private_feedback').html('<%= j render :partial => "topics_list", :locals => {:feedbacks => @idea_posting.private_feedbacks} %>');						
+		*}
+		*/
 				
 	});
 
 });
 </script>
+
+
 
 
 

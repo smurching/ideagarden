@@ -1,6 +1,5 @@
 $('.notice').remove();
 $('#login_failed').remove();
-$('#password_hash').errorMessage("Invalid username/password combination");
 
 
 
@@ -46,4 +45,10 @@ $('#password_hash').errorMessage("Invalid username/password combination");
 
 
 					
+
+
+<%else%>
+$('#password_hash').errorMessage("Invalid username/password combination");
+
 <%end%>
+

@@ -22,23 +22,11 @@ class IdeaPosting < ActiveRecord::Base
   end
   
   def private_feedbacks
-    private_feedbacks = []
-    for feedback in self.feedbacks
-      if feedback.private
-        private_feedbacks << feedback
-      end 
-    end
-    return private_feedbacks
+    Feedback.joins("INNER JOIN idea_postings ON feedbacks.idea_posting_id = idea_postings.id AND idea_postings.id = #{self.id} AND feedbacks.private = TRUE").order("updated_at DESC")
   end
   
   def public_feedbacks
-    public_feedbacks = []
-    for feedback in self.feedbacks
-      unless feedback.private
-        public_feedbacks << feedback
-      end 
-    end
-    return public_feedbacks
+    Feedback.joins("INNER JOIN idea_postings ON feedbacks.idea_posting_id = idea_postings.id AND idea_postings.id = #{self.id} AND feedbacks.private = FALSE").order("updated_at DESC")
   end
   
   def upvote
@@ -110,6 +98,7 @@ class IdeaPosting < ActiveRecord::Base
     
     vote_recipients = RecentVotes.select(:idea_posting_id).uniq.map!{ |object| object.idea_posting_id}
     
+    puts(vote_recipients.include?(self.id))
     if vote_recipients.include?(self.id)
       votes_array = []
       
@@ -117,14 +106,15 @@ class IdeaPosting < ActiveRecord::Base
         upvotes = RecentVotes.where("idea_posting_id = ? AND is_upvote = TRUE", id).length
         downvotes = RecentVotes.where("idea_posting_id = ? AND is_upvote = FALSE", id).length
 
-        if (rating_change = downvotes-upvotes) > 0
+        if (rating_change = upvotes-downvotes) > 0
           votes_array << [id, rating_change]
+        else
+          return 0
         end
                 
       end    
       
       sorted_ids_list = votes_array.sort_by!{|element| element[1]}.map{|element| element[0]}
-    
       num_of_postings = sorted_ids_list.length
       percentile = 100*(num_of_postings-sorted_ids_list.index(self.id))/num_of_postings
       point_value = percentile/10

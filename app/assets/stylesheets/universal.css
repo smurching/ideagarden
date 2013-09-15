@@ -238,8 +238,13 @@ html {height:100%;}
  font-family: 'Trebuchet MS', Helvetica, sans-serif;	
 }
 
+.actions{
+  min-height: 34px;
+}
 
-
+.text_centered, #text-centered{
+  text-align: center;
+}
 
 
 

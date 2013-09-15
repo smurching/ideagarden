@@ -1,0 +1,8 @@
+<h2>Add public topic </h2>
+<%= form_for([@idea_posting, @idea_posting.topics.new], :remote => true, :id => "public_topic_form") do |f| %>
+	<%= f.text_field :title %>
+    <%= f.text_area :body, :style => "width:95%;" %><br />
+    <%= f.hidden_field(:private, :value => true)%>
+    <%= f.hidden_field :topic, :value => true%>    
+    <%= f.submit 'Create topic' %>
+<% end %>

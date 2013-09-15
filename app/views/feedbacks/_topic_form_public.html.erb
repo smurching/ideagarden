@@ -1,0 +1,21 @@
+
+<%= form_for([@idea_posting, @idea_posting.feedbacks.new], :remote => true, :id => "public_feedback_form") do |f| %>
+	<h4 class = "topic_form_header centered">Add a topic</h4>
+	<div class = "field">
+		<%= f.text_field :title, :class => "feedback_title" %>
+	</div>
+	
+	<div class = "field">
+    	<%= f.text_area :body, :class => "feedback_body" %><br />
+    </div>
+					
+	<%= f.hidden_field(:private, :value => false)%>				    
+	<%= f.hidden_field :topic, :value => true%>
+	<div class="actions">
+	<%if current_user.topics_remaining?%>
+		<%= f.submit 'Create topic ('+current_user.topics_remaining.to_s+' left today)', :id => "create_topic", :class => "btn btn-danger create_topic" %>
+	<%else%>
+		<%= f.submit 'Create topic ('+current_user.topics_remaining.to_s+' left today)', :id => "create_topic", :class => "btn btn-default create_topic", :disabled => true %>	
+	<%end%>
+	</div>
+<% end %>

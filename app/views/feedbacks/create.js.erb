@@ -3,7 +3,7 @@ $('.feedback_error').remove();
 
 <% if @failed_to_post %>
 
-$('.new_feedback').before('<br/><p class="feedback_error"><%= j "Message must be between 10 and 1000 characters" %></p>');
+$('.topic_form_header').after('<br/><p class="feedback_error"><%= j @error_message %></p>');
 
 <%else%>
 
@@ -12,13 +12,11 @@ $('.new_feedback').before('<br/><p class="feedback_error"><%= j "Message must be
 	* $('#existing_private_feedback').html("<%= escape_javascript render 'private_feedbacks' %>");
 	*/
 	
-	<%unless @feedback.private %>
-		$('.new_feedback > #feedback_body').val("");
-		$('#existing_feedback').append('<%= j render(@feedback)%>');
-	<%else%>
-		$('.new_feedback > #private_feedback_body').val("");
-		$('#existing_private_feedback').append('<%= j render(@feedback)%>');
-	<%end%>
-	
+
+	$('.new_feedback').find('#feedback_body').val("");
+	$('.new_feedback').find('#feedback_title').val("");	
+	$('#header_row').after('<%= j render :partial => "idea_postings/topics_list_row", :locals => {:feedback => @feedback}%>');
+	$('#create_topic').val('Create topic (<%=current_user.topics_remaining.to_s%> left today)');	
+					
 <%end%>
 

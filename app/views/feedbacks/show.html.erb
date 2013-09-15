@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
+<%= render @feedback %>
 
-
-<%= link_to 'Edit', edit_feedback_path(@feedback) %> |
-<%= link_to 'Back', feedbacks_path %>
+<%= link_to "Back", idea_posting_path(@idea_posting.id)%>

@@ -34,39 +34,32 @@
    			<% else %>
   				<span class="badge badge-info">In Development</span>	      	
  			<% end %>
+ 		<br/><br/>
+    	<p>
+
+    		<% idea_posting.tags.each do |tag| %>
+    			<span class="label label-success">
+    				<%= tag %>
+    			</span>	
+    		<%end%>
+
+		</p> 			
 			 	
   		</td>
   	</tr>
   </table>
   <br/>
 
-  <!--description body-->    
-  <div style="clear:both;">
-    <%= simple_format(idea_posting.description) %>
-  </div>
-  
-  <!--images-->    
-  <div style="clear:both;">
-    <%= simple_format(idea_posting.description) %>
-  </div>  
+
     
-    <p>Tags: 
 
-    	<% idea_posting.tags.each do |tag| %>
-    		<span class="label">
-    			<%= tag %>
-    		</span>
-    	<%end%>
-
-	</p>
 </div>
 
   <% if @user != nil%>
 
   <% if idea_posting.users.exists?(@user.id)%>
   <div class = "modification_links">  
-  	<%= link_to 'Edit', edit_idea_posting_path(idea_posting) %>
-  	<%= link_to 'Destroy', idea_posting, method: :delete, data: { confirm: 'Are you sure?' } %>
+  	<%= link_to 'Edit', edit_idea_posting_path(idea_posting)%> <br/>
 	<a href="#" 
   		onclick="
     		window.open(
@@ -81,9 +74,9 @@
  </div>  	
   <%end%>
   
-  <% if logged_in? && @user.idea_postings.exists?(@idea_posting.id) == false %>
+  <% if logged_in? && @user.idea_postings.exists?(@idea_posting.id) == false%>
   		<%unless @user.join_requests_mades.exists?(:idea_posting_id => @idea_posting.id) %>
-  		<%= button_to 'Request to Join', new_idea_posting_joinrequest_path(idea_posting.id), :remote => true, :id => "new_joinrequest", :method => :get%>
+  		<%= link_to 'Request to Join', new_idea_posting_joinrequest_path(idea_posting.id), :remote => true, :id => "new_joinrequest", :method => :get, :class => "btn btn-default"%>
   		<%else%>
   		<h3>Request to join project sent</h3>
   		<%end%>	

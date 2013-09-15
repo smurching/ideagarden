@@ -44,7 +44,7 @@
 
 .reply {
     position: relative;
-    padding-left:10px;
+    padding-left:30px;
 
 }
 
@@ -58,7 +58,7 @@
 .child_feedbacks {
 	border-left: 2px solid rgb(183,213,121);
 	position:relative;
-	left:30px;
+	left: 0px;
 	
 }
 
@@ -81,3 +81,16 @@ table td.shrink {
 table td.expand {
     width: 99%
 }
+
+.feedback_body{
+	max-height: 150px;
+}
+
+.topic_form_header{
+	width: 89px;
+}
+
+.create_topic{
+	margin-left: 202px;
+}
+

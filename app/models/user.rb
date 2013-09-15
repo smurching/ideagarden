@@ -32,6 +32,8 @@ end
   has_many :followings #follows many people - this is worded weirdly but that's what it means
   has_many :followers
   has_many :private_messages
+  has_many :feedback_votes
+  
   serialize :posting_votes, Array
   
   
@@ -161,6 +163,63 @@ end
    return false   
  end
 
+ def feedbacks_remaining(topics = false, limit = 3)
+   time_threshold = 3600*24
+   recent_feedbacks = Feedback.joins("INNER JOIN users ON users.id = feedbacks.user_id AND users.id = #{self.id} AND feedbacks.topic = #{topics.to_s}").order("created_at DESC")
+      
+   # limit = how many postings back we check 
+   # (e.g. a limit of 5 means we check the 5th oldest posting
+   # to make sure it's not younger than a day
+      
+   (1..limit).each do |i|
+     index = limit-i
+     
+     # if there is an <-limit+i>th oldest feedback, check to see if it's younger than
+     # <time_threshold> seconds (currently one day)
+     
+     # since we're starting at the <-limit>th oldest feedback and working our way
+     # up to the youngest feedback, once we find a feedback younger than a day,
+     # all the remaining feedbacks will also be younger than a day and we can stop
+     
+     if recent_feedbacks[index] != nil
+       time_since_creation = Time.now-recent_feedbacks[index].created_at
+       if time_since_creation < time_threshold 
+         return i-1
+       end
+                 
+     # if we've reached the youngest feedback posted by the user and said feedback
+     # is still older than 1 day, the user's feedback quota is unused  
+     elsif index == 0
+       return limit
+     else
+       # if the user doesn't have <limit> feedbacks, we may end up here
+       # in that case, do nothing
+     end
+     
+   end
+    
+ end
+ 
+ def topics_remaining(limit = 5)
+   feedbacks_remaining(true, limit)
+ end
+ 
+ def topics_remaining?
+   if self.topics_remaining == 0
+     return false
+   else
+     return true
+   end
+ end
+ 
+ def feedbacks_remaining?
+   if self.feedbacks_remaining == 0
+     return false
+   else
+     return true
+   end
+ end
+ 
  
  
 end

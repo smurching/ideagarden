@@ -16,10 +16,11 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks/1.json
   def show
     @feedback = Feedback.find(params[:id])
-
+    @idea_posting = IdeaPosting.find(params[:idea_posting_id])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @feedback }
+      format.js
     end
   end
 
@@ -52,20 +53,44 @@ class FeedbacksController < ApplicationController
   def create
     @idea_posting = IdeaPosting.find(params[:idea_posting_id]) # set idea posting variable, should be 'load_idea_posting' method
     @feedback = @idea_posting.feedbacks.new(params[:feedback])
-
+    @error_message = ""
+    
+      if @feedback.topic
+         if @feedback.title == nil || @feedback.title.length < 10
+           @valid = false
+           @error_message += "Title must be at least 10 characters. " 
+         end
+         if !current_user.topics_remaining?
+           @valid = false
+           @error_message = "You can't post more than 5 topics per day. Please wait before posting more."
+         end
+         
+        
+      else
+        @valid = current_user.feedbacks_remaining?        
+        if @valid == false
+          @error_message = "You can't post more than 20 replies per day. Please wait before posting more."
+        end
+      end
+  
     respond_to do |format|
-      if @feedback.save
+      if @valid && @feedback.save
         current_user.feedbacks << @feedback #Sets user_id of feedback to the ID of the current user
         format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback was successfully created.' }
         format.json { render json: @feedback, status: :created, location: @feedback }
         format.js 
       else
         @failed_to_post = true
+        if @valid
+          @error_message += "Body must be between 10 and 1000 characters long"
+        end
         format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Feedback must be between 10 and 1000 characters' }
         format.json { render json: @feedback.errors, status: :unprocessable_entity }
         format.js 
       end
-    end    
+    end   
+    
+     
   end
 
   # PUT /feedbacks/1
@@ -116,8 +141,16 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.find(params[:feedback_id])
     if @feedback.private == nil || @idea_posting.users.include?(current_user)
     @child = @feedback.feedbacks.new(params[:feedback])
+    
+    @valid = current_user.feedbacks_remaining?
+    unless @valid
+      @error_message = "You can't post more than 20 replies per day. Please wait before posting more."
+    end
+                
     respond_to do |format|
-      if @child.save
+      if @valid && @child.save 
+        @child.root_feedback.touch
+        @failed_to_post = false
         current_user.feedbacks << @child #Sets user_id of feedback to the ID of the current user
         format.html { redirect_to idea_posting_path(@idea_posting.id), notice: 'Reply saved'}
         format.js

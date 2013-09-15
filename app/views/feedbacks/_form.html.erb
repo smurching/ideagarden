@@ -13,12 +13,21 @@ create_reply_path(@idea_posting.id, @feedback.id)) do |f| %>
       <% end %>
       </ul>
     </div>
-  <% end %>
-  
-    <%= f.text_area :body %><br />
-    <%= f.submit "Reply", :class => "submit_feedback", :id => "submit_reply" %>
+  	<% end %>
+  	
+  	<%if @feedback.topic%>
+  		<%= f.hidden_field :root_id, :value => @feedback.id %>
+  	<%else%>
+  		<%= f.hidden_field :root_id, :value => @feedback.root_id %>
+  	<%end%>
+    <%= f.text_area :body, :class => "feedback_body" %><br />
+    <%if current_user.feedbacks_remaining? %>
+    	<%= f.submit "Reply ("+current_user.feedbacks_remaining.to_s+" left today)", :class => "submit_feedback btn btn-default", :id => "submit_reply" %>
+    <%else%>
+    	<%= f.submit "Reply ("+current_user.feedbacks_remaining.to_s+" left today)", :class => "submit_feedback btn btn-default", :id => "submit_reply", :disabled => true %>
+    <%end%>
 <% end %>
-<%= button_to "Cancel", cancel_reply_path(@idea_posting.id, @feedback.id), :remote => true %>
+<%= button_to "Cancel", cancel_reply_path(@idea_posting.id, @feedback.id), :remote => true, :class => "btn btn-default" %>
 
 
 <%end%>
@@ -40,8 +49,8 @@ create_reply_path(@idea_posting.id, @feedback.id)) do |f| %>
     </div>
   <% end %>
   
-    <%= f.text_area :body %><br />
-    <%= f.submit "Update", :class => "submit_feedback", :id => "submit_update"%>
+    <%= f.text_area :body, :class => "feedback_body" %><br />
+    <%= f.submit "Update", :class => "submit_feedback", :id => "submit_update", :class => "btn btn-default"%>
 <% end %>
 <%= button_to "Cancel", cancel_reply_path(@idea_posting.id, @feedback.id), :remote => true %>
 

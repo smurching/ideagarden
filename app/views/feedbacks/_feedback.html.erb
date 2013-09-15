@@ -1,3 +1,10 @@
+<%if feedback.topic %>
+<div class = "text-centered" id = "text-centered">
+<h4><%= feedback.title%></h4>
+<h4><%= link_to "Back", "#", :id => "back_to_topic_list"%></h4>
+</div>
+<%end%>
+
 <%= div_for(feedback, :class => from_followed_user?(feedback) ? "followed_feedback" : "") do %>
   	<div class= <%= feedback.topic ? "topic" : "reply"%>>
   	
@@ -10,7 +17,7 @@
 		
 	      				<%= link_to feedback.user.profile.name, user_profiles_path(feedback.user_id), class: "profile_link" %>
 	      			<%= feedback.created_at.to_formatted_s(:normal_format) %>
-				 	<span id = "feedback_body">
+				 	<span id = "feedback_body_<%=feedback.id.to_s%>">
 				    	<%= simple_format(feedback.body) %>
 				    </span>
 		    		 
@@ -25,12 +32,12 @@
 					      	<%= link_to image_tag('thumbs_down.png', id: 'thumbs_down'), unhelpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
 					    
 						</div>
-
-					    <div class = "feedback_links">
+						<br/>
+					    <div class = "feedback_links_<%=feedback.id%>">
 					    <%if logged_in?%>
-					      <%= link_to 'Reply', new_reply_path(@idea_posting.id, feedback.id), class: "reply_link", remote: true%>
+					      <%= link_to 'Reply', new_reply_path(@idea_posting.id, feedback.id), class: "reply_link reply_link_"+feedback.id.to_s, remote: true%>
 					      <% if current_user.feedbacks.exists?(feedback) && Time.now-feedback.created_at < 3600%>
-					      <%= link_to 'Edit', edit_idea_posting_feedback_path(@idea_posting.id, feedback.id), class: "edit_link", remote: true%>
+					      <%= link_to 'Edit', edit_idea_posting_feedback_path(@idea_posting.id, feedback.id), class: "edit_link edit_link_"+feedback.id.to_s, remote: true%>
 					      	<% if feedback.feedbacks == [] %>
 					  			<%= link_to 'Delete', idea_posting_feedback_path(@idea_posting.id, feedback.id), class: "delete_link", method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %>
 					     	 <%end%>
@@ -46,11 +53,12 @@
 		</table>
 		
 		
-		<div class = "child_feedbacks"> <%= render feedback.feedbacks%> </div>
+		<div class = "child_feedbacks child_feedbacks_<%=feedback.id.to_s%>"> <%= render feedback.feedbacks%> </div>
 			
   	</div>
   	
 <% end %>
+
 
 
 

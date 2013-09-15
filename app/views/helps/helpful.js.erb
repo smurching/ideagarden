@@ -1,1 +1,2 @@
-$('#feedback_<%= @feedback.id %> >>> .feedback_help > .help' ).html("<%= j render ('help') %>");
+var help = $('#feedback_<%= @feedback.id %>').find('.help' )[0]
+$(help).html("<%= j render ('help') %>");

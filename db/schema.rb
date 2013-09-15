@@ -11,13 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130913011713) do
+ActiveRecord::Schema.define(:version => 20130915053118) do
 
   create_table "confirmcodes", :force => true do |t|
     t.string   "code"
     t.string   "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "feedback_votes", :force => true do |t|
+    t.integer  "feedback_id"
+    t.integer  "user_id"
+    t.boolean  "is_upvote"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "feedbacks", :force => true do |t|
@@ -31,6 +39,8 @@ ActiveRecord::Schema.define(:version => 20130913011713) do
     t.text     "body"
     t.integer  "help",            :default => 0
     t.boolean  "topic",           :default => false
+    t.string   "title"
+    t.integer  "root_id"
   end
 
   create_table "followers", :force => true do |t|

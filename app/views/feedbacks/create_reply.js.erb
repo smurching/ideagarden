@@ -1,16 +1,17 @@
 
-$('.feedback_error').remove();
-<%unless @failed_to_post%>
-$('#feedback_<%=@feedback.id%> >>>> .reply_link').unbind('click', false).css('color', 'black');
-$('#feedback_<%=@feedback.id%> >>>> .edit_link').unbind('click', false).css('color', 'black');
-$('#feedback_<%=@feedback.id%> >>> .reply_form').remove(); /* the reply form div selected in this line was inserted into the div_for(feedback) div in new_reply.js.erb */
+$('.feedback_error_<%=@feedback.id%>').remove();
+<%if @failed_to_post == false%>
+$('#feedback_<%=@feedback.id%>').find('.reply_link_<%=@feedback.id%>').unbind('click', false).css('color', 'black');
+$('#feedback_<%=@feedback.id%>').find('.edit_link_<%=@feedback.id%>').unbind('click', false).css('color', 'black');
+$('#feedback_<%=@feedback.id%>').find('.reply_form_<%=@feedback.id%>').remove(); /* the reply form div selected in this line was inserted into the div_for(feedback) div in new_reply.js.erb */
 
 <%if @feedback.topic%>
-$('#feedback_<%=@feedback.id%> > .topic > .child_feedbacks').append('<%= j render(@child) %>');
+$('#feedback_<%=@feedback.id%>').find('.child_feedbacks_<%=@feedback.id%>').append('<%= j render(@child) %>');
 <%else%>
-$('#feedback_<%=@feedback.id%> > .reply > .child_feedbacks').append('<%= j render(@child) %>');
+$('#feedback_<%=@feedback.id%>').find('.child_feedbacks_<%=@feedback.id%>').append('<%= j render(@child) %>');
 <%end%>
 
+<%if false%>
 $('#feedback_<%=@feedback.id%>').each(function(){
 	
 	/* REDUCING THE SIZE OF THE DIV THAT IS BEING REPLIED TO */
@@ -34,9 +35,11 @@ $('#feedback_<%=@feedback.id%>').each(function(){
 	});
 	
 });
+<%end%>
+
 
 <%else%>
-$('#feedback_<%=@feedback.id%> >>>> .new_feedback').show().before('<p class="feedback_error"><br/><%= j "Message must be between 10 and 1000 characters" %></p>');
+$('.reply_form_<%=@feedback.id%> > .new_feedback').show().before('<p class="feedback_error_<%=@feedback.id%>">Make sure your reply is 10-1000 characters long</p>');
 <%end%>
 
 

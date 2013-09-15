@@ -2,7 +2,6 @@ $(function(){
 
 var k = 0;	
 var interval_1 = window.setInterval(function(){
-	console.log(k);
 	k+=1;
 	if(k > 100){
 		clearInterval(interval_1);
@@ -43,7 +42,6 @@ $(function(){
 	var num_of_postings = $('.idea_posting').length;	
 	$('.featured_left_caret').click(function(){
 		prev_posting = (current_posting+num_of_postings-1)%num_of_postings;
-		console.log(prev_posting);
 
 		// setting up variables
 		var reference ="."+String(current_posting); 

@@ -1,0 +1,33 @@
+<%if feedbacks != []%>
+
+<table class="table" id = "topics_list">	
+	<tr id = "header_row">
+		<th>Title</th>
+		<th>Created by</th>
+		<th>Replies</th>
+		<th>Last post</th>
+	</tr>
+	
+<% feedbacks.each do |feedback| %>
+<tr>
+	<td>  
+		<%if feedback.title.length > 20 %>
+			<%= link_to feedback.title.slice(0, 20)+"...", idea_posting_feedback_path(feedback.idea_posting.id, feedback.id), :remote => true %>
+		<%else%>
+			<%= link_to feedback.title, idea_posting_feedback_path(feedback.idea_posting.id, feedback.id), :remote => true %>
+		<%end%>
+	</td>
+	<td> <%= link_to feedback.user.profile.name, user_profile_path(feedback.user.id, feedback.user.profile.id) %>
+	<td> <%= feedback.all_replies.length%>
+	<td> <%= feedback.updated_at.to_formatted_s(:topic_format) %> </td>	
+</tr>
+<%end%>
+</table>
+
+
+
+<%else%>
+<h5>No feedback has been added yet. You can change that!</h5>
+<%end%>
+
+

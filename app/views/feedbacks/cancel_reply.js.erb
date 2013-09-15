@@ -1,7 +1,7 @@
-$('#feedback_<%=@feedback.id%> >>> .reply_form').remove();
+$('#feedback_<%=@feedback.id%>').find('.reply_form_<%=@feedback.id%>').remove();
 $('#feedback_<%=@feedback.id%>').each(function(){
 
-
+	<%if false%>
 	
 	/* REDUCING THE SIZE OF THE DIV THAT IS BEING REPLIED TO */
 	var feedback_height=$(this).height();
@@ -21,13 +21,14 @@ $('#feedback_<%=@feedback.id%>').each(function(){
 		var parent_feedback_height = parent_feedback.height();
 		parent_feedback.height(parent_feedback_height-386);
 	});
-
+	
+	<%end%>
 
 
 
 
 
 });
-$('#feedback_<%=@feedback.id%> >>>> .edit_link').unbind('click', false).css('color', 'black');
-$('#feedback_<%=@feedback.id%> >>>> .reply_link').unbind('click', false).css('color', 'black');
+$('#feedback_<%=@feedback.id%>').find('.edit_link_<%=@feedback.id%>').unbind('click', false).css('color', 'black');
+$('#feedback_<%=@feedback.id%>').find('.reply_link_<%=@feedback.id%>').unbind('click', false).css('color', 'black');
 
