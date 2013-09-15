@@ -92,10 +92,9 @@
 		        	<b class="caret white-caret"></b>
 		      	</a>
 		    		<ul class="dropdown-menu sub-menu">
-		      		<%if current_user.profile != nil%>
 		      			<li><%= link_to 'Profile', user_profiles_path(current_user.id)%></li>
-		      		<%else%>
-		      			<li><%= link_to 'Complete Profile', new_user_profile_path(current_user.id)%></li>		      			
+		      		<%if current_user.profile.complete? == false%>
+		      			<li><%= link_to 'Complete Profile', edit_user_profile_path(current_user.id, current_user.profile.id)%></li>		      			
 		      		<%end%>
 		      					    			
 		    			
@@ -112,7 +111,7 @@
 					  	 	<% unless current_user.confirmed == true %>
 					  	 		<li><%= link_to 'Resend Confirmation Email', resend_user_confirmation_path%></li>
 					  	 	<%end%>
-					  	 	<li><%= link_to "Logout", logout_path, :remote => true%></li>
+					  	 	<li><%= link_to "Logout", logout_path, :remote => false%></li>
 	  					<%end%>
 		    		</ul>
 		  		</li>

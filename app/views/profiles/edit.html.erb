@@ -1,3 +1,6 @@
+<%= render "form"%>
+
+<%if false%>
 <%= form_for @profile, :url => { :action => "update" } do |f| %>
   <% if @profile.errors.any? %>
     <div id="error_explanation">
@@ -28,5 +31,5 @@
     <%= f.submit %>
   </div>
 <% end %>
-
+<%end%>
 

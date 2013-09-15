@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
 
-
-
   def index
     @users = User.all
 
@@ -23,6 +21,10 @@ class UsersController < ApplicationController
 
 
   def new
+    # used by profiles/_form.html.erb to tell whether
+    # the form is for creating a new profile or updating the
+    # profile of an existing user 
+    @from_profiles_new = true
     @user = User.new
     @profile = Profile.new
     respond_to do |format|
@@ -30,6 +32,10 @@ class UsersController < ApplicationController
       format.json { render json: @user }
       format.js
     end
+  end
+
+  def create_through_facebook
+    
   end
 
 
@@ -56,9 +62,15 @@ class UsersController < ApplicationController
      @user.email = params[:email]    
      @user.facebook = true
      @user.confirmed = true
-     @profile.name =  params[:firstname]+" "+params[:lastname]     
+     @profile.name =  params[:firstname]+" "+params[:lastname]    
+      
+     @user.save(:validate => false)
+     @profile.user_id = @user.id     
+     @profile.save
      
-
+     respond_to do |format|
+       format.html {return render :partial => "profiles/form", :layout => "plain_layout"}
+     end
      
      
    #if user signed up through javascript popup (e.g. when user tries to vote without logging in)
@@ -78,7 +90,7 @@ class UsersController < ApplicationController
     
     
     respond_to do |format|
-      if @user.save && (@profile.save || params[:profile] == nil)
+      if @user.save && @profile.save
         
         ### Setting up the success dialog
         if @user.facebook == false
@@ -114,7 +126,7 @@ class UsersController < ApplicationController
       else
         @user.destroy
         @user_created = false
-        format.html { render layout: "plain_layout", action: "new" }
+        format.html { redirect_to new_user_path}
         format.json { render json: @user.errors, status: :unprocessable_entity }
         format.js {render 'profiles/new'}
       end

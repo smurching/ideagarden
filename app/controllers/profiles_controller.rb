@@ -19,6 +19,7 @@ class ProfilesController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @profile = @user.profile == nil ? Profile.new : @user.profile
+    @from_profiles_new = true
 
     respond_to do |format|
       format.html # new.html.erb
@@ -29,6 +30,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1/edit
   def edit
     @profile = Profile.find(params[:id])
+    @user = User.find(params[:user_id])
   end
 
   # POST /profiles
@@ -76,7 +78,7 @@ class ProfilesController < ApplicationController
           
        #if user signed up through facebook
         else
-          @registration_string = ""
+          @registration_string = "Registration complete! You can login through facebook below."
           
         end
         

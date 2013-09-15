@@ -24,8 +24,11 @@
 </head>
 
 <body>
-	
 
+<div id = "notice_container">
+<%= content_tag(:strong, notice, :class => 'notice') if notice.present? %>
+<%= content_tag(:strong, alert, :class => 'alert') if alert.present? %>	
+</div>
 
 <div id="main_container">
 	

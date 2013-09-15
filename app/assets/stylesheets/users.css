@@ -62,4 +62,7 @@ h1 {
 .follow_edit_link { color: white; }
 a.follow_edit_link:hover, a.follow_edit_link:active, a.follow_edit_link:visited { color: white; }
 
+#complete_profile_submit{
+	margin-left: 385px;
+}
 

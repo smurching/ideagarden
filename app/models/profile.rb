@@ -2,7 +2,7 @@
 class Profile < ActiveRecord::Base
 
   validates :name, :presence => true
-  validates :name, :bio, :user_id, :presence => true
+  # validates :user_id, :presence => true
   
   attr_accessible :bio, :name, :user_id, :photo
   
@@ -32,6 +32,9 @@ class Profile < ActiveRecord::Base
     end
   end 
 
+  def complete?
+    return self.bio != nil && self.bio != ""
+  end
 
 # class Profile < ActiveRecord::Base
 
