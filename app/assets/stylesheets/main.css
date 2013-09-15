@@ -15,7 +15,7 @@
 #featured_posts{
 	width: 500px;
 	height: 300px;
-	// background-color: gray;
+	background-color: #F1F1F1;
 	vertical-align: middle;
 	margin-left: auto;
 	margin-right: auto;
@@ -27,6 +27,11 @@
 .strong_green{
 	color: #46A546;
 	
+}
+
+
+#blurb_container{
+    margin-bottom: 30px;
 }
 
 .strong_blue{
