@@ -184,7 +184,7 @@ class IdeaPostingsController < ApplicationController
           current_user.idea_postings << @idea_posting #idea_posting added to current user
           @idea_posting.users << User.find(current_user.id) #current user added to idea_posting's list of owners
           
-          format.html { redirect_to @idea_posting, notice: 'Idea posting was successfully created.' }
+          format.html { render "show", notice: 'Idea posting was successfully created.' }
           format.json { render json: @idea_posting, status: :created, location: @idea_posting }
           format.js        
           
@@ -227,9 +227,10 @@ class IdeaPostingsController < ApplicationController
         
         respond_to do |format|
           if @idea_posting.update_attributes(params[:idea_posting])
+            @posting_saved = true
             format.html { redirect_to @idea_posting, notice: 'Idea posting was successfully updated.' }
             format.json { head :no_content }
-            format.js {redirect_to @idea_posting}
+            format.js {render "create"}
           else
             format.html { render action: "edit" }
             format.json { render json: @idea_posting.errors, status: :unprocessable_entity }

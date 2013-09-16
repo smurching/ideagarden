@@ -1,6 +1,6 @@
 <%if current_user != nil%>
 
-<%= form_for(@idea_posting == nil ? IdeaPosting.new : @idea_posting, :id => "new_idea_posting_form", :remote => false) do |f|%>
+<%= form_for(@idea_posting == nil ? IdeaPosting.new : @idea_posting, :id => "new_idea_posting_form", :remote => true) do |f|%>
 
 
   <div class="field" id = "name_div">

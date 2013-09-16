@@ -7,14 +7,16 @@
 .request_content {
 	float:left;
 	vertical-align:top;
+	margin-bottom: 20px;
 	
 }
 
 .request {
+	margin-top: 30px;
 	float:left;
   	border-bottom: 1px solid #BBB;
     width: 80%;		
-    height: 140px;
+    
 }
 
 .joinrequest {
@@ -24,4 +26,8 @@
 .message {
 	width:445px;
 	word-wrap:break-word;
+}
+
+.decision > a{
+	width: 80px;
 }

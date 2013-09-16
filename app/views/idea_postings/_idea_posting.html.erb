@@ -60,6 +60,9 @@
   <% if idea_posting.users.exists?(@user.id)%>
   <div class = "modification_links">  
   	<%= link_to 'Edit', edit_idea_posting_path(idea_posting)%> <br/>
+  	<%if idea_posting.feedbacks == []%>
+  		<%= link_to 'Delete', idea_posting_path(idea_posting), :method => :delete, :confirm => "Are you sure?"%> <br/>
+  	<%end%>  	
 	<a href="#" 
   		onclick="
     		window.open(

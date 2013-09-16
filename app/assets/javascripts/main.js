@@ -101,7 +101,7 @@ $(function(){
 		
 		var k = 0;	
 		var interval_1 = window.setInterval(function(){
-		console.log(k);
+
 		k+=1;
 		if(k > 100){
 			clearInterval(interval_1);
@@ -194,7 +194,7 @@ $(function(){
 		
 		var k = 0;	
 		var interval_1 = window.setInterval(function(){
-		console.log(k);
+
 		k+=1;
 		if(k > 100){
 			clearInterval(interval_1);
@@ -226,7 +226,7 @@ $(function(){
 
 
 function next_posting(num_of_postings, current_posting){
-	console.log("in next posting");
+
 	next_posting = (current_posting+1)%num_of_postings;
 	
 	

@@ -51,8 +51,8 @@ Ideagarden::Application.routes.draw do
   
 
   # approve and reject joinrequests
-  match '/idea_postings/:id/joinrequests/:joinrequest_id/approve' => 'joinrequests#approve', as: 'approve_joinrequest', :via => :post
-  match '/idea_postings/:id/joinrequests/:joinrequest_id/reject' => 'joinrequests#reject', as: 'reject_joinrequest', :via => :post
+  match '/idea_postings/:id/joinrequests/:joinrequest_id/approve' => 'joinrequests#approve', as: 'approve_joinrequest'
+  match '/idea_postings/:id/joinrequests/:joinrequest_id/reject' => 'joinrequests#reject', as: 'reject_joinrequest'
   
   #this reply action creates child feedback - feedback that is posted in response to other feedback
   match '/idea_posting/:id/reply/:feedback_id' => 'feedbacks#new_reply', as: 'new_reply', :via => :get #creates actual reply, the action to load the reply template is just feedbacks#new

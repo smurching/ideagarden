@@ -40,10 +40,10 @@
  			
  		}
 
-		if($('#idea_posting_name').val().length<10){
+		if($('#idea_posting_name').val().length<10 || $('#idea_posting_name').val().length > 50){
 			event.preventDefault();
 			if($('#title_error').length==0){
-				$('#idea_posting_name').before("<p class = 'form_error' id = 'title_error'>Make sure your title is at least 10 characters long. Click to Dismiss. <a class = 'dismiss_all' href='#'>Dismiss all</a></p>");
+				$('#idea_posting_name').before("<p class = 'form_error' id = 'title_error'>Title must be 10 to 50 characters long. Click to Dismiss. <a class = 'dismiss_all' href='#'>Dismiss all</a></p>");
  				$('#idea_posting_name').errorHighlight();				
 			}
 			else{
@@ -52,9 +52,9 @@
 
 		}
 		
-		if($('#idea_posting_pitch').val().length<10){
+		if($('#idea_posting_pitch').val().length<10 || $('#idea_posting_pitch').val().length > 110){
 			event.preventDefault();
-			$('#idea_posting_pitch').errorMessage("Make sure your pitch is at least 10 characters long");
+			$('#idea_posting_pitch').errorMessage("Pitch must be 10 to 110 characters long");
 
 		}
 		

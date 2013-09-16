@@ -6,9 +6,8 @@ $('#feedback_<%=@feedback.id%>').find('.edit_link_<%=@feedback.id%>').unbind('cl
 $('#feedback_<%=@feedback.id%>').find('.reply_form_<%=@feedback.id%>').remove(); /* the reply form div selected in this line was inserted into the div_for(feedback) div in new_reply.js.erb */
 
 
-$('#feedback_<%=@feedback.id%>').find('#feedback_body_<%=@feedback.id%>').html('j <p><%=@feedback.body%></p>');
+$('#feedback_<%=@feedback.id%>').find('#feedback_body_<%=@feedback.id%>').html('<p><%=@feedback.body%></p>');
 
-console.log("asdf");
 
 
 <%if false%>

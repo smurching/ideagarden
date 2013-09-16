@@ -221,5 +221,48 @@ end
  end
  
  
+ def joinrequests_remaining(limit = 3)
+   time_threshold = 3600*24
+   recent_requests = self.join_requests_mades.order("created_at DESC")
+      
+      
+   (1..limit).each do |i|
+     index = limit-i
+     
+     if recent_requests[index] != nil
+       time_since_creation = Time.now-recent_requests[index].created_at
+       if time_since_creation < time_threshold 
+         return i-1
+       end
+ 
+     elsif index == 0
+       return limit
+     else
+       # if the user doesn't have <limit> joinrequests, we may end up here
+       # in that case, do nothing
+     end
+     
+   end
+    
+ end 
+ 
+ def joinrequests_remaining?
+   if self.joinrequests_remaining == 0
+     return false
+   else
+     return true
+   end   
+ end
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
 end

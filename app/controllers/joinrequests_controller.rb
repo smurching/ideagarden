@@ -21,11 +21,22 @@ class JoinrequestsController < ApplicationController
  
   end
 
-  def create 
+  def create     
+    unless current_user.joinrequests_remaining?
+      return redirect_to root_path, notice: "You can't make any more requests today"
+    end
+    
     @idea_posting = IdeaPosting.find(params[:joinrequest][:idea_posting_id])
-    if current_user != nil && current_user.join_requests_mades.where(:idea_posting_id => @idea_posting.id).exists? == false #if the user is logged in and hasn't requested to join a given project before, proceed with creating joinrequest
-    @joinrequest = @idea_posting.joinrequests.new(params[:joinrequest])
-    @user_has_made_request = current_user.join_requests_mades.new({:idea_posting_id => @idea_posting.id}) #records that user has requested to join this project
+    
+    #if the user is logged in and hasn't requested to join a given project before, proceed with creating joinrequest    
+    if current_user != nil && current_user.join_requests_mades.where(:idea_posting_id => @idea_posting.id).exists? == false
+      
+      # Create a new joinrequest 
+      @joinrequest = @idea_posting.joinrequests.new(params[:joinrequest])
+      
+      # Record that the user has requested to join this posting
+      @user_has_made_request = current_user.join_requests_mades.new({:idea_posting_id => @idea_posting.id})
+      
       respond_to do |format|
         if @joinrequest.save && @user_has_made_request.save #saves request in user and idea_posting models
           @request_made = true

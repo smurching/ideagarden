@@ -22,6 +22,11 @@
     <%= f.hidden_field(:userid)%>
 
   <div class="actions">
-    <%= f.submit "Send request", :class => "btn btn-danger" %>
+  	<%if current_user.joinrequests_remaining?%>
+    <%= f.submit "Send request ("+current_user.joinrequests_remaining.to_s+" left today)", :class => "btn btn-danger" %>
+    <%else%>
+    <%= f.submit "Send request ("+current_user.joinrequests_remaining.to_s+" left today)", :class => "btn btn-default", :disabled => true %>
+    <%end%>
+
   </div>
 <% end %>

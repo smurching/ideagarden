@@ -2,15 +2,15 @@
 	
 	<div class = 'request'>
     	<div class = 'decision'>
-    		<%= button_to 'Approve', approve_joinrequest_path(join_request.id, join_request.idea_parent.id), :format => :js, :remote => true%>
-    		<%= button_to 'Reject', reject_joinrequest_path(join_request.id, join_request.idea_parent.id), :format => :js, :remote => true%>
+    		<%= link_to 'Approve', approve_joinrequest_path(join_request.id, join_request.idea_parent.id), :remote => true, :class => "btn btn-success"%> <br/> 
+    		<%= link_to 'Dismiss', reject_joinrequest_path(join_request.id, join_request.idea_parent.id),  :remote => true, :class => "btn btn-danger"%>
   		</div>
   
 
     	<div class = 'request_content'>
-     		<h3> Request to join <%= link_to join_request.idea_parent.name, idea_posting_path(join_request.idea_parent.id) %> </h3> 
-     		<p class = 'request_maker'> From: <%= link_to join_request.user_parent.profile.name + ", ", user_profiles_path(join_request.user_parent.id) %></p>
-     		<p class = 'message'>Message: <%= join_request.message %></p>
+     		<h4 style="margin-top: 0px;"><strong> Request to join <%= link_to join_request.idea_parent.name, idea_posting_path(join_request.idea_parent.id) %> </strong></h4> 
+     		<p class = 'request_maker'> <strong>From</strong>: <%= link_to join_request.user_parent.profile.name + ", ", user_profiles_path(join_request.user_parent.id) %></p>
+     		<p class = 'message'><strong>Message: </strong> <%= join_request.message %></p>
     	</div>
 	</div>
  
