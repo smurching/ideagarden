@@ -130,17 +130,18 @@ h1 {
   border: 2px solid #BBB;
   padding: 0px;
   margin-top: -20px;
+  text-align: center;
 }
 
 .thumbnail > img{
-  height: 100px;
-  width: 100px;
+  max-height: 96px;
+  max-width: 100px;
   border-radius: 10px;	
 }
 
 .idea_posting_picture{
-  height: 100px;
-  width: 100px;
+  max-height: 100px;
+  max-width: 100px;
 }
 
 .brief {
