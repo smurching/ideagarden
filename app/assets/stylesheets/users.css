@@ -46,8 +46,8 @@ h1 {
 }
 
 .profile_body_left > img{
-	max-height: 100px;
-	max-width: 100px;
+	height: 100px;
+	width: 100px;
 }
 
 .description{

@@ -120,6 +120,7 @@ h1 {
 
 .posting > div {
   float: left;
+  position: relative;
 
 }
 
@@ -134,19 +135,19 @@ h1 {
 }
 
 .thumbnail > img{
-  max-height: 96px;
-  max-width: 100px;
+  height: 96px;
+  width: 96px;
   border-radius: 10px;	
 }
 
 .idea_posting_picture{
-  max-height: 100px;
-  max-width: 100px;
+  height: 100px;
+  width: 100px;
 }
 
 .brief {
   position: absolute; /* brief is positioned with respect to 'class=posting' div, which holds posting text content */
-  left: 150px;
+  left: 50px;
   top: -15px;
 
 }
