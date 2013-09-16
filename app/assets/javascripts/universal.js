@@ -64,3 +64,28 @@ $.fn.errorMessage = function(message, dismiss_all){
 	} 				
 }
 
+$.fn.loadTopics = function(id, private){
+	var private = typeof private !== 'undefined' ? private : false;
+   	var url = "";
+   	if(private){
+  		url = "/private_topics";
+  	}
+    else{
+    	url = "/public_topics";
+    }
+    
+    var element = $(this)
+    
+	$.get("/idea_postings/"+id+url, function(data){
+		// console.log($(element).attr("id"));
+		$(element).html(data);
+	});	    
+}
+
+$.fn.loadPublicTopics = function(id){
+	$(this).loadTopics(id, false);	
+}
+
+$.fn.loadPrivateTopics = function(id){
+	$(this).loadTopics(id, true);
+}

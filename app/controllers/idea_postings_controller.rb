@@ -31,6 +31,20 @@ class IdeaPostingsController < ApplicationController
     end
   end
   
+  def public_topics
+    @idea_posting = IdeaPosting.find(params[:id])
+    respond_to do |format|
+      format.html {render :partial => "topics_list", :locals => {:feedbacks => @idea_posting.public_feedbacks}}
+    end
+  end
+  
+  def private_topics
+    @idea_posting = IdeaPosting.find(params[:id])
+    respond_to do |format|
+      format.html {render :partial => "topics_list", :locals => {:feedbacks => @idea_posting.private_feedbacks}}
+    end    
+  end
+  
   def filter_by_followers
     @filtering = true
     case
@@ -195,16 +209,9 @@ class IdeaPostingsController < ApplicationController
     
       if @idea_posting.users.exists?(current_user.id) #does user own the idea posting? if yes, update the posting
         
-        @idea_posting.tags.each do |tag|
-          tag.destroy
-        end
-    
-        params.each do |key, value|
-          if value == "true" && ["facebook", "under_execution", "photo"].include?(key) == false
-            tag = @idea_posting.tags.new({:value => tag_hash[key]})
-            tag.save
-          end
-        end    
+        tags_list = @idea_posting.tags_list
+        tags_list.set_attributes(params)    
+        tags_list.save  
     
         if params[:facebook] == "true"
           @post_to_facebook = true

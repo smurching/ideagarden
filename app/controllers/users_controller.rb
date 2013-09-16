@@ -64,13 +64,19 @@ class UsersController < ApplicationController
      @user.facebook = true
      @user.confirmed = true
      @profile.name =  params[:firstname]+" "+params[:lastname]    
-      
-     @user.save(:validate => false)
-     @profile.user_id = @user.id     
-     @profile.save
      
-     respond_to do |format|
-       format.html {return render :template => "profiles/_form", :layout => "plain_layout"}
+     if User.find_by_email(@user.email) == nil 
+       @user.save(:validate => false)
+       @profile.user_id = @user.id     
+       @profile.save
+     
+       respond_to do |format|
+         format.html {return redirect_to root_path, notice: "Registration complete! You can log in through Facebook below"}
+       end
+     else
+       respond_to do |format|
+         format.html {return redirect_to root_path, notice: "An account with this email already exists"}
+       end
      end
      
      

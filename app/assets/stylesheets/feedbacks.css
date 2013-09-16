@@ -94,3 +94,18 @@ table td.expand {
 	margin-left: 202px;
 }
 
+.topic > table > *{
+	background-color: rgb(252, 248, 227);
+}
+
+.reply > table > *{
+	background-color: #EEEEEE;
+}
+
+table.followed_post > *{
+	background-color: rgb(223, 240, 216);
+}
+
+.unfollowed_post > *{
+	background-color: #EEEEEE;
+}

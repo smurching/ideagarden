@@ -46,6 +46,9 @@ Ideagarden::Application.routes.draw do
   match '/idea_postings/:id/:feedback_id/helpful' => 'helps#helpful', as: 'helpful', :via => :get
   match '/idea_postings/:id/:feedback_id/unhelpful' => 'helps#unhelpful', as: 'unhelpful', :via => :get
   
+  match '/idea_postings/:id/public_topics' => "idea_postings#public_topics", as: "public_topics"
+  match '/idea_postings/:id/private_topics' => "idea_postings#private_topics", as: "private_topics"  
+  
 
   # approve and reject joinrequests
   match '/idea_postings/:id/joinrequests/:joinrequest_id/approve' => 'joinrequests#approve', as: 'approve_joinrequest', :via => :post

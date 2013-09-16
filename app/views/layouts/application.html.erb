@@ -93,7 +93,7 @@
 		      	</a>
 		    		<ul class="dropdown-menu sub-menu">
 		      			<li><%= link_to 'Profile', user_profiles_path(current_user.id)%></li>
-		      		<%if current_user.profile.complete? == false%>
+		      		<%if current_user.profile == nil || current_user.profile.complete? == false%>
 		      			<li><%= link_to 'Complete Profile', edit_user_profile_path(current_user.id, current_user.profile.id)%></li>		      			
 		      		<%end%>
 		      					    			

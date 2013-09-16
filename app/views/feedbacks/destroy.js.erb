@@ -1,1 +1,14 @@
 $('#feedback_<%=@id%>').remove();
+
+<%if @feedback.topic%>
+	<%if @feedback.private%>
+		$('#existing_private_feedback').loadPrivateTopics(<%=@idea_posting.id%>);
+	<%else%>
+		$('#existing_feedback').loadPublicTopics(<%=@idea_posting.id%>);
+	<%end%>
+	$('.new_feedback').show();
+	$('#create_topic').removeAttr("disabled");
+	remaining_topics = parseInt($('#create_topic').val().match(/[0-9]/))+1;
+	$('#create_topic').val("Create topic ("+String(remaining_topics)+" left today)").attr("class", "btn btn-danger create_topic");	
+<%end%>
+

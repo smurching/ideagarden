@@ -149,7 +149,12 @@ class IdeaPosting < ActiveRecord::Base
   end
   
   def self.featured_posts
-    IdeaPosting.where("featured = TRUE")
+    result = IdeaPosting.where("featured = TRUE")
+    if result == [] && Rails.env == "development"
+      IdeaPosting.update_featured_posts
+      result = IdeaPosting.where("featured = TRUE")      
+    end
+    return result
   end
   
   def self.search(params = {}, current_user = nil)        

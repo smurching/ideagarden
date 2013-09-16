@@ -1,19 +1,20 @@
 <%if feedback.topic %>
 <div class = "text-centered" id = "text-centered">
+<h4><%= link_to "Back", "#", :id => "back_to_topic_list"%></h4>	
 <h4><%= feedback.title%></h4>
-<h4><%= link_to "Back", "#", :id => "back_to_topic_list"%></h4>
+
 </div>
 <%end%>
 
-<%= div_for(feedback, :class => from_followed_user?(feedback) ? "followed_feedback" : "") do %>
-  	<div class= <%= feedback.topic ? "topic" : "reply"%>>
+<%= div_for(feedback) do %>
+  	<div class= <%= feedback.topic ? "topic " : "reply "%>>
   	
-	  	<table cellpadding="5">
-			<tr style="background-color:#EEEEEE;">
-		  		<td class="shrink" style="float:left; background-color:#EEEEEE;">
+	  	<table cellpadding="5" class = <%= from_followed_user?(feedback) ? "followed_post" : "unfollowed_post"%>>
+			<tr style="">
+		  		<td class="shrink" style="float:left;">
 					<img src="https://profile-a.xx.fbcdn.net/hprofile-ash4/c178.0.604.604/s160x160/252231_1002029915278_1941483569_n.jpg", alt="Profile Picture" width="50" height="50">
 		  		</td>
-		  		<td class="expand" style="background-color:#EEEEEE;">
+		  		<td class="expand" style="">
 		
 	      				<%= link_to feedback.user.profile.name, user_profiles_path(feedback.user_id), class: "profile_link" %>
 	      			<%= feedback.created_at.to_formatted_s(:normal_format) %>
@@ -22,14 +23,21 @@
 				    </span>
 		    		 
 		    		
-		    		<div class="feedback_content_container" style="background-color:#EEEEEE;clear:both;">
+		    		<div class="feedback_content_container" style="clear:both;">
 						<div class = 'feedback_help'>
-	
-					      	<%= link_to image_tag('thumbs_up.png', id: 'thumbs_up'), helpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
+							<% if feedback.upvoted_by?(current_user) %>
+					      		<%= link_to image_tag('thumbs_up_black.png', id: 'thumbs_up'), helpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>							
+							<%else%>
+					      		<%= link_to image_tag('thumbs_up.png', id: 'thumbs_up'), helpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
+					      	<%end%>
 					      	<div class = 'help'>
 					        	<%= feedback.help %>
 					      	</div>
-					      	<%= link_to image_tag('thumbs_down.png', id: 'thumbs_down'), unhelpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
+					      	<% if feedback.downvoted_by?(current_user) %>
+					      		<%= link_to image_tag('thumbs_down_black.png', id: 'thumbs_down'), unhelpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>					      	
+					      	<%else%>
+					      		<%= link_to image_tag('thumbs_down.png', id: 'thumbs_down'), unhelpful_path({id: @idea_posting.id, feedback_id: feedback.id}), format: :js, remote: true %>
+					      	<%end%>
 					    
 						</div>
 						<br/>

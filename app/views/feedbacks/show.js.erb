@@ -11,8 +11,8 @@ $('.new_feedback').hide();
 $('#existing_private_feedback').html("<%= j render @feedback %>");
 
 $('#back_to_topic_list, a[data-toggle="tab"]').off("click").click(function(){
-	$('#existing_private_feedback').html("<%= j render :partial => 'idea_postings/topics_list', :locals => {:feedbacks => @idea_posting.private_feedbacks} %>");	
-	console.log("refreshing topics list");
+	$('#existing_private_feedback').loadPrivateTopics(<%=@idea_posting.id%>);	
+
 	$('.new_feedback').show();	
 });
 
@@ -23,7 +23,8 @@ $('#back_to_topic_list, a[data-toggle="tab"]').off("click").click(function(){
 $('#existing_feedback').html("<%= j render @feedback %>");
 
 $('#back_to_topic_list, a[data-toggle="tab"]').off("click").click(function(){
-	$('#existing_feedback').html("<%= j render :partial => 'idea_postings/topics_list', :locals => {:feedbacks => @idea_posting.public_feedbacks} %>");	
+	$('#existing_feedback').loadPublicTopics(<%=@idea_posting.id%>);	
+		
 	$('.new_feedback').show();	
 });
 

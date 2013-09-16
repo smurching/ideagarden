@@ -52,6 +52,6 @@ create_reply_path(@idea_posting.id, @feedback.id)) do |f| %>
     <%= f.text_area :body, :class => "feedback_body" %><br />
     <%= f.submit "Update", :class => "submit_feedback", :id => "submit_update", :class => "btn btn-default"%>
 <% end %>
-<%= button_to "Cancel", cancel_reply_path(@idea_posting.id, @feedback.id), :remote => true %>
+<%= button_to "Cancel", cancel_reply_path(@idea_posting.id, @feedback.id), :remote => true, :class => "btn btn-default" %>
 
 <%end%>

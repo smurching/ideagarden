@@ -50,4 +50,29 @@ class Feedback < ActiveRecord::Base
     end
   end
   
+  def upvoted_by?(user)
+    if FeedbackVote.where("feedback_id = ? AND user_id = ? AND is_upvote = TRUE", self.id, user.id) != []
+      return true
+    else
+      return false
+    end    
+  end
+  
+  def downvoted_by?(user)
+    if FeedbackVote.where("feedback_id = ? AND user_id = ? AND is_upvote = FALSE", self.id, user.id) != []
+      return true
+    else
+      return false
+    end        
+  end
+  
+  
+  def voted_on_by?(user)
+    if self.upvoted_by?(user) || self.downvoted_by?(user)
+      return true
+    else
+      return false
+    end    
+  end
+  
 end

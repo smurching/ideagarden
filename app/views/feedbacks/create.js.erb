@@ -15,8 +15,18 @@ $('.topic_form_header').after('<br/><p class="feedback_error"><%= j @error_messa
 
 	$('.new_feedback').find('#feedback_body').val("");
 	$('.new_feedback').find('#feedback_title').val("");	
-	$('#header_row').after('<%= j render :partial => "idea_postings/topics_list_row", :locals => {:feedback => @feedback}%>');
-	$('#create_topic').val('Create topic (<%=current_user.topics_remaining.to_s%> left today)');	
+
+<%if @feedback.private%>
+	$('#existing_private_feedback').loadPrivateTopics(<%=@idea_posting.id%>);
+<%else%>
+	$('#existing_feedback').loadPublicTopics(<%=@idea_posting.id%>);
+<%end%>
+
+	$('#create_topic').val('Create topic (<%=current_user.topics_remaining%> left today)');	
+	if(<%=current_user.topics_remaining%> == "0"){
+		$('#create_topic').attr("disabled", true);
+		$('#create_topic').attr("class", "btn btn-default create_topic")
+	}
 					
 <%end%>
 

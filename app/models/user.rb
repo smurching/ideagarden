@@ -163,7 +163,7 @@ end
    return false   
  end
 
- def feedbacks_remaining(topics = false, limit = 3)
+ def feedbacks_remaining(topics = false, limit = 20)
    time_threshold = 3600*24
    recent_feedbacks = Feedback.joins("INNER JOIN users ON users.id = feedbacks.user_id AND users.id = #{self.id} AND feedbacks.topic = #{topics.to_s}").order("created_at DESC")
       

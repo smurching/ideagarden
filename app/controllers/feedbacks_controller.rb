@@ -54,6 +54,7 @@ class FeedbacksController < ApplicationController
     @idea_posting = IdeaPosting.find(params[:idea_posting_id]) # set idea posting variable, should be 'load_idea_posting' method
     @feedback = @idea_posting.feedbacks.new(params[:feedback])
     @error_message = ""
+    @valid = true
     
       if @feedback.topic
          if @feedback.title == nil || @feedback.title.length < 10

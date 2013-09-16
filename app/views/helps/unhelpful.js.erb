@@ -1,2 +1,5 @@
 var help = $('#feedback_<%= @feedback.id %>').find('.help' )[0]
 $(help).html("<%= j render ('help') %>");
+
+$('#thumbs_up').attr("src", '/assets/thumbs_up.png');
+$('#thumbs_down').attr("src", '/assets/thumbs_down_black.png');
