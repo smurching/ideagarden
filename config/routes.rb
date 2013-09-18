@@ -78,8 +78,8 @@ Ideagarden::Application.routes.draw do
   #TEMPORARY, DELETE THIS:
   match '/show_reset_requests' => 'users#show_pw_reset_requests', as: 'show_pw_reset', :via => :get
 
-  match '/users/:id/follow' => 'users#follow', as: 'follow_user', :via => :post
-  match '/users/:id/unfollow' => 'users#unfollow', as: 'unfollow_user', :via => :post
+  match '/users/:id/follow' => 'users#follow', as: 'follow_user', :via => :get
+  match '/users/:id/unfollow' => 'users#unfollow', as: 'unfollow_user', :via => :get
   match '/following' => 'users#show_following', as: 'show_following', :via => :get
   match '/followers' => 'users#show_followers', as: 'show_followers', :via => :get
   

@@ -1,14 +1,37 @@
-<% @user_list.each do |user| %>
+<h2 class="centered" id = "follow_heading">Followers</h2>
 
-<h1><%= user.profile.name %>'s Profile</h1>
-<% if current_user.followings.find_by_followed_user_id(user.id) == nil %>
-<%= link_to "Follow "+user.profile.name, follow_user_path(user.id) %>
-<%else %>
-<%= link_to "Unfollow "+user.profile.name, unfollow_user_path(user.id) %>
-<% end %>
-<br/>
-<h2> Bio </h2> 
-<p> <%= user.profile.bio %> </p>
-</br> 
+<%= div_for @user_list, :class => "follow_user" do |user| %>
+
+
+<div class = "thumbnail follow_user_photo">
+	<%if user.profile.photo_file_size != nil%>
+		<%= image_tag user.profile.photo_url,  :class => "profile_picture"%>
+	<%else%>
+		<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Male_head_silhouette.svg/200px-Male_head_silhouette.svg.png", alt="Profile Picture" width="100" height="100">			
+	<%end%>
+	
+</div>
+
+<div class = "follow_user_options">
+		
+</div>
+
+
+<div class = "follow_user_info">
+<h3 class = "follow_user_name"><strong><%= link_to user.profile.name, user_profiles_path(user.id) %></strong> </h3>
+
+
+<h4 class = "follow_user_bio"><strong> Bio: </strong> <%= user.profile.bio == nil ? "None" : user.profile.bio%></h4>
+
+	<% if current_user.followings.find_by_followed_user_id(user.id) == nil %>
+		<%= link_to "Follow", follow_user_path(user.id), :class => "btn btn-success follow_link" %>
+	<%else %>
+		<%= link_to "Unfollow", unfollow_user_path(user.id), :class => "btn btn-warning follow_link" %>
+	<% end %>
+</div> 
+
+
+
+
 
 <%end%>

@@ -17,7 +17,7 @@
 			<%= link_to feedback.title, idea_posting_feedback_path(feedback.idea_posting.id, feedback.id), :remote => true %>
 		<%end%>
 	</td>
-	<td> <%= link_to feedback.user.profile.name, user_profile_path(feedback.user.id, feedback.user.profile.id) %>
+	<td> <%= link_to feedback.user.profile.name, user_profiles_path(feedback.user.id) %>
 	<td> <%= feedback.all_replies.length%>
 	<td> <%= feedback.updated_at.to_formatted_s(:topic_format) %> </td>	
 </tr>

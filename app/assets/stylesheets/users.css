@@ -66,3 +66,40 @@ a.follow_edit_link:hover, a.follow_edit_link:active, a.follow_edit_link:visited 
 	margin-left: 385px;
 }
 
+
+/* Styles for /followers and /following pages
+ * (lists of users being followed and followers) */
+.follow_user_name{
+	
+}
+
+.follow_user_bio{
+	
+}
+
+.follow_user_info{
+	position: absolute;
+	top: -20px;
+	left: 130px;	
+}
+
+.follow_user{
+	border-bottom: 1px solid #CCC;
+	width: 600px;	
+	padding-bottom: 20px;
+	margin-bottom: 40px;
+	position: relative;
+}
+
+.follow_link, .unfollow_link{
+	width: 100px;
+	margin-bottom: 20px;	
+}
+
+#follow_heading{
+	margin-bottom: 50px;	
+	width: 331px;	
+}
+
+/* End follower/following styles */
+
