@@ -11,7 +11,7 @@ class IdeaPosting < ActiveRecord::Base
   has_many :feedbacks
   has_many :joinrequests
   has_one :tags_list
-  has_attached_file :photo, styles: { small: "130x130>", thumb: "45x45>" }  
+  has_attached_file :photo, styles: { small: "100x100>", thumb: "45x45>" }  
   
   
   
@@ -68,7 +68,7 @@ class IdeaPosting < ActiveRecord::Base
   
   def photo_url(style=:original)
     original = photo.url
-    styles_hash = {:thumb => "thumb", :medium => "medium", :original => "original"}
+    styles_hash = {:thumb => "thumb", :medium => "medium", :original => "original", :small => "small"}
     
     # modify so that domain name of file src attribute is correct
     modified = original.split("s3").insert(1, "s3-us-west-2").join
