@@ -75,6 +75,7 @@ img.featured_right_caret, img.featured_left_caret{
 	height: 30px;
 	width: 30px;
 	position: absolute;
+	cursor: pointer;
 }
 
 .featured_left_caret{
@@ -124,4 +125,10 @@ a#facebook_login{
 }
 
 
+#switch_form{
+	margin-left: 20px;
+}
 
+#switch_form > #forgot_password{
+	margin-left:-30px;
+}

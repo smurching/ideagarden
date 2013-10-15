@@ -52,7 +52,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       respond_to do |format|
         format.html {redirect_to root_path}
-        format.js      
+        format.js {format.html}
       end
       
     # if login fails, redirect to login page      

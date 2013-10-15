@@ -5,7 +5,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @users }
     end
   end
 
@@ -15,7 +14,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user }
     end
   end
 
@@ -29,7 +27,6 @@ class UsersController < ApplicationController
     @profile = Profile.new
     respond_to do |format|
       format.html {render :layout => "plain_layout"} # new.html.erb
-      format.json { render json: @user }
       format.js
     end
   end
@@ -128,13 +125,11 @@ class UsersController < ApplicationController
 
         @user_created = true        
         format.html { redirect_to root_path, notice: 'Profile was successfully created. '+@registration_string }          
-        format.json { render json: @user, status: :created, location: @user }
         format.js {render 'profiles/new'}
       else
         @user.destroy
         @user_created = false
         format.html { redirect_to new_user_path}
-        format.json { render json: @user.errors, status: :unprocessable_entity }
         format.js {render 'profiles/new'}
       end
     end
@@ -215,6 +210,9 @@ class UsersController < ApplicationController
   #
   
   def new_password_reset_request #loads page in which user inputs his email to send reset request
+    respond_to do |format|
+      format.html {render :layout => "blank_layout"}
+    end
   end
   
   def send_password_reset_request #sends reset request to user's email
@@ -240,12 +238,16 @@ class UsersController < ApplicationController
   def show_pw_reset_requests
    render 'joinrequests/pwreset'
   end
+
   def load_password_reset_page #loads the page in which the user picks a new password and confirms it
      @reset_code = params[:reset_code]
      @user = User.find_by_reset_code(@reset_code)
      if @user == nil
-       return redirect_to root_path, notice: 'Invalid page'
+       return redirect_to root_path, notice: 'The page you requested does not exist'
      end
+    respond_to do |format|
+      format.html {render :layout => "blank_layout"}
+    end     
 
   end
   
@@ -349,12 +351,5 @@ class UsersController < ApplicationController
   #
 
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
-    end
   end
 end

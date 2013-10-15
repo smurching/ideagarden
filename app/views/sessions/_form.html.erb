@@ -14,9 +14,13 @@
     <%= link_to "Login via Facebook", "/auth/facebook?&state=login", :id => "facebook_login", :class => "btn btn-primary"%>
   	</span>
   </div>
-  
-	<%= link_to "Register", new_user_path, :remote => true, :class => "btn btn-inverse"%> 
-	<%= link_to "Register through Facebook", "/auth/facebook?&state=register", :id => "facebook_register", :class => "btn btn-inverse"%>
+
+  <div class="actions centered" id="switch_form">
+	 <%= link_to "Register", new_user_path, :remote => true, :class => "btn btn-inverse"%> 
+	 <%= link_to "Register through Facebook", "/auth/facebook?&state=register", :id => "facebook_register", :class => "btn btn-inverse"%> <br/>
+   <%= link_to "Forgot Password?", new_pw_reset_path, :id => "forgot_password"%>   
+  </div>
+
 <% end %>
 
   <script id = "form_watermarks">

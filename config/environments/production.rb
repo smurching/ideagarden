@@ -31,7 +31,7 @@ Ideagarden::Application.configure do
   authentication: "plain",
   enable_starttls_auto: true,
   user_name: "mail.ideagarden@gmail.com",
-  password: "siddharthandkevin"
+  password: ENV["MAILER_PASSWORD"]
   }
   
   config.action_mailer.default_url_options = { host: "ideagarden.herokuapp.com" }

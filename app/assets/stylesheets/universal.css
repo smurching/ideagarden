@@ -9,7 +9,7 @@ html {
 }
 /* end field styling */
 
-.field_small, .field_small *{
+.field_small, .field_small > *{
 	width: 200px;
 }
 

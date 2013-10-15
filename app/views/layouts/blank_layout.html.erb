@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <title>Ideagarden</title>
+  <% if @idea_posting != nil && @idea_posting.id != nil%>
+
+  	<meta property="og:url" content="<%=request.base_url+idea_posting_path(@idea_posting.id)%>"/>	  
+	<meta property="fb:app_id" content="<%=ENV["FACEBOOK_APP_ID"]%>" /> 
+	<meta property="og:type" content="<%=ENV["FACEBOOK_APP_NAMESPACE"]%>:project_idea" /> 	
+	<meta property="og:title" content="<%=@idea_posting.name%>" />
+	<meta property="og:image" content= "<%=request.base_url+"/assets/logo.png"%>"/>
+	<meta property="<%=ENV["FACEBOOK_APP_NAMESPACE"]%>:pitch" content="<%=@idea_posting.pitch%>" />
+	<%end%>
+
+    
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+  
+</head>
+
+<body>
+
+
+
+
+  <table id='header'>
+  	<tr>
+  		<td><h1><%= link_to image_tag('logo.png', id: 'logo'), root_path %></h1></td>			
+     		
+    </tr>  
+	   
+
+        
+      
+  </table>
+
+
+<div id = "notice_container">
+<%= content_tag(:strong, notice, :class => 'notice') if notice.present? %>
+<%= content_tag(:strong, alert, :class => 'alert') if alert.present? %>	
+</div>
+
+<div id = "wrapper">	
+<%= yield%>
+</div>
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+	
+</body>

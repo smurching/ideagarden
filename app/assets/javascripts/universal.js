@@ -33,7 +33,6 @@ $.fn.errorHighlight = function(){
 
 $.fn.errorMessage = function(message, dismiss_all){
 	
-	
 	if(typeof(dismiss_all) === "undefined"){
 		var dismiss_all = false;
 	}
@@ -49,10 +48,12 @@ $.fn.errorMessage = function(message, dismiss_all){
  				"<br/></p>");			
  		$(this).errorHighlight();
  		var offset = $(this).offset();
- 		var border = parseInt($(this).css("borderWidth"));
+
+ 		var borderwidth = $(this).css("borderWidth");
+ 		var border = borderwidth == "" ? 0 : parseInt(borderwidth);
 		var error = document.getElementById(id+"_error"); 		
  		$(error).offset({top: offset.top+border, left: offset.left+border});
- 		
+
  		$(error).click(function(){
  			$(error).hide();
 			$(element).focus();

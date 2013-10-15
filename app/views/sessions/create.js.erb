@@ -4,41 +4,11 @@ $('#login_failed').remove();
 
 
 <%if @logged_in %>
-
-	 <%if registration_complete? %>
-		$('.new_session').remove();
-		$('#navLinks').html('<%= j link_to 'Welcome, '+current_user.profile.name, user_profiles_path(current_user.id)%> | <%= link_to "Logout", logout_path, :remote => true %> | <%= link_to "Requests ("+number_of_requests.to_s+")", list_joinrequests_path, :id => "pending_requests"%> |	 <%= link_to "Following", show_following_path %> | <%= link_to "Followers", show_followers_path %> | <%= link_to 'Inbox', private_messages_path %>');
-		$('#login_filter').hide();
-		$('.login_or_register_form').remove();
-		
-	<%else%>
-
-		$('#navLinks').html('<%= link_to "Logout", logout_path, :remote => true %>');
-		$('#login_filter').hide();
-		$('.login_or_register_form').remove();
-		<%if current_user.profile == nil %>
-			 $('#navLinks').append(' | <%= link_to 'Complete Profile', new_user_profile_path(current_user.id) %>');
-		<%end%>
-
-		 <%if current_user.confirmed != true %>
-   			$('#navLinks').append(' | <%= link_to 'Resend Confirmation Email', resend_user_confirmation_path %>');
-		 <%end%>
-	<%end%>
 	
-
- 	$.get("/", function(data){
-
- 		var start = data.search('<body>');
- 		var end = data.search('</body>');
- 		$('body').html(data.slice(start, end));
-
- 		$('body').append('<%= j render "scripts/idea_postings_form_js"%> <%= j render "scripts/idea_postings_js"%>');
- 		
-		$("#dropdown").click(function(){
-  			$('#dropdown').dropdown();
-		}); 		
-
- 	});
+	var passval = $('#password_hash').val();
+	var userval = $('#email').val();
+	$('#main_form').append("<%= j render 'dummy_form'%>");
+	$('#dummy_form').find("input[type=submit]").click();
  	
  	 
 
